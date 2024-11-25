@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://ccewotvxo4pxr"]
+[gd_scene load_steps=86 format=3 uid="uid://ccewotvxo4pxr"]
 
 [ext_resource type="Script" path="res://enemy/main/enemy_health.gd" id="1_cw4vx"]
 [ext_resource type="Script" path="res://enemy/enemy.gd" id="1_gip5k"]
@@ -11,6 +11,7 @@
 [ext_resource type="Shader" path="res://main/flash.gdshader" id="3_737jj"]
 [ext_resource type="Script" path="res://enemy/enemy_wait_state.gd" id="3_koohp"]
 [ext_resource type="PackedScene" uid="uid://i2aorjwt2gev" path="res://main/verlet_node.tscn" id="3_tdv8b"]
+[ext_resource type="Script" path="res://enemy/under_water.gd" id="4_3gp8k"]
 [ext_resource type="PackedScene" uid="uid://dsq7jqka6wiof" path="res://components/object_detection.tscn" id="4_g3568"]
 [ext_resource type="Script" path="res://enemy/enemy_hurt_box.gd" id="5_bk282"]
 [ext_resource type="PackedScene" uid="uid://0kwtvuj1swxp" path="res://main/state_machine.tscn" id="5_hq61y"]
@@ -66,6 +67,9 @@ shader_parameter/active = false
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_u2t3m"]
 friction = 0.1
 bounce = 0.3
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kiaw7"]
+radius = 59.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d5ana"]
 radius = 15912.1
@@ -983,12 +987,18 @@ line = NodePath("Line2D")
 
 [node name="AnchorPoint" type="Node2D" parent="."]
 
+[node name="UnderWater" type="Node2D" parent="." node_paths=PackedStringArray("enemy", "head", "water_detection")]
+script = ExtResource("4_3gp8k")
+enemy = NodePath("..")
+head = NodePath("../Head")
+water_detection = NodePath("../Head/WaterDetection")
+
 [node name="Movement" type="Node2D" parent="." node_paths=PackedStringArray("top_wall_detection", "bottom_wall_detection", "right_wall_detection", "left_wall_detection", "head", "movement_animation_player", "squash_animation_player", "storage")]
 script = ExtResource("2_lv7to")
-top_wall_detection = NodePath("../Head/TopRaycast")
-bottom_wall_detection = NodePath("../Head/BottomRaycast")
-right_wall_detection = NodePath("../Head/RightRaycast")
-left_wall_detection = NodePath("../Head/LeftRaycast")
+top_wall_detection = NodePath("../Head/WallChecks/TopRaycast")
+bottom_wall_detection = NodePath("../Head/WallChecks/BottomRaycast")
+right_wall_detection = NodePath("../Head/WallChecks/RightRaycast")
+left_wall_detection = NodePath("../Head/WallChecks/LeftRaycast")
 head = NodePath("../Head")
 movement_animation_player = NodePath("../MovementAnimationPlayer")
 squash_animation_player = NodePath("../SquashAnimationPlayer")
@@ -1134,11 +1144,20 @@ squash_magnitude_threshold = 1200.0
 stand_ground_check = NodePath("../LookingForGround/StandGroundCheck")
 looking_for_ground_nodes = NodePath("../LookingForGround")
 
+[node name="WaterDetection" parent="Head" instance=ExtResource("4_g3568")]
+collision_mask = 4096
+check_for_bodies = false
+check_for_areas = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head/WaterDetection"]
+shape = SubResource("CircleShape2D_kiaw7")
+debug_color = Color(0.3555, 0.674133, 0.79, 0.313726)
+
 [node name="BigPlayerDetection" parent="Head" instance=ExtResource("17_c0kkh")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Head/BigPlayerDetection"]
 shape = SubResource("CircleShape2D_d5ana")
-debug_color = Color(0.423529, 0.388235, 0.823529, 0.0784314)
+debug_color = Color(0.421617, 0.3854, 0.82, 0)
 
 [node name="HeadStateMachine" parent="Head" node_paths=PackedStringArray("initial_state") instance=ExtResource("5_hq61y")]
 initial_state = NodePath("Ragdoll")
@@ -1330,23 +1349,25 @@ debug_color = Color(0.99, 0, 0.2805, 0.0431373)
 [node name="ShadowPoint" type="Node2D" parent="Head"]
 position = Vector2(0, 47)
 
-[node name="TopRaycast" type="RayCast2D" parent="Head"]
+[node name="WallChecks" type="Node2D" parent="Head"]
+
+[node name="TopRaycast" type="RayCast2D" parent="Head/WallChecks"]
 position = Vector2(0, -43)
 target_position = Vector2(0, -20)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="BottomRaycast" type="RayCast2D" parent="Head"]
+[node name="BottomRaycast" type="RayCast2D" parent="Head/WallChecks"]
 position = Vector2(0, 38)
 target_position = Vector2(0, 20)
 collision_mask = 5
 
-[node name="RightRaycast" type="RayCast2D" parent="Head"]
+[node name="RightRaycast" type="RayCast2D" parent="Head/WallChecks"]
 position = Vector2(52, 0)
 target_position = Vector2(50, 0)
 collision_mask = 5
 
-[node name="LeftRaycast" type="RayCast2D" parent="Head"]
+[node name="LeftRaycast" type="RayCast2D" parent="Head/WallChecks"]
 position = Vector2(-51, 1)
 target_position = Vector2(-50, 0)
 collision_mask = 5

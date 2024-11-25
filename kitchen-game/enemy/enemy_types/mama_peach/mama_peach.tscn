@@ -1,12 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://uficjikli4pj"]
+[gd_scene load_steps=11 format=3 uid="uid://uficjikli4pj"]
 
 [ext_resource type="PackedScene" uid="uid://ccewotvxo4pxr" path="res://enemy/enemy.tscn" id="1_xw8wk"]
 [ext_resource type="Script" path="res://peach_rotate.gd" id="2_j7rq7"]
 [ext_resource type="Script" path="res://enemy/enemy_types/mama_peach/peach_shoot.gd" id="3_2w6gt"]
 [ext_resource type="Shader" path="res://main/flash.gdshader" id="3_7b2i3"]
 [ext_resource type="PackedScene" uid="uid://btxiylg0mia14" path="res://player_detection.tscn" id="4_2ktno"]
-[ext_resource type="Texture2D" uid="uid://bsj5ua6le431v" path="res://environment/circle.png" id="4_37u77"]
 [ext_resource type="PackedScene" uid="uid://dffxclsrq3vsb" path="res://enemy/enemy_types/mama_peach/baby_peach.tscn" id="4_ismkp"]
+[ext_resource type="Texture2D" uid="uid://ckja01vr4qkie" path="res://enemy/peach.png" id="6_yju76"]
+[ext_resource type="Texture2D" uid="uid://cv0nq8yt5jani" path="res://enemy/eyelash.png" id="7_ahxfd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cb3cm"]
 resource_local_to_scene = true
@@ -19,6 +20,7 @@ shader_parameter/active = false
 radius = 1295.6
 
 [node name="MamaPeach" instance=ExtResource("1_xw8wk")]
+z_index = 5
 
 [node name="Wait" parent="StateMachine" index="0"]
 does_wait_to_stand = false
@@ -27,31 +29,99 @@ next_state = "Rotate"
 [node name="Rest" parent="StateMachine" index="1"]
 next_state = "RotateAndShoot"
 
-[node name="Rotate" type="Node" parent="StateMachine" index="2" node_paths=PackedStringArray("storage", "player_detection", "body_sprites", "head")]
+[node name="Rotate" type="Node" parent="StateMachine" index="2" node_paths=PackedStringArray("storage", "player_detection", "body_sprites", "head", "face_animation_player")]
 script = ExtResource("2_j7rq7")
 storage = NodePath("../../EnemyStorage")
 player_detection = NodePath("../../Head/PlayerDetection")
 body_sprites = NodePath("../../Head/BodyHolder/BodySprites")
 head = NodePath("../../Head")
+face_animation_player = NodePath("../../Head/BodyHolder/BodySprites/MouthAnimationPlayer")
 
-[node name="Shoot" type="Node" parent="StateMachine" index="3" node_paths=PackedStringArray("storage", "head", "fire_point")]
+[node name="Shoot" type="Node" parent="StateMachine" index="3" node_paths=PackedStringArray("storage", "head", "fire_point", "face_animation_player", "squash_animation_player", "eyes_animation_player")]
 script = ExtResource("3_2w6gt")
 storage = NodePath("../../EnemyStorage")
 baby_peach_enemy = ExtResource("4_ismkp")
 head = NodePath("../../Head")
 max_shoot_time = 1.5
 fire_point = NodePath("../../Head")
+face_animation_player = NodePath("../../Head/BodyHolder/BodySprites/MouthAnimationPlayer")
+squash_animation_player = NodePath("../../SquashAnimationPlayer")
+eyes_animation_player = NodePath("../../Head/BodyHolder/BodySprites/BlinkAnimationPlayer")
 
-[node name="Head" parent="." index="11"]
+[node name="Head" parent="." index="12"]
 material = SubResource("ShaderMaterial_cb3cm")
 is_only_ragdoll = true
 does_hang = true
 rest_length = 600.0
 
-[node name="Head" parent="Head/BodyHolder/BodySprites/HeadHolder" index="0"]
-texture = ExtResource("4_37u77")
+[node name="HeadHolder" parent="Head/BodyHolder/BodySprites" index="0"]
+position = Vector2(2, 19)
 
-[node name="PlayerDetection" parent="Head" index="10" instance=ExtResource("4_2ktno")]
+[node name="Head" parent="Head/BodyHolder/BodySprites/HeadHolder" index="0"]
+texture = ExtResource("6_yju76")
+
+[node name="MouthHolder" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face" index="0"]
+position = Vector2(0, -1)
+
+[node name="EyeHolder" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face" index="1"]
+position = Vector2(0, -1)
+
+[node name="Eyelash" type="Sprite2D" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face/EyeHolder" index="1"]
+position = Vector2(31, -27)
+texture = ExtResource("7_ahxfd")
+
+[node name="Eyelash2" type="Sprite2D" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face/EyeHolder" index="2"]
+position = Vector2(35, -25)
+rotation = 0.523599
+texture = ExtResource("7_ahxfd")
+
+[node name="Eyelash3" type="Sprite2D" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face/EyeHolder" index="3"]
+position = Vector2(27, -24)
+rotation = -0.523599
+texture = ExtResource("7_ahxfd")
+
+[node name="EyeHolder2" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face" index="2"]
+position = Vector2(0, -1)
+
+[node name="Eyelash" type="Sprite2D" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face/EyeHolder2" index="1"]
+position = Vector2(-26.6519, -28.5)
+texture = ExtResource("7_ahxfd")
+
+[node name="Eyelash2" type="Sprite2D" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face/EyeHolder2" index="2"]
+position = Vector2(-22.6519, -26.5)
+rotation = 0.523599
+texture = ExtResource("7_ahxfd")
+
+[node name="Eyelash3" type="Sprite2D" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face/EyeHolder2" index="3"]
+position = Vector2(-30.6519, -25.5)
+rotation = -0.523599
+texture = ExtResource("7_ahxfd")
+
+[node name="HandHolder" parent="Head/BodyHolder/BodySprites" index="1"]
+position = Vector2(68, -24)
+
+[node name="EnemyHand" parent="Head/BodyHolder/BodySprites/HandHolder" index="0"]
+modulate = Color(1, 0.328667, 0.24, 1)
+
+[node name="HandHolder2" parent="Head/BodyHolder/BodySprites" index="2"]
+position = Vector2(-68, -19)
+
+[node name="EnemyHand2" parent="Head/BodyHolder/BodySprites/HandHolder2" index="0"]
+modulate = Color(1, 0.328667, 0.24, 1)
+
+[node name="FootHolder" parent="Head/BodyHolder/BodySprites" index="3"]
+position = Vector2(38, 48)
+
+[node name="EnemyFoot" parent="Head/BodyHolder/BodySprites/FootHolder" index="0"]
+modulate = Color(1, 0.328667, 0.24, 1)
+
+[node name="FootHolder2" parent="Head/BodyHolder/BodySprites" index="4"]
+position = Vector2(-39, 50)
+
+[node name="EnemyFoot2" parent="Head/BodyHolder/BodySprites/FootHolder2" index="0"]
+modulate = Color(1, 0.328667, 0.24, 1)
+
+[node name="PlayerDetection" parent="Head" index="9" instance=ExtResource("4_2ktno")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Head/PlayerDetection" index="0"]
 shape = SubResource("CircleShape2D_dl618")

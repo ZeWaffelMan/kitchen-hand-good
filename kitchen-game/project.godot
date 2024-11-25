@@ -51,6 +51,7 @@ folder_colors={
 "res://enemy/enemy_types/pineapple/": "orange",
 "res://enemy/faces/": "red",
 "res://environment/": "teal",
+"res://level/": "pink",
 "res://main/": "orange",
 "res://player/": "blue"
 }
@@ -126,7 +127,7 @@ join_button={
 2d_physics/layer_10="Secret Area"
 2d_physics/layer_11="Secret Box"
 2d_physics/layer_12="Bullets"
-2d_physics/layer_13="Player Hand"
+2d_physics/layer_13="Water"
 2d_physics/layer_14="Keep Bounds Wall"
 2d_physics/layer_15="Layer 15"
 2d_physics/layer_16="Layer 16"

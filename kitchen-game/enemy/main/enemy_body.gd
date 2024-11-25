@@ -119,7 +119,6 @@ func _process(delta: float) -> void:
 				direction = direction.normalized()
 				apply_impulse(direction * launch_force)
 				has_launched_into_arena = true
-				print("launched")
 	
 	bounce_point.global_position.x = global_position.x
 	# find velocity and magnitude

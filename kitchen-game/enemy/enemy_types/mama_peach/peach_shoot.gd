@@ -13,9 +13,14 @@ extends State
 
 @export var fire_point: Node2D
 
+@export var face_animation_player: AnimationPlayer
+@export var squash_animation_player: AnimationPlayer
+@export var eyes_animation_player: AnimationPlayer
+
 
 func enter_state() -> void:
-	pass
+	face_animation_player.play("uneasy")
+	eyes_animation_player.play("sqrunched")
 
 
 func exit_state() -> void:
@@ -23,14 +28,17 @@ func exit_state() -> void:
 
 
 func physics_update_state(delta) -> void:
-	if shoot_time > 0:
-		shoot_time -= delta
-	else:
-		shoot_baby()
-		transitioned.emit(self, "Rotate")
+	if head.does_hang:
+		if shoot_time > 0:
+			shoot_time -= delta
+		else:
+			shoot_baby()
+			transitioned.emit(self, "Rotate")
 
 
 func shoot_baby() -> void:
+	squash_animation_player.play("squash")
+	
 	var axis: Vector2 = storage.last_player_position - head.global_position
 	var direction: Vector2 = axis.normalized()
 	
