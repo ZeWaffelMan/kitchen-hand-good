@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://crqlvwv8eqnun"]
+
+[ext_resource type="PackedScene" uid="uid://cp8u253qeyfka" path="res://enemy/enemy_spawner.tscn" id="1_uvwef"]
+[ext_resource type="PackedScene" uid="uid://hdeoounudvd3" path="res://enemy/enemy_types/watermelon_enemy/water_melon.tscn" id="2_t6l4d"]
+
+[node name="WatermelonSpawner" instance=ExtResource("1_uvwef")]
+enemy_to_spawn = ExtResource("2_t6l4d")

@@ -1,0 +1,92 @@
+[gd_scene load_steps=13 format=3 uid="uid://b18jghfgdrfrf"]
+
+[ext_resource type="Texture2D" uid="uid://c2uo5aw8kd330" path="res://environment/square.png" id="1_avalh"]
+[ext_resource type="Script" path="res://main.gd" id="1_emppk"]
+[ext_resource type="Texture2D" uid="uid://bsj5ua6le431v" path="res://environment/circle.png" id="2_76rkf"]
+[ext_resource type="Script" path="res://cursor.gd" id="3_m8r4s"]
+[ext_resource type="Texture2D" uid="uid://dnakalufrck0v" path="res://environment/cross_hair.png" id="4_nbycr"]
+[ext_resource type="Script" path="res://cursor_movement.gd" id="5_77w3s"]
+[ext_resource type="PackedScene" uid="uid://dsq7jqka6wiof" path="res://object_detection.tscn" id="7_dh3v3"]
+[ext_resource type="Script" path="res://enemy_body.gd" id="8_0o3tl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r4ciy"]
+radius = 47.1699
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pn5kh"]
+radius = 48.0937
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hyk4i"]
+radius = 106.042
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7lkdg"]
+size = Vector2(2018, 313)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_emppk")
+
+[node name="Background" type="Sprite2D" parent="."]
+modulate = Color(0.903598, 0.903598, 0.903598, 1)
+position = Vector2(959.5, 525.5)
+scale = Vector2(20.21, 11.83)
+texture = ExtResource("1_avalh")
+
+[node name="Ground" type="Sprite2D" parent="."]
+modulate = Color(0.943482, 0.763945, 0.69763, 1)
+position = Vector2(959.5, 960.5)
+scale = Vector2(20.21, 3.13)
+texture = ExtResource("1_avalh")
+
+[node name="Cursor" type="StaticBody2D" parent="." node_paths=PackedStringArray("object_detection")]
+position = Vector2(992, 571)
+script = ExtResource("3_m8r4s")
+object_detection = NodePath("ObjectDetection")
+
+[node name="Sprite" type="Sprite2D" parent="Cursor"]
+modulate = Color(0.28, 0.604, 1, 0.709804)
+texture = ExtResource("2_76rkf")
+
+[node name="FrictionPoint" type="Sprite2D" parent="Cursor"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_nbycr")
+
+[node name="CursorMovement" type="Node" parent="Cursor" node_paths=PackedStringArray("cursor", "point")]
+script = ExtResource("5_77w3s")
+cursor = NodePath("..")
+point = NodePath("../FrictionPoint")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cursor"]
+shape = SubResource("CircleShape2D_r4ciy")
+debug_color = Color(0.8, 0.524667, 0.328, 0.533333)
+
+[node name="ObjectDetection" parent="Cursor" instance=ExtResource("7_dh3v3")]
+collision_mask = 4
+check_for_areas = true
+
+[node name="Enemy" type="Node2D" parent="."]
+position = Vector2(626, 610)
+
+[node name="Body" type="RigidBody2D" parent="Enemy"]
+position = Vector2(0, -2)
+freeze_mode = 1
+script = ExtResource("8_0o3tl")
+
+[node name="Circle" type="Sprite2D" parent="Enemy/Body"]
+modulate = Color(1, 0.65, 0.65, 1)
+texture = ExtResource("2_76rkf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Body"]
+shape = SubResource("CircleShape2D_pn5kh")
+
+[node name="Area2D" type="Area2D" parent="Enemy/Body"]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Body/Area2D"]
+shape = SubResource("CircleShape2D_hyk4i")
+debug_color = Color(0.7, 0, 0.0116665, 0.298039)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(638, 1013)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(320, -49.5)
+shape = SubResource("RectangleShape2D_7lkdg")

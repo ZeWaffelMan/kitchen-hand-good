@@ -1,0 +1,72 @@
+[gd_scene load_steps=10 format=3 uid="uid://i2iwdqarn1px"]
+
+[ext_resource type="PackedScene" uid="uid://ccewotvxo4pxr" path="res://enemy/enemy.tscn" id="1_djd5d"]
+[ext_resource type="Script" path="res://jab.gd" id="2_rvg77"]
+[ext_resource type="Shader" path="res://main/flash.gdshader" id="3_7ikpl"]
+[ext_resource type="PackedScene" uid="uid://dl74or3yeb5ly" path="res://main/hazard.tscn" id="4_4j0rp"]
+[ext_resource type="PackedScene" uid="uid://btxiylg0mia14" path="res://player_detection.tscn" id="4_5ng4c"]
+[ext_resource type="Texture2D" uid="uid://c2uo5aw8kd330" path="res://environment/square.png" id="5_mmvti"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_33ciq"]
+resource_local_to_scene = true
+shader = ExtResource("3_7ikpl")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/alpha = 1.0
+shader_parameter/active = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mgdjm"]
+size = Vector2(97, 88)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jdli2"]
+radius = 720.226
+
+[node name="KnifeEnemy" instance=ExtResource("1_djd5d")]
+modulate = Color(1, 0.8633, 0.984487, 1)
+position = Vector2(0, 0)
+
+[node name="SwingingAnchor" type="Node2D" parent="." index="0"]
+
+[node name="Movement" parent="." index="1"]
+uses_new_max_speed = false
+
+[node name="Wait" parent="StateMachine" index="0"]
+does_wait_to_stand = false
+next_state = "Rest"
+
+[node name="Rest" parent="StateMachine" index="1" node_paths=PackedStringArray("player_detection")]
+use_friction_when_waiting = false
+next_state = "Jab"
+player_detection = NodePath("../../Head/PlayerDetection")
+
+[node name="Jab" type="Node" parent="StateMachine" index="2" node_paths=PackedStringArray("enemy_storage", "player_detection", "body_sprites", "head", "hazard")]
+script = ExtResource("2_rvg77")
+enemy_storage = NodePath("../../EnemyStorage")
+player_detection = NodePath("../../Head/PlayerDetection")
+body_sprites = NodePath("../../Head/BodyHolder/BodySprites")
+head = NodePath("../../Head")
+hazard = NodePath("../../Head/BodyHolder/BodySprites/Hazard")
+
+[node name="Head" parent="." index="9" node_paths=PackedStringArray("anchor_point")]
+material = SubResource("ShaderMaterial_33ciq")
+is_only_ragdoll = true
+does_hang = true
+anchor_point = NodePath("../SwingingAnchor")
+rest_length = 600.0
+
+[node name="Hazard" parent="Head/BodyHolder/BodySprites" index="8" node_paths=PackedStringArray("hurt_box_exception") instance=ExtResource("4_4j0rp")]
+hurt_box_exception = NodePath("../../../EnemyHurtBox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head/BodyHolder/BodySprites/Hazard" index="1"]
+position = Vector2(0.5, -92)
+shape = SubResource("RectangleShape2D_mgdjm")
+
+[node name="Sprite2D" type="Sprite2D" parent="Head/BodyHolder/BodySprites/Hazard" index="2"]
+modulate = Color(1, 0.44, 0.44, 0.431373)
+position = Vector2(0, -98)
+texture = ExtResource("5_mmvti")
+
+[node name="PlayerDetection" parent="Head" index="10" instance=ExtResource("4_5ng4c")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head/PlayerDetection" index="0"]
+shape = SubResource("CircleShape2D_jdli2")
+debug_color = Color(0.87, 0.2958, 0.53505, 0.0823529)

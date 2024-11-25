@@ -1,0 +1,178 @@
+[gd_scene load_steps=15 format=3 uid="uid://corr4f4thicrp"]
+
+[ext_resource type="PackedScene" uid="uid://ccewotvxo4pxr" path="res://enemy/enemy.tscn" id="1_eyd8f"]
+[ext_resource type="Shader" path="res://main/flash.gdshader" id="2_11vlx"]
+[ext_resource type="Script" path="res://enemy/enemy_types/pineapple/pineapple_behavior.gd" id="2_d2ecy"]
+[ext_resource type="Script" path="res://enemy/enemy_types/pineapple/pineapple_walk.gd" id="2_fdx7v"]
+[ext_resource type="Script" path="res://enemy/enemy_types/pineapple/pineapple_spike_attack.gd" id="3_qwl7d"]
+[ext_resource type="PackedScene" uid="uid://btxiylg0mia14" path="res://player_detection.tscn" id="5_3iapr"]
+[ext_resource type="Texture2D" uid="uid://bir48h7p8dvq" path="res://enemy/enemy_types/pineapple/small_pineapple.png" id="6_44lac"]
+[ext_resource type="Texture2D" uid="uid://bsj5ua6le431v" path="res://environment/circle.png" id="6_o3wu2"]
+[ext_resource type="Texture2D" uid="uid://cncg041uoiq2w" path="res://enemy/enemy_types/pineapple/pineapple_spikes.png" id="7_5f8q0"]
+[ext_resource type="PackedScene" uid="uid://dl74or3yeb5ly" path="res://main/hazard.tscn" id="7_8843n"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tu1x8"]
+resource_local_to_scene = true
+shader = ExtResource("2_11vlx")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/alpha = 1.0
+shader_parameter/active = false
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fnggh"]
+radius = 627.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_srxmi"]
+radius = 64.0312
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s5td3"]
+radius = 56.0
+height = 142.0
+
+[node name="PineappleEnemy" instance=ExtResource("1_eyd8f")]
+
+[node name="PineappleBehavior" type="Node" parent="." index="0"]
+script = ExtResource("2_d2ecy")
+
+[node name="Movement" parent="." index="3"]
+acceleration = 80000.0
+
+[node name="Wait" parent="StateMachine" index="0"]
+next_state = "Walk"
+
+[node name="Rest" parent="StateMachine" index="1" node_paths=PackedStringArray("player_detection")]
+use_friction_when_waiting = false
+max_rest_time = 3.0
+next_state = "Walk"
+mouth_animation_to_play = "toungue_out"
+does_switch_if_player = true
+player_detection = NodePath("../../Head/PlayerDetection")
+
+[node name="Walk" type="Node" parent="StateMachine" index="2" node_paths=PackedStringArray("enemy", "player_detection", "storage", "head", "movement", "face_controller", "eyes_animation_player", "mouth_animation_controller")]
+script = ExtResource("2_fdx7v")
+enemy = NodePath("../..")
+player_detection = NodePath("../../Head/PlayerDetection")
+storage = NodePath("../../EnemyStorage")
+head = NodePath("../../Head")
+movement = NodePath("../../Movement")
+max_time_until_switch = 0.5
+face_controller = NodePath("../../Head/BodyHolder/BodySprites/FaceController")
+eyes_animation_player = NodePath("../../Head/BodyHolder/BodySprites/BlinkAnimationPlayer")
+mouth_animation_controller = NodePath("../../Head/BodyHolder/BodySprites/MouthAnimationPlayer")
+
+[node name="SpikeAttack" type="Node" parent="StateMachine" index="3" node_paths=PackedStringArray("enemy", "hazard", "player_detection", "face_controller", "eyes_animation_player", "mouth_animation_player", "spikes", "storage")]
+script = ExtResource("3_qwl7d")
+enemy = NodePath("../..")
+hazard = NodePath("../../Head/Hazard")
+player_detection = NodePath("../../Head/PlayerDetection")
+face_controller = NodePath("../../Head/BodyHolder/BodySprites/FaceController")
+eyes_animation_player = NodePath("../../Head/BodyHolder/BodySprites/BlinkAnimationPlayer")
+mouth_animation_player = NodePath("../../Head/BodyHolder/BodySprites/MouthAnimationPlayer")
+spikes = NodePath("../../Head/BodyHolder/BodySprites/HeadHolder/Head/PineappleSpikes")
+storage = NodePath("../../EnemyStorage")
+
+[node name="EnemyJuiceColor" parent="." index="6"]
+self_modulate = Color(1, 0.749836, 0.554323, 1)
+
+[node name="GroundCheck" parent="LookingForGround" index="0"]
+position = Vector2(0, 20)
+
+[node name="Shadow" parent="ShadowHolder" index="0"]
+position = Vector2(0, 90)
+scale = Vector2(1.2, 1.2)
+
+[node name="Head" parent="." index="12"]
+material = SubResource("ShaderMaterial_tu1x8")
+
+[node name="PlayerDetection" parent="Head" index="0" instance=ExtResource("5_3iapr")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head/PlayerDetection" index="0"]
+shape = SubResource("CircleShape2D_fnggh")
+debug_color = Color(0.898039, 0.443137, 0.67451, 0.203922)
+
+[node name="Rebalance" parent="Head/HeadStateMachine" index="2"]
+jump_force = 7000.0
+
+[node name="Stand" parent="Head/HeadStateMachine" index="3"]
+animation_to_play = "toungue_out"
+
+[node name="BodyHolder" parent="Head" index="3"]
+position = Vector2(-1, 49)
+
+[node name="HeadHolder" parent="Head/BodyHolder/BodySprites" index="0"]
+position = Vector2(0, -50)
+
+[node name="Head" parent="Head/BodyHolder/BodySprites/HeadHolder" index="0"]
+texture = ExtResource("6_44lac")
+
+[node name="Face" parent="Head/BodyHolder/BodySprites/HeadHolder/Head" index="0"]
+position = Vector2(0, 0)
+
+[node name="MouthHolder" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face" index="0"]
+position = Vector2(0, 51)
+
+[node name="EyeHolder" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face" index="1"]
+position = Vector2(-2, 49)
+
+[node name="EyeHolder2" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face" index="2"]
+position = Vector2(-1, 50)
+
+[node name="PineappleSpikes" type="Sprite2D" parent="Head/BodyHolder/BodySprites/HeadHolder/Head" index="2"]
+visible = false
+modulate = Color(1, 0.79, 0.79, 1)
+z_index = 1
+use_parent_material = true
+position = Vector2(0, 1.45502)
+texture = ExtResource("7_5f8q0")
+
+[node name="HandHolder" parent="Head/BodyHolder/BodySprites" index="1"]
+position = Vector2(48, -11)
+
+[node name="EnemyHand" parent="Head/BodyHolder/BodySprites/HandHolder" index="0"]
+modulate = Color(0.319783, 0.22735, 0.134822, 1)
+
+[node name="HandHolder2" parent="Head/BodyHolder/BodySprites" index="2"]
+position = Vector2(-51, -14)
+
+[node name="EnemyHand2" parent="Head/BodyHolder/BodySprites/HandHolder2" index="0"]
+modulate = Color(0.319783, 0.22735, 0.134822, 1)
+
+[node name="FootHolder" parent="Head/BodyHolder/BodySprites" index="3"]
+position = Vector2(35, 39)
+
+[node name="EnemyFoot" parent="Head/BodyHolder/BodySprites/FootHolder" index="0"]
+modulate = Color(0.319783, 0.22735, 0.134822, 1)
+
+[node name="FootHolder2" parent="Head/BodyHolder/BodySprites" index="4"]
+position = Vector2(-33, 38)
+
+[node name="EnemyFoot2" parent="Head/BodyHolder/BodySprites/FootHolder2" index="0"]
+modulate = Color(0.319783, 0.22735, 0.134822, 1)
+
+[node name="CollisionShape2D" parent="Head" index="4"]
+use_parent_material = true
+shape = SubResource("CircleShape2D_srxmi")
+
+[node name="EnemyHurtBox" parent="Head" index="5"]
+position = Vector2(-1, 49)
+
+[node name="Hazard" parent="Head" index="6" node_paths=PackedStringArray("hurt_box_exception") instance=ExtResource("7_8843n")]
+position = Vector2(0, 16)
+monitoring = false
+hurt_box_exception = NodePath("../EnemyHurtBox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head/Hazard" index="0"]
+shape = SubResource("CapsuleShape2D_s5td3")
+debug_color = Color(1, 0.407843, 0.419608, 0.0588235)
+
+[node name="Square" parent="Head/Hazard" index="1"]
+modulate = Color(1, 0.321569, 0.321569, 0.113725)
+scale = Vector2(4.69221, 4.69221)
+texture = ExtResource("6_o3wu2")
+
+[node name="SpeedDamageHurtBox" parent="Head" index="7"]
+position = Vector2(-1, 49)
+
+[node name="ShadowPoint" parent="Head" index="8"]
+position = Vector2(0, 96)
+
+[editable path="Head/Hazard"]

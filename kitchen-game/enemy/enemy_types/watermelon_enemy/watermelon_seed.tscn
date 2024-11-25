@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://bgea3qtj6ed4a"]
+
+[ext_resource type="Script" path="res://enemy/enemy_types/watermelon_enemy/find_hazard.gd" id="1_g8j27"]
+[ext_resource type="Texture2D" uid="uid://dgqtands0wou5" path="res://enemy/enemy_types/watermelon_enemy/seed.png" id="2_ekegb"]
+[ext_resource type="PackedScene" uid="uid://dl74or3yeb5ly" path="res://main/hazard.tscn" id="3_rroy8"]
+[ext_resource type="Script" path="res://effects/effect.gd" id="4_y236v"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mebex"]
+radius = 8.0
+height = 24.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b70jt"]
+radius = 13.1529
+
+[node name="WatermelonSeed" type="RigidBody2D" node_paths=PackedStringArray("hazard")]
+z_index = 5
+collision_layer = 2048
+collision_mask = 0
+mass = 3.0
+gravity_scale = 5.0
+script = ExtResource("1_g8j27")
+hazard = NodePath("Hazard")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_mebex")
+
+[node name="Sprite2D" type="Sprite2D" parent="." node_paths=PackedStringArray("node_to_destroy")]
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("2_ekegb")
+script = ExtResource("4_y236v")
+has_destroy_time = true
+max_destroy_time = 2.5
+node_to_destroy = NodePath("..")
+
+[node name="Hazard" parent="." node_paths=PackedStringArray("node_to_destroy") instance=ExtResource("3_rroy8")]
+node_to_destroy = NodePath("..")
+only_hurt_player = true
+destroy_when_hit = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hazard"]
+shape = SubResource("CircleShape2D_b70jt")
+debug_color = Color(1, 0, 0.121569, 0.0705882)
+
+[node name="Destory" type="Node" parent="." node_paths=PackedStringArray("node_to_destroy")]
+script = ExtResource("4_y236v")
+has_destroy_time = true
+max_destroy_time = 2.5
+node_to_destroy = NodePath("..")

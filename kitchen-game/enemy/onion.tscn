@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://cvy2ibqphgrie"]
+
+[ext_resource type="PackedScene" uid="uid://ccewotvxo4pxr" path="res://enemy/enemy.tscn" id="1_82nws"]
+[ext_resource type="Script" path="res://enemy/enemy_types/onion/onion_explosion.gd" id="2_0aaca"]
+[ext_resource type="PackedScene" uid="uid://bh8avyhwrgmtj" path="res://enemy/enemy_types/onion/onion_explosion.tscn" id="3_sqvs6"]
+[ext_resource type="Shader" path="res://main/flash.gdshader" id="4_3u7oq"]
+[ext_resource type="Script" path="res://enemy/enemy_types/onion/onion_run.gd" id="5_s4531"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w1yey"]
+resource_local_to_scene = true
+shader = ExtResource("4_3u7oq")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/alpha = 1.0
+shader_parameter/active = false
+
+[node name="Onion" instance=ExtResource("1_82nws")]
+
+[node name="OnionExplosion" type="Node" parent="." index="0" node_paths=PackedStringArray("enemy_health", "target")]
+script = ExtResource("2_0aaca")
+effect = ExtResource("3_sqvs6")
+enemy_health = NodePath("../EnemyHealth")
+target = NodePath("../Head")
+
+[node name="Movement" parent="." index="1"]
+acceleration = 200000.0
+
+[node name="Wait" parent="StateMachine" index="0"]
+next_state = "Rest"
+
+[node name="Rest" parent="StateMachine" index="1"]
+next_state = "Run"
+
+[node name="Run" type="Node" parent="StateMachine" index="2" node_paths=PackedStringArray("enemy", "head", "movement", "movement_animation_player")]
+script = ExtResource("5_s4531")
+enemy = NodePath("../..")
+head = NodePath("../../Head")
+movement = NodePath("../../Movement")
+movement_animation_player = NodePath("../../MovementAnimationPlayer")
+
+[node name="EnemyHealth" parent="." index="6"]
+death_hazard = ExtResource("3_sqvs6")
+
+[node name="Head" parent="." index="10"]
+material = SubResource("ShaderMaterial_w1yey")
+collision_mask = 65
+
+[node name="Stand" parent="Head/HeadStateMachine" index="3"]
+magnitude_ragdoll_threshold = 100.0

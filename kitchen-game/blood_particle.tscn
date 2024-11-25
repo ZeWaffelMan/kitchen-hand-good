@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://cam1lmmbn0ia4"]
+
+[ext_resource type="Script" path="res://main/verlet_node.gd" id="1_2v23a"]
+[ext_resource type="Script" path="res://components/velocity_stretch.gd" id="2_gnr5k"]
+[ext_resource type="PackedScene" uid="uid://b6blgrkuyxmnc" path="res://components/destroy_area.tscn" id="2_sjbg2"]
+[ext_resource type="Script" path="res://components/random_size.gd" id="3_0u5vm"]
+[ext_resource type="Texture2D" uid="uid://bsj5ua6le431v" path="res://environment/circle.png" id="3_6ak5s"]
+[ext_resource type="PackedScene" uid="uid://d1r0fqa7yhemr" path="res://blood_splash.tscn" id="4_sn4oq"]
+[ext_resource type="Script" path="res://effects/effect.gd" id="7_ma4q5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bp8rf"]
+radius = 23.3452
+
+[node name="BloodParticle" type="Node2D"]
+z_index = 1
+script = ExtResource("1_2v23a")
+friction = 1.0
+object_gravity = Vector2(0, 60)
+mass = 2.0
+max_speed = 14000.0
+drag = 1.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("3_6ak5s")
+
+[node name="DestroyArea" parent="." node_paths=PackedStringArray("node_to_destroy", "colored_node") instance=ExtResource("2_sjbg2")]
+node_to_destroy = NodePath("..")
+destroy_effect = ExtResource("4_sn4oq")
+colored_node = NodePath("..")
+spawn_effect_with_rotation = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DestroyArea"]
+shape = SubResource("CircleShape2D_bp8rf")
+debug_color = Color(0.724163, 0.451885, 0.422454, 0.42)
+
+[node name="VelocityStretch" type="Node" parent="." node_paths=PackedStringArray("object", "reference_object")]
+script = ExtResource("2_gnr5k")
+stretch_amount = 0.1
+rotation_speed = 30.0
+stretch_speed = 60.0
+object = NodePath("../Sprite2D")
+reference_object = NodePath("..")
+
+[node name="RandomSize" type="Node" parent="." node_paths=PackedStringArray("set_size_node", "velocity_stretch_node")]
+script = ExtResource("3_0u5vm")
+set_size_node = NodePath("../Sprite2D")
+size_min = 0.3
+size_max = 0.5
+velocity_stretch_node = NodePath("../VelocityStretch")
+
+[node name="DestoryTime" type="Node" parent="." node_paths=PackedStringArray("node_to_destroy")]
+script = ExtResource("7_ma4q5")
+has_destroy_time = true
+max_destroy_time = 4.0
+node_to_destroy = NodePath("..")

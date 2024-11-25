@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bujuryyyoykl1"]
+
+[ext_resource type="Script" path="res://main/hazard.gd" id="1_x2dt4"]
+[ext_resource type="PackedScene" uid="uid://c67dlre8n0y4c" path="res://main/effects/hit_effect/hit_effect.tscn" id="2_ifut3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fnjw5"]
+radius = 155.39
+
+[node name="CherryExplosion" type="Node2D"]
+
+[node name="Hazard" type="Area2D" parent="." node_paths=PackedStringArray("node_to_destroy")]
+script = ExtResource("1_x2dt4")
+node_to_destroy = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hazard"]
+shape = SubResource("CircleShape2D_fnjw5")
+debug_color = Color(1, 0.27, 0.282166, 0.258824)
+
+[node name="HitEffect" parent="." node_paths=PackedStringArray("node_to_destroy") instance=ExtResource("2_ifut3")]
+has_destroy_time = true
+max_destroy_time = 0.5
+node_to_destroy = NodePath("..")

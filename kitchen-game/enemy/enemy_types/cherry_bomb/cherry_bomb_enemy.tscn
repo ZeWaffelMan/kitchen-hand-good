@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=3 uid="uid://1c1fmhdoydcc"]
+
+[ext_resource type="PackedScene" uid="uid://ccewotvxo4pxr" path="res://enemy/enemy.tscn" id="1_lx3qn"]
+[ext_resource type="Script" path="res://enemy/enemy_types/cherry_bomb/run_around.gd" id="2_kuus1"]
+[ext_resource type="Shader" path="res://main/flash.gdshader" id="2_wxoo5"]
+[ext_resource type="Script" path="res://enemy/enemy_types/cherry_bomb/wait_to_jump.gd" id="3_fxh7k"]
+[ext_resource type="Script" path="res://enemy/enemy_types/cherry_bomb/jump_up.gd" id="3_rgmjw"]
+[ext_resource type="PackedScene" uid="uid://bujuryyyoykl1" path="res://enemy/enemy_types/cherry_bomb/cherry_explosion.tscn" id="5_10813"]
+[ext_resource type="Script" path="res://player_detection.gd" id="5_hua3g"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vh2gj"]
+resource_local_to_scene = true
+shader = ExtResource("2_wxoo5")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/alpha = 1.0
+shader_parameter/active = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n3rte"]
+size = Vector2(1822, 865)
+
+[node name="CherryBombEnemy" instance=ExtResource("1_lx3qn")]
+modulate = Color(1, 0.64, 0.64, 1)
+
+[node name="Movement" parent="." index="0"]
+randomize_direction_automatically = false
+acceleration = 180000.0
+
+[node name="Wait" parent="StateMachine" index="0"]
+next_state = "RunAround"
+
+[node name="Rest" parent="StateMachine" index="1"]
+next_state = "RunAround"
+
+[node name="RunAround" type="Node" parent="StateMachine" index="2" node_paths=PackedStringArray("storage", "enemy", "movement", "head", "player_detection")]
+script = ExtResource("2_kuus1")
+storage = NodePath("../../EnemyStorage")
+enemy = NodePath("../..")
+movement = NodePath("../../Movement")
+head = NodePath("../../Head")
+max_rest_time = 5.0
+player_detection = NodePath("../../Head/PlayerDetection")
+
+[node name="WaitToJump" type="Node" parent="StateMachine" index="3" node_paths=PackedStringArray("enemy", "movement")]
+script = ExtResource("3_fxh7k")
+enemy = NodePath("../..")
+max_wait_time = 1.0
+movement = NodePath("../../Movement")
+
+[node name="JumpUp" type="Node" parent="StateMachine" index="4" node_paths=PackedStringArray("run_around_state", "head", "storage", "enemy_health")]
+script = ExtResource("3_rgmjw")
+run_around_state = NodePath("../RunAround")
+head = NodePath("../../Head")
+storage = NodePath("../../EnemyStorage")
+enemy_health = NodePath("../../EnemyHealth")
+boom = ExtResource("5_10813")
+
+[node name="Head" parent="." index="8"]
+material = SubResource("ShaderMaterial_vh2gj")
+
+[node name="PlayerDetection" type="Area2D" parent="Head" index="10"]
+position = Vector2(0, -750)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("5_hua3g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head/PlayerDetection" index="0"]
+shape = SubResource("RectangleShape2D_n3rte")
+debug_color = Color(1, 0.44, 0.738667, 0.0823529)

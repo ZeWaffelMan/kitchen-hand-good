@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsj35imni7png"]
+
+[ext_resource type="PackedScene" uid="uid://cp8u253qeyfka" path="res://enemy/enemy_spawner.tscn" id="1_52qj8"]
+[ext_resource type="PackedScene" uid="uid://i2iwdqarn1px" path="res://enemy/enemy_types/knife_enemy/knife_enemy.tscn" id="2_w8g6t"]
+
+[node name="KnifeEnemySpawner" instance=ExtResource("1_52qj8")]
+spawn_in_the_air = true
+spawn_on_other = false
+enemy_to_spawn = ExtResource("2_w8g6t")

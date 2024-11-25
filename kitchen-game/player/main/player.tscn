@@ -1,0 +1,732 @@
+[gd_scene load_steps=61 format=3 uid="uid://dylsvc744lm0y"]
+
+[ext_resource type="Script" path="res://player/main/player.gd" id="1_ar7mc"]
+[ext_resource type="Script" path="res://player/main/cursor.gd" id="1_i03mm"]
+[ext_resource type="PackedScene" uid="uid://0kwtvuj1swxp" path="res://main/state_machine.tscn" id="2_7d7rt"]
+[ext_resource type="Script" path="res://player/states/normal_hand.gd" id="3_h6i8c"]
+[ext_resource type="Texture2D" uid="uid://dnakalufrck0v" path="res://environment/cross_hair.png" id="3_jifuw"]
+[ext_resource type="Script" path="res://player/states/grab_hand.gd" id="4_gh7us"]
+[ext_resource type="Script" path="res://player/main/cursor_movement.gd" id="4_mlblc"]
+[ext_resource type="PackedScene" uid="uid://dsq7jqka6wiof" path="res://components/object_detection.tscn" id="5_pd6jl"]
+[ext_resource type="Script" path="res://player/states/fist_hand.gd" id="5_tqavi"]
+[ext_resource type="Script" path="res://player/main/player_health.gd" id="6_gd46d"]
+[ext_resource type="Script" path="res://player/main/hurt.gd" id="6_xkwmp"]
+[ext_resource type="Script" path="res://player/player_hurt_box.gd" id="7_6rysf"]
+[ext_resource type="Script" path="res://player/main/shock_wave.gd" id="7_wpmc4"]
+[ext_resource type="Texture2D" uid="uid://chi14l1vtxnnd" path="res://player/hands/visual_stats/gradiant.PNG" id="8_k3ge8"]
+[ext_resource type="PackedScene" uid="uid://bcnborqwlixc" path="res://effects/hit_effect/player_hurt_effect.tscn" id="10_3pqj3"]
+[ext_resource type="Script" path="res://player/main/player_find_box.gd" id="10_ojlqm"]
+[ext_resource type="Texture2D" uid="uid://cbr7aqspgo6oq" path="res://player/hands/visual_stats/life.PNG" id="10_snd0n"]
+[ext_resource type="Texture2D" uid="uid://dhdyx27pivfxs" path="res://player/hands/point_hand/point_fill.PNG" id="11_1rj4y"]
+[ext_resource type="Texture2D" uid="uid://b8u1rttvcbefn" path="res://player/hands/open_hand/open_hand_outline.PNG" id="13_7r7sr"]
+[ext_resource type="Texture2D" uid="uid://dmkia7omn1ssk" path="res://player/hands/visual_stats/one.PNG" id="13_bxevt"]
+[ext_resource type="Texture2D" uid="uid://b4h6c4jfxkejf" path="res://player/hands/open_hand/open_hand_fill.PNG" id="14_h50lm"]
+[ext_resource type="Texture2D" uid="uid://c6qug8b7xbg2y" path="res://player/hands/point_hand/point_outline.PNG" id="14_mff4w"]
+[ext_resource type="PackedScene" uid="uid://66tit61tr2k7" path="res://player/effects/hand_echo.tscn" id="15_jbcim"]
+[ext_resource type="Texture2D" uid="uid://msv413ljgr88" path="res://player/hands/grab_hand/grab_fill.PNG" id="16_1sbv1"]
+[ext_resource type="Script" path="res://components/tilt_towards_velocity.gd" id="17_7kuei"]
+[ext_resource type="PackedScene" uid="uid://c2ew1q6kwjkju" path="res://shockwave.tscn" id="18_awneo"]
+[ext_resource type="Texture2D" uid="uid://o3kluw1vu2w5" path="res://player/hands/grab_hand/grab_outline_white.png" id="18_m36nk"]
+[ext_resource type="Texture2D" uid="uid://ol5td6kntolh" path="res://player/hands/point_hand/point_outline_white.png" id="19_8w86q"]
+[ext_resource type="Texture2D" uid="uid://b5u2d5526vs6k" path="res://player/hands/spread_hand/spread_hand_fill.PNG" id="25_sjwb3"]
+[ext_resource type="Texture2D" uid="uid://dnehy6ehvj0i1" path="res://player/hands/spread_hand/spread_hand.PNG" id="26_57xq0"]
+[ext_resource type="Texture2D" uid="uid://b54pcjh6bt3nw" path="res://player/hands/visual_stats/two.PNG" id="30_7q78k"]
+[ext_resource type="Texture2D" uid="uid://cug53f067gi7g" path="res://player/hands/rock_on/rock_on_fill.png" id="30_xdhik"]
+[ext_resource type="Texture2D" uid="uid://bcjxqhrqdoyue" path="res://player/hands/rock_on/rock_on_outline.png" id="31_55gox"]
+[ext_resource type="Texture2D" uid="uid://djdibspo7h0j" path="res://player/hands/visual_stats/three.PNG" id="31_y6cd5"]
+[ext_resource type="Texture2D" uid="uid://ctsptleq3thwr" path="res://player/hands/visual_stats/four.PNG" id="32_fvjkv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5f216"]
+size = Vector2(127, 157)
+
+[sub_resource type="Animation" id="Animation_o0tmf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HandStats:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Outline:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_7r7sr")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Fill:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("14_h50lm")]
+}
+
+[sub_resource type="Animation" id="Animation_n0f0k"]
+resource_name = "glow"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HandStats:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.784314), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i3s7i"]
+_data = {
+"RESET": SubResource("Animation_o0tmf"),
+"glow": SubResource("Animation_n0f0k")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_apbxi"]
+size = Vector2(154, 259)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_161fh"]
+size = Vector2(250, 362.25)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_10sw7"]
+resource_local_to_scene = true
+radius = 334.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3lctl"]
+size = Vector2(152, 208)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hqcnq"]
+size = Vector2(115, 203)
+
+[sub_resource type="Animation" id="Animation_hmsda"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand/HandSprites/HandStats/Gradiant/HandMarks:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_iv0aq"]
+resource_name = "invincibility"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand/HandSprites/HandStats/Gradiant/HandMarks:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.729412), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.9, 0.9, 0.9, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4iwr5"]
+_data = {
+"RESET": SubResource("Animation_hmsda"),
+"invincibility": SubResource("Animation_iv0aq")
+}
+
+[sub_resource type="Animation" id="Animation_kg0pq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand/HandSprites/Fill:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("11_1rj4y")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand/HandSprites/Outline:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("14_mff4w")]
+}
+
+[sub_resource type="Animation" id="Animation_23mfw"]
+resource_name = "grab"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand/HandSprites/Fill:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("16_1sbv1")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand/HandSprites/Outline:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("18_m36nk")]
+}
+
+[sub_resource type="Animation" id="Animation_6j5nc"]
+resource_name = "point"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand/HandSprites/Fill:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("11_1rj4y")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand/HandSprites/Outline:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("19_8w86q")]
+}
+
+[sub_resource type="Animation" id="Animation_eowi1"]
+resource_name = "rock_on"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand/HandSprites/Fill:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("30_xdhik")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand/HandSprites/Outline:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("31_55gox")]
+}
+
+[sub_resource type="Animation" id="Animation_52s2j"]
+resource_name = "slap"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand/HandSprites/Outline:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_7r7sr")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand/HandSprites/Fill:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("14_h50lm")]
+}
+
+[sub_resource type="Animation" id="Animation_phefa"]
+resource_name = "spread"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand/HandSprites/Fill:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("25_sjwb3")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand/HandSprites/Outline:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("26_57xq0")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8t0pt"]
+_data = {
+"RESET": SubResource("Animation_kg0pq"),
+"grab": SubResource("Animation_23mfw"),
+"point": SubResource("Animation_6j5nc"),
+"rock_on": SubResource("Animation_eowi1"),
+"slap": SubResource("Animation_52s2j"),
+"spread": SubResource("Animation_phefa")
+}
+
+[sub_resource type="Animation" id="Animation_2wykq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand/HandSprites/HandStats/Gradiant:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0.55, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand/HandSprites/HandStats/Gradiant/HandMarks/PlayerNumber:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_bxevt")]
+}
+
+[sub_resource type="Animation" id="Animation_in5sv"]
+resource_name = "player1"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand/HandSprites/HandStats/Gradiant:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0.55, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand/HandSprites/HandStats/Gradiant/HandMarks/PlayerNumber:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_bxevt")]
+}
+
+[sub_resource type="Animation" id="Animation_76ov4"]
+resource_name = "player2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand/HandSprites/HandStats/Gradiant:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.117647, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand/HandSprites/HandStats/Gradiant/HandMarks/PlayerNumber:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("30_7q78k")]
+}
+
+[sub_resource type="Animation" id="Animation_xwod2"]
+resource_name = "player3"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand/HandSprites/HandStats/Gradiant/HandMarks/PlayerNumber:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("31_y6cd5")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand/HandSprites/HandStats/Gradiant:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.0156863, 1, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_xqia3"]
+resource_name = "player4"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand/HandSprites/HandStats/Gradiant/HandMarks/PlayerNumber:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("32_fvjkv")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand/HandSprites/HandStats/Gradiant:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.666667, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2lla4"]
+_data = {
+"RESET": SubResource("Animation_2wykq"),
+"player1": SubResource("Animation_in5sv"),
+"player2": SubResource("Animation_76ov4"),
+"player3": SubResource("Animation_xwod2"),
+"player4": SubResource("Animation_xqia3")
+}
+
+[node name="Player" type="Node2D" node_paths=PackedStringArray("grab_throw_state", "player_type_animation_player")]
+z_index = 8
+position = Vector2(992, 571)
+script = ExtResource("1_ar7mc")
+grab_throw_state = NodePath("HandStateMachine/GrabThrow")
+player_type_animation_player = NodePath("PlayerTypeAnimationPlayer")
+
+[node name="PlayerColors" type="Node2D" parent="."]
+
+[node name="One" type="Node2D" parent="PlayerColors"]
+modulate = Color(0, 0.54902, 1, 1)
+
+[node name="Two" type="Node2D" parent="PlayerColors"]
+modulate = Color(1, 0.116667, 0, 1)
+
+[node name="Three" type="Node2D" parent="PlayerColors"]
+modulate = Color(0.0166667, 1, 0, 1)
+
+[node name="Four" type="Node2D" parent="PlayerColors"]
+modulate = Color(1, 0.666667, 0, 1)
+
+[node name="HandStateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("2_7d7rt")]
+initial_state = NodePath("Normal")
+
+[node name="Normal" type="Node" parent="HandStateMachine" node_paths=PackedStringArray("player", "player_health", "hand_animation_player", "grab_detection")]
+script = ExtResource("3_h6i8c")
+player = NodePath("../..")
+player_health = NodePath("../../PlayerHealth")
+hand_animation_player = NodePath("../../HandStateAnimationPlayer")
+grab_detection = NodePath("../../Hand/GrabDetection")
+
+[node name="GrabThrow" type="Node" parent="HandStateMachine" node_paths=PackedStringArray("object_detection", "player_hand", "hand_animation_player", "player", "player_health")]
+script = ExtResource("4_gh7us")
+object_detection = NodePath("../../Hand/GrabDetection")
+player_hand = NodePath("../../Hand")
+hand_animation_player = NodePath("../../HandStateAnimationPlayer")
+player = NodePath("../..")
+player_health = NodePath("../../PlayerHealth")
+
+[node name="Slap" type="Node" parent="HandStateMachine" node_paths=PackedStringArray("player", "hand", "player_health", "hand_collision", "hand_sprite", "hit_detection", "hand_animation_player")]
+script = ExtResource("5_tqavi")
+player = NodePath("../..")
+hand = NodePath("../../Hand")
+player_health = NodePath("../../PlayerHealth")
+hand_collision = NodePath("../../Hand/CollisionShape2D")
+hand_sprite = NodePath("../../Hand/HandSprites/Fill")
+magnitude_damage_threshold = 400.0
+hit_detection = NodePath("../../Hand/HitDetection")
+hit_impulse_amount = 10000.0
+hand_animation_player = NodePath("../../HandStateAnimationPlayer")
+
+[node name="Hurt" type="Node" parent="HandStateMachine" node_paths=PackedStringArray("player", "player_health", "hand_animation_player", "hand")]
+script = ExtResource("6_xkwmp")
+player = NodePath("../..")
+player_health = NodePath("../../PlayerHealth")
+hand_animation_player = NodePath("../../HandStateAnimationPlayer")
+hand = NodePath("../../Hand")
+
+[node name="ShockWave" type="Node" parent="HandStateMachine" node_paths=PackedStringArray("player", "player_health", "impulse_area", "hand_animation_player", "this_player_box", "gradient")]
+script = ExtResource("7_wpmc4")
+player = NodePath("../..")
+player_health = NodePath("../../PlayerHealth")
+impulse_area = NodePath("../../Hand/ShockWaveArea")
+hand_animation_player = NodePath("../../HandStateAnimationPlayer")
+this_player_box = NodePath("../../Hand/PlayerFindBox")
+shock_wave_effect = ExtResource("18_awneo")
+gradient = NodePath("../../Hand/HandSprites/HandStats/Gradiant")
+
+[node name="PlayerHealth" type="Node" parent="." node_paths=PackedStringArray("life_sprites", "effect_animation_player", "hand", "hand_gradient", "hand_sprites")]
+script = ExtResource("6_gd46d")
+life_sprites = [NodePath("../Hand/HandSprites/HandStats/Gradiant/HandMarks/Life3"), NodePath("../Hand/HandSprites/HandStats/Gradiant/HandMarks/Life2"), NodePath("../Hand/HandSprites/HandStats/Gradiant/HandMarks/Life")]
+effect_animation_player = NodePath("../EffectAnimationPlayer")
+hand = NodePath("../Hand")
+hand_gradient = NodePath("../Hand/HandSprites/HandStats/Gradiant")
+hand_sprites = NodePath("../Hand/HandSprites")
+hurt_effect = ExtResource("10_3pqj3")
+
+[node name="Hand" type="StaticBody2D" parent="." node_paths=PackedStringArray("hand_sprites", "hurt_box", "top_cursor_bounds", "bottom_cursor_bounds", "object_detection")]
+script = ExtResource("1_i03mm")
+mass = 3.0
+hand_sprites = NodePath("HandSprites")
+hurt_box = NodePath("PlayerHurtBox")
+top_cursor_bounds = NodePath("../TopHandBounds")
+bottom_cursor_bounds = NodePath("../BottomHandBounds")
+object_detection = NodePath("GrabDetection")
+
+[node name="PlayerFindBox" type="Area2D" parent="Hand" node_paths=PackedStringArray("player")]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("10_ojlqm")
+player = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/PlayerFindBox"]
+position = Vector2(12.5, 78.5)
+shape = SubResource("RectangleShape2D_5f216")
+debug_color = Color(0.871455, 0, 0.397664, 0.0980392)
+
+[node name="HandSprites" type="Node2D" parent="Hand"]
+z_index = 2
+position = Vector2(0, 40)
+
+[node name="Fill" type="Sprite2D" parent="Hand/HandSprites"]
+texture = ExtResource("11_1rj4y")
+
+[node name="HandStats" type="Node2D" parent="Hand/HandSprites"]
+
+[node name="Gradiant" type="Sprite2D" parent="Hand/HandSprites/HandStats"]
+modulate = Color(0, 0.55, 1, 1)
+texture = ExtResource("8_k3ge8")
+
+[node name="HandMarks" type="Node2D" parent="Hand/HandSprites/HandStats/Gradiant"]
+
+[node name="PlayerNumber" type="Sprite2D" parent="Hand/HandSprites/HandStats/Gradiant/HandMarks"]
+z_index = 1
+position = Vector2(7, 44)
+texture = ExtResource("13_bxevt")
+
+[node name="Life" type="Sprite2D" parent="Hand/HandSprites/HandStats/Gradiant/HandMarks"]
+position = Vector2(25, 94)
+texture = ExtResource("10_snd0n")
+
+[node name="Life2" type="Sprite2D" parent="Hand/HandSprites/HandStats/Gradiant/HandMarks"]
+position = Vector2(-3, 94)
+texture = ExtResource("10_snd0n")
+
+[node name="Life3" type="Sprite2D" parent="Hand/HandSprites/HandStats/Gradiant/HandMarks"]
+position = Vector2(11, 94)
+texture = ExtResource("10_snd0n")
+
+[node name="Outline" type="Sprite2D" parent="Hand/HandSprites"]
+modulate = Color(0, 0, 0, 1)
+texture = ExtResource("14_mff4w")
+
+[node name="HandStatsAnimationPlayer" type="AnimationPlayer" parent="Hand/HandSprites"]
+libraries = {
+"": SubResource("AnimationLibrary_i3s7i")
+}
+autoplay = "glow"
+
+[node name="FrictionPoint" type="Sprite2D" parent="Hand"]
+visible = false
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_jifuw")
+
+[node name="CursorMovement" type="Node" parent="Hand" node_paths=PackedStringArray("hand", "player_gradiant", "cursor", "point", "player", "hand_sprite")]
+script = ExtResource("4_mlblc")
+max_speed = 90.0
+hand = NodePath("..")
+player_gradiant = NodePath("../HandSprites/HandStats/Gradiant")
+echo_effect = ExtResource("15_jbcim")
+cursor_speed = 2.6
+cursor = NodePath("..")
+point = NodePath("../FrictionPoint")
+hand_echo_magnitude_threshold = 500.0
+max_echo_effect_time = 0.1
+player = NodePath("../..")
+hand_sprite = NodePath("../HandSprites")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand"]
+position = Vector2(-1, 28.5)
+shape = SubResource("RectangleShape2D_apbxi")
+disabled = true
+debug_color = Color(0.8, 0.524667, 0.328, 0.533333)
+
+[node name="GrabDetection" parent="Hand" instance=ExtResource("5_pd6jl")]
+collision_mask = 4
+check_for_areas = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/GrabDetection"]
+shape = SubResource("RectangleShape2D_161fh")
+debug_color = Color(0, 0.7, 0.676667, 0.219608)
+
+[node name="ShockWaveArea" parent="Hand" instance=ExtResource("5_pd6jl")]
+position = Vector2(4, 24)
+collision_mask = 2055
+check_for_areas = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/ShockWaveArea"]
+position = Vector2(0, 24)
+shape = SubResource("CircleShape2D_10sw7")
+debug_color = Color(0.68172, 0.480529, 1, 0.219608)
+
+[node name="HitDetection" parent="Hand" instance=ExtResource("5_pd6jl")]
+collision_mask = 4
+check_for_areas = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/HitDetection"]
+position = Vector2(-1, 24)
+shape = SubResource("RectangleShape2D_3lctl")
+debug_color = Color(0.82, 0.3772, 0.38458, 0.176471)
+
+[node name="PlayerHurtBox" type="Area2D" parent="Hand" node_paths=PackedStringArray("health")]
+collision_layer = 16
+collision_mask = 32
+script = ExtResource("7_6rysf")
+health = NodePath("../../PlayerHealth")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/PlayerHurtBox"]
+position = Vector2(7.5, 39.5)
+shape = SubResource("RectangleShape2D_hqcnq")
+debug_color = Color(0.83936, 0.329191, 0.519522, 0.42)
+
+[node name="TiltTowardsVelocity" type="Node" parent="." node_paths=PackedStringArray("target_node", "node_with_velocity")]
+script = ExtResource("17_7kuei")
+target_node = NodePath("../Hand")
+node_with_velocity = NodePath("../Hand")
+
+[node name="EffectAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4iwr5")
+}
+
+[node name="HandStateAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8t0pt")
+}
+
+[node name="TopHandBounds" type="Node2D" parent="."]
+position = Vector2(1920, -1080)
+
+[node name="BottomHandBounds" type="Node2D" parent="."]
+position = Vector2(-1920, 1080)
+
+[node name="PlayerTypeAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2lla4")
+}
+autoplay = "player1"

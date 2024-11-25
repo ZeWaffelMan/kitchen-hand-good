@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://ceikmhg7b2pau"]
+
+[ext_resource type="Texture2D" uid="uid://bsj5ua6le431v" path="res://environment/circle.png" id="1_ug444"]
+[ext_resource type="Script" path="res://limb.gd" id="1_ytvqf"]
+[ext_resource type="Texture2D" uid="uid://dnakalufrck0v" path="res://environment/cross_hair.png" id="2_yye2j"]
+[ext_resource type="Script" path="res://arm_point.gd" id="3_5lhms"]
+[ext_resource type="Texture2D" uid="uid://c2uo5aw8kd330" path="res://environment/square.png" id="3_dqesx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x0d6m"]
+
+[node name="Arm" type="Node2D"]
+script = ExtResource("1_ytvqf")
+
+[node name="Anchor" type="Node2D" parent="."]
+position = Vector2(988, 363)
+
+[node name="Circle" type="Sprite2D" parent="Anchor"]
+modulate = Color(0.91, 0.4368, 0.53144, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_ug444")
+
+[node name="ArmPoint" type="RigidBody2D" parent="." node_paths=PackedStringArray("anchor")]
+position = Vector2(989, 448)
+script = ExtResource("3_5lhms")
+anchor = NodePath("../Anchor")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArmPoint"]
+shape = SubResource("CircleShape2D_x0d6m")
+
+[node name="Sprite2D" type="Sprite2D" parent="ArmPoint"]
+modulate = Color(0.73875, 0.513, 0.9, 1)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_yye2j")
+
+[node name="ArmPoint2" type="RigidBody2D" parent="." node_paths=PackedStringArray("anchor")]
+position = Vector2(1978, 896)
+script = ExtResource("3_5lhms")
+anchor = NodePath("../ArmPoint")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArmPoint2"]
+shape = SubResource("CircleShape2D_x0d6m")
+
+[node name="Sprite2D" type="Sprite2D" parent="ArmPoint2"]
+modulate = Color(0.73875, 0.513, 0.9, 1)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_yye2j")
+
+[node name="Square" type="Sprite2D" parent="."]
+modulate = Color(0.960351, 0.960351, 0.960351, 1)
+z_index = -1
+position = Vector2(984, 460)
+scale = Vector2(36.38, 21.94)
+texture = ExtResource("3_dqesx")

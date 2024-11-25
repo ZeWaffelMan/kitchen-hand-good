@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsq7jqka6wiof"]
+
+[ext_resource type="Script" path="res://components/object_detection.gd" id="1_2d1yn"]
+
+[node name="ObjectDetection" type="Area2D"]
+z_index = 1
+collision_layer = 0
+script = ExtResource("1_2d1yn")

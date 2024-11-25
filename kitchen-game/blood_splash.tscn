@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://d1r0fqa7yhemr"]
+
+[ext_resource type="Script" path="res://effects/effect.gd" id="1_v0ls7"]
+[ext_resource type="Texture2D" uid="uid://c6ohd365njce5" path="res://enemy/effects/blood_splash0000.png" id="1_w0vu7"]
+[ext_resource type="Texture2D" uid="uid://mdm7myno0cth" path="res://enemy/effects/blood_splash0001.png" id="2_aoxju"]
+[ext_resource type="Texture2D" uid="uid://clk0bpw0lgoeh" path="res://enemy/effects/blood_splash0002.png" id="3_a3p2h"]
+[ext_resource type="Texture2D" uid="uid://coj63q1cicv2y" path="res://enemy/effects/blood_splash0003.png" id="4_yca15"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7w3lc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_w0vu7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_aoxju")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_a3p2h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_yca15")
+}],
+"loop": false,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="BloodSplash" type="AnimatedSprite2D" node_paths=PackedStringArray("node_to_destroy")]
+position = Vector2(16, -60)
+sprite_frames = SubResource("SpriteFrames_7w3lc")
+autoplay = "default"
+script = ExtResource("1_v0ls7")
+max_destroy_time = 0.5
+node_to_destroy = NodePath(".")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

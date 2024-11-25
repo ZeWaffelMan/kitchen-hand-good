@@ -1,0 +1,235 @@
+[gd_scene load_steps=21 format=3 uid="uid://b18jghfgdrfrf"]
+
+[ext_resource type="Texture2D" uid="uid://c2uo5aw8kd330" path="res://environment/square.png" id="1_avalh"]
+[ext_resource type="Script" path="res://main/main.gd" id="1_emppk"]
+[ext_resource type="Script" path="res://main/player_manager.gd" id="2_ccx1v"]
+[ext_resource type="Script" path="res://main/world.gd" id="2_h2c5a"]
+[ext_resource type="Script" path="res://main/camera_shake.gd" id="2_pwhpu"]
+[ext_resource type="Script" path="res://main/game_stats.gd" id="2_uli3e"]
+[ext_resource type="Texture2D" uid="uid://ibk45r4fbbkv" path="res://main/mii_channel.png" id="3_6ic67"]
+[ext_resource type="Texture2D" uid="uid://dr3lavliggxym" path="res://main/paperthing.png" id="3_x2ukn"]
+[ext_resource type="PackedScene" uid="uid://dylsvc744lm0y" path="res://player/main/player.tscn" id="3_xc6ge"]
+[ext_resource type="Texture2D" uid="uid://bsj5ua6le431v" path="res://environment/circle.png" id="4_1lqo5"]
+[ext_resource type="PackedScene" uid="uid://c80rbusxk2i5s" path="res://secret_ingredient.tscn" id="6_4l60x"]
+[ext_resource type="PackedScene" uid="uid://ddede8hxi6p7g" path="res://main/ground.tscn" id="6_aco2f"]
+[ext_resource type="PackedScene" uid="uid://cp8u253qeyfka" path="res://enemy_spawner.tscn" id="6_kevic"]
+[ext_resource type="Script" path="res://main/secret_area.gd" id="8_ey3if"]
+[ext_resource type="PackedScene" uid="uid://3hxttdc8tr4g" path="res://level_manager.tscn" id="10_6wgdk"]
+[ext_resource type="Texture2D" uid="uid://dnakalufrck0v" path="res://environment/cross_hair.png" id="10_8aeo6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lif2o"]
+radius = 139.176
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dyihf"]
+resource_local_to_scene = true
+size = Vector2(1930, 1771.94)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7lkdg"]
+resource_local_to_scene = true
+size = Vector2(1930, 313)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o7mcj"]
+size = Vector2(356, 176)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_emppk")
+
+[node name="World" type="Node2D" parent="."]
+script = ExtResource("2_h2c5a")
+
+[node name="PlayerManager" type="Node2D" parent="World"]
+position = Vector2(961, 520)
+script = ExtResource("2_ccx1v")
+player = ExtResource("3_xc6ge")
+
+[node name="LevelManager" parent="World" node_paths=PackedStringArray("secret_ingredient_spawn_area", "secret_area", "secret_area_new_position") instance=ExtResource("10_6wgdk")]
+position = Vector2(-786, 747)
+is_active = true
+secret_ingredient = ExtResource("6_4l60x")
+secret_ingredient_spawn_area = NodePath("SecretIngredientSpawn")
+enemy_spawner_to_spawn = Array[Resource]([ExtResource("6_kevic")])
+max_destroy_spawners_timer = 1000.0
+can_pull_out_secret = true
+secret_area = NodePath("SecretAreaHub")
+secret_area_new_position = NodePath("NewSecretAreaPosition")
+
+[node name="SecretIngredientSpawn" type="Node2D" parent="World/LevelManager"]
+position = Vector2(1753, 478)
+
+[node name="SecretAreaHub" type="Node2D" parent="World/LevelManager"]
+z_index = 1
+position = Vector2(1740, -963)
+
+[node name="SecretArea" type="Area2D" parent="World/LevelManager/SecretAreaHub"]
+position = Vector2(0, 55)
+collision_layer = 512
+collision_mask = 0
+script = ExtResource("8_ey3if")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/LevelManager/SecretAreaHub/SecretArea"]
+shape = SubResource("CircleShape2D_lif2o")
+
+[node name="FoodPositionHolder" type="Node2D" parent="World/LevelManager/SecretAreaHub/SecretArea"]
+
+[node name="FoodPositionOne" type="Sprite2D" parent="World/LevelManager/SecretAreaHub/SecretArea/FoodPositionHolder"]
+modulate = Color(0.176419, 0.176419, 0.176419, 1)
+z_index = 5
+position = Vector2(-68, 7)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("10_8aeo6")
+
+[node name="FoodPositionTwo" type="Sprite2D" parent="World/LevelManager/SecretAreaHub/SecretArea/FoodPositionHolder"]
+modulate = Color(0.176419, 0.176419, 0.176419, 1)
+z_index = 5
+position = Vector2(56, -20)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("10_8aeo6")
+
+[node name="Sprite2D" type="Sprite2D" parent="World/LevelManager/SecretAreaHub"]
+modulate = Color(1, 0.37, 0.58, 0.258824)
+scale = Vector2(2.90121, 2.90121)
+texture = ExtResource("4_1lqo5")
+
+[node name="NewSecretAreaPosition" type="Node2D" parent="World/LevelManager"]
+position = Vector2(1740, -679.96)
+
+[node name="GameStats" type="Node" parent="World"]
+script = ExtResource("2_uli3e")
+
+[node name="CameraHolder" type="Node2D" parent="World"]
+z_index = 3
+position = Vector2(958, 545)
+
+[node name="Camera2D" type="Camera2D" parent="World/CameraHolder"]
+zoom = Vector2(0.5, 0.5)
+
+[node name="CameraShake" type="Node" parent="World/CameraHolder" node_paths=PackedStringArray("camera")]
+script = ExtResource("2_pwhpu")
+camera = NodePath("../Camera2D")
+
+[node name="TopHandBounds" type="Node2D" parent="World/CameraHolder"]
+position = Vector2(1920, -1080)
+
+[node name="BottomHandBounds" type="Node2D" parent="World/CameraHolder"]
+position = Vector2(-1914, 1077)
+
+[node name="MiiChannel" type="Sprite2D" parent="World/CameraHolder"]
+visible = false
+position = Vector2(-7, 15)
+scale = Vector2(1.56343, 1.56343)
+texture = ExtResource("3_6ic67")
+
+[node name="Background" type="Sprite2D" parent="World"]
+modulate = Color(0.942822, 0.942823, 0.942823, 1)
+position = Vector2(959.5, 525.5)
+scale = Vector2(45.2757, 26.5017)
+texture = ExtResource("1_avalh")
+
+[node name="Paperthing" type="Sprite2D" parent="World"]
+modulate = Color(1, 1, 1, 0.215686)
+z_index = 1
+position = Vector2(971, 375)
+scale = Vector2(2.18907, 1.28155)
+texture = ExtResource("3_x2ukn")
+
+[node name="Area" type="Node2D" parent="World"]
+z_index = 1
+position = Vector2(590, -85)
+
+[node name="Ground" parent="World/Area" instance=ExtResource("6_aco2f")]
+
+[node name="Walls" type="Node2D" parent="World/Area"]
+
+[node name="Wall" type="StaticBody2D" parent="World/Area/Walls"]
+position = Vector2(-1758, 188)
+rotation = 1.57079
+scale = Vector2(1.28431, 1.00004)
+
+[node name="Sprite" type="Sprite2D" parent="World/Area/Walls/Wall"]
+modulate = Color(0.81, 0.81, 0.81, 1)
+position = Vector2(322, -48.998)
+scale = Vector2(20.21, 3.13)
+texture = ExtResource("1_avalh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Area/Walls/Wall"]
+position = Vector2(320.013, 679.975)
+shape = SubResource("RectangleShape2D_dyihf")
+
+[node name="Wall2" type="StaticBody2D" parent="World/Area/Walls"]
+position = Vector2(2390, 352)
+rotation = 1.57079
+scale = Vector2(1.34655, 0.982735)
+
+[node name="Sprite" type="Sprite2D" parent="World/Area/Walls/Wall2"]
+modulate = Color(0.81, 0.81, 0.81, 1)
+position = Vector2(321, -49.9981)
+scale = Vector2(20.21, 3.13)
+texture = ExtResource("1_avalh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Area/Walls/Wall2"]
+position = Vector2(320, -49.5)
+shape = SubResource("RectangleShape2D_7lkdg")
+
+[node name="Wall3" type="StaticBody2D" parent="World/Area/Walls"]
+position = Vector2(-118, -581)
+scale = Vector2(2.51364, 1.25701)
+collision_layer = 9
+
+[node name="Sprite" type="Sprite2D" parent="World/Area/Walls/Wall3"]
+modulate = Color(0.81, 0.81, 0.81, 1)
+position = Vector2(322, -50)
+scale = Vector2(20.21, 3.13)
+texture = ExtResource("1_avalh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Area/Walls/Wall3"]
+position = Vector2(320, -49.5)
+shape = SubResource("RectangleShape2D_7lkdg")
+
+[node name="WorldGround" type="StaticBody2D" parent="World/Area"]
+position = Vector2(-95, 2081)
+scale = Vector2(2.70535, 1.84893)
+
+[node name="Sprite" type="Sprite2D" parent="World/Area/WorldGround"]
+modulate = Color(0.813258, 0.813258, 0.813258, 1)
+position = Vector2(322, -50)
+scale = Vector2(20.21, 3.13)
+texture = ExtResource("1_avalh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Area/WorldGround"]
+position = Vector2(320, -49.5)
+shape = SubResource("RectangleShape2D_7lkdg")
+debug_color = Color(0.220581, 0.53305, 0.77805, 0.42)
+
+[node name="Platform" type="StaticBody2D" parent="World"]
+position = Vector2(-794, 960)
+collision_layer = 65
+collision_mask = 0
+
+[node name="Square" type="Sprite2D" parent="World/Platform"]
+modulate = Color(0.68032, 0.606929, 0.913805, 1)
+scale = Vector2(3.52986, 1.7501)
+texture = ExtResource("1_avalh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Platform"]
+position = Vector2(2, 0)
+shape = SubResource("RectangleShape2D_o7mcj")
+debug_color = Color(0.233385, 0.504957, 0.790251, 0.42)
+
+[node name="Platform2" type="StaticBody2D" parent="World"]
+position = Vector2(799, 2394)
+rotation = -1.57079
+scale = Vector2(5.25975, 0.468978)
+collision_layer = 65
+collision_mask = 0
+
+[node name="Square" type="Sprite2D" parent="World/Platform2"]
+modulate = Color(0.68032, 0.606929, 0.913805, 1)
+scale = Vector2(3.52986, 1.7501)
+texture = ExtResource("1_avalh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Platform2"]
+position = Vector2(2, 0)
+shape = SubResource("RectangleShape2D_o7mcj")
+debug_color = Color(0.233385, 0.504957, 0.790251, 0.42)
+
+[editable path="World/LevelManager"]

@@ -1,0 +1,162 @@
+[gd_scene load_steps=16 format=3 uid="uid://dna2m22tjie5e"]
+
+[ext_resource type="PackedScene" uid="uid://ccewotvxo4pxr" path="res://enemy/enemy.tscn" id="1_nyw8g"]
+[ext_resource type="Script" path="res://enemy/enemy_types/avocado_enemy/avacado_launch_seed.gd" id="2_kbg5d"]
+[ext_resource type="Shader" path="res://main/flash.gdshader" id="2_kd5so"]
+[ext_resource type="PackedScene" uid="uid://bnjy5crimq2oq" path="res://enemy/enemy_types/avocado_enemy/avacado_pit_enemy.tscn" id="3_rspms"]
+[ext_resource type="Script" path="res://enemy/enemy_types/avocado_enemy/avacado_walk.gd" id="4_4ytvl"]
+[ext_resource type="Script" path="res://enemy/enemy_types/avocado_enemy/avacado_run_away.gd" id="4_pl4vh"]
+[ext_resource type="PackedScene" uid="uid://btxiylg0mia14" path="res://player_detection.tscn" id="6_qwoxp"]
+[ext_resource type="PackedScene" uid="uid://dsq7jqka6wiof" path="res://components/object_detection.tscn" id="7_l5lmh"]
+[ext_resource type="Texture2D" uid="uid://dnbodmsvia72p" path="res://enemy/enemy_types/avocado_enemy/avocado_enemy.png" id="7_vc0m7"]
+[ext_resource type="Texture2D" uid="uid://cbn4b27nlnp4e" path="res://enemy/enemy_types/avocado_enemy/avocado_pit.png" id="8_yqafw"]
+[ext_resource type="Texture2D" uid="uid://dxi08nrrqsc8n" path="res://enemy/faces/mouths/neutral.PNG" id="10_7mh6e"]
+[ext_resource type="Texture2D" uid="uid://dr86iwntpxl3j" path="res://enemy/faces/eyes/open_eye.PNG" id="11_objfl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g1dsy"]
+resource_local_to_scene = true
+shader = ExtResource("2_kd5so")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/alpha = 1.0
+shader_parameter/active = false
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mk8y6"]
+radius = 50.01
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jm4vn"]
+radius = 1014.06
+
+[node name="Avocado" instance=ExtResource("1_nyw8g")]
+
+[node name="Movement" parent="." index="0"]
+movement_max_speed = 700.0
+
+[node name="LaunchSeed" type="Node" parent="." index="1" node_paths=PackedStringArray("avocado_pit", "pit_player_detection", "head", "launch_seed_point")]
+script = ExtResource("2_kbg5d")
+avocado_pit = NodePath("../Head/BodyHolder/BodySprites/HeadHolder/Head/Pit")
+pit_player_detection = NodePath("../Head/PlayerDetection")
+pit_enemy = ExtResource("3_rspms")
+head = NodePath("../Head")
+launch_seed_point = NodePath("../Head/LaunchPosition")
+
+[node name="Wait" parent="StateMachine" index="0"]
+next_state = "Rest"
+
+[node name="Rest" parent="StateMachine" index="1" node_paths=PackedStringArray("player_detection")]
+next_state = "WalkAround"
+does_switch_if_player = true
+player_detection = NodePath("../../Head/PlayerDetection")
+
+[node name="WalkAround" type="Node" parent="StateMachine" index="2" node_paths=PackedStringArray("enemy", "head", "movement", "movement_animation_player", "player_detector", "storage")]
+script = ExtResource("4_4ytvl")
+enemy = NodePath("../..")
+head = NodePath("../../Head")
+movement = NodePath("../../Movement")
+movement_animation_player = NodePath("../../MovementAnimationPlayer")
+player_detector = NodePath("../../Head/PlayerDetection")
+storage = NodePath("../../EnemyStorage")
+
+[node name="RunAway" type="Node" parent="StateMachine" index="3" node_paths=PackedStringArray("enemy", "storage", "movement", "head", "player_detection", "squash_check")]
+script = ExtResource("4_pl4vh")
+enemy = NodePath("../..")
+storage = NodePath("../../EnemyStorage")
+movement = NodePath("../../Movement")
+head = NodePath("../../Head")
+acceleration_multiplier = 4.0
+max_time_to_stop = 1.0
+player_detection = NodePath("../../Head/PlayerDetection")
+squash_check = NodePath("../../Head/SquashCheck")
+
+[node name="EnemyJuiceColor" parent="." index="4"]
+self_modulate = Color(0.552941, 1, 0.54902, 1)
+
+[node name="CollisionShape2D" parent="LookingForGround/GroundCheck" index="0"]
+position = Vector2(0, 105.5)
+
+[node name="CollisionShape2D" parent="LookingForGround/StandGroundCheck" index="0"]
+debug_color = Color(4.81307e-07, 0.612491, 0.621388, 0.42)
+
+[node name="Head" parent="." index="10"]
+material = SubResource("ShaderMaterial_g1dsy")
+
+[node name="SquashCheck" parent="Head" index="0" instance=ExtResource("7_l5lmh")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head/SquashCheck" index="0"]
+shape = SubResource("CircleShape2D_mk8y6")
+
+[node name="Grabbed" parent="Head/HeadStateMachine" index="1"]
+animation_to_play = "scream"
+
+[node name="Head" parent="Head/BodyHolder/BodySprites/HeadHolder" index="0"]
+texture = ExtResource("7_vc0m7")
+
+[node name="Face" parent="Head/BodyHolder/BodySprites/HeadHolder/Head" index="0"]
+scale = Vector2(0.8, 0.8)
+
+[node name="HappyFace" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face/MouthHolder" index="0"]
+position = Vector2(1.99997, -49)
+
+[node name="OpenEye" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face/EyeHolder" index="0"]
+position = Vector2(22, -53)
+
+[node name="OpenEye2" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face/EyeHolder2" index="0"]
+position = Vector2(-19, -54)
+
+[node name="Pit" type="Sprite2D" parent="Head/BodyHolder/BodySprites/HeadHolder/Head" index="2"]
+use_parent_material = true
+position = Vector2(0, 18)
+texture = ExtResource("8_yqafw")
+
+[node name="Face" type="Node2D" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Pit" index="0"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+position = Vector2(1, 5)
+scale = Vector2(0.5, 0.5)
+
+[node name="Mouth" type="Sprite2D" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Pit/Face" index="0"]
+position = Vector2(0, -15)
+texture = ExtResource("10_7mh6e")
+
+[node name="Eye" type="Sprite2D" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Pit/Face" index="1"]
+position = Vector2(20, -18.3333)
+texture = ExtResource("11_objfl")
+
+[node name="Eye2" type="Sprite2D" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Pit/Face" index="2"]
+position = Vector2(-21.6667, -18.3333)
+texture = ExtResource("11_objfl")
+
+[node name="HandHolder" parent="Head/BodyHolder/BodySprites" index="1"]
+position = Vector2(42, -9)
+
+[node name="EnemyHand" parent="Head/BodyHolder/BodySprites/HandHolder" index="0"]
+modulate = Color(0.27451, 0.509804, 0.282353, 1)
+
+[node name="HandHolder2" parent="Head/BodyHolder/BodySprites" index="2"]
+position = Vector2(-42, -9)
+
+[node name="EnemyHand2" parent="Head/BodyHolder/BodySprites/HandHolder2" index="0"]
+modulate = Color(0.27451, 0.509804, 0.282353, 1)
+
+[node name="FootHolder" parent="Head/BodyHolder/BodySprites" index="3"]
+position = Vector2(25, 45)
+
+[node name="EnemyFoot" parent="Head/BodyHolder/BodySprites/FootHolder" index="0"]
+modulate = Color(0.27451, 0.509804, 0.282353, 1)
+
+[node name="FootHolder2" parent="Head/BodyHolder/BodySprites" index="4"]
+position = Vector2(-25, 45)
+
+[node name="EnemyFoot2" parent="Head/BodyHolder/BodySprites/FootHolder2" index="0"]
+modulate = Color(0.27451, 0.509804, 0.282353, 1)
+
+[node name="SpeedDamageHurtBox" parent="Head" index="5"]
+collision_mask = 41
+
+[node name="PlayerDetection" parent="Head" index="11" instance=ExtResource("6_qwoxp")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head/PlayerDetection" index="0"]
+shape = SubResource("CircleShape2D_jm4vn")
+debug_color = Color(0.878431, 0.333333, 0.588235, 0.0156863)
+
+[node name="LaunchPosition" type="Node2D" parent="Head" index="12"]
+position = Vector2(1, -20)

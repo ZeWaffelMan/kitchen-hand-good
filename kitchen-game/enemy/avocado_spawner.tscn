@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://3ww5a3heppml"]
+
+[ext_resource type="PackedScene" uid="uid://cp8u253qeyfka" path="res://enemy/enemy_spawner.tscn" id="1_gyps6"]
+[ext_resource type="PackedScene" uid="uid://dna2m22tjie5e" path="res://enemy/enemy_types/avocado_enemy/avacado.tscn" id="2_3wulu"]
+
+[node name="AvocadoSpawner" instance=ExtResource("1_gyps6")]
+enemy_to_spawn = ExtResource("2_3wulu")

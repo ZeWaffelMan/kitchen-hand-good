@@ -1,0 +1,129 @@
+[gd_scene load_steps=12 format=3 uid="uid://hdeoounudvd3"]
+
+[ext_resource type="PackedScene" uid="uid://ccewotvxo4pxr" path="res://enemy/enemy.tscn" id="1_bmi7l"]
+[ext_resource type="Script" path="res://enemy/enemy_types/watermelon_enemy/watermelon_behavior.gd" id="2_40oqt"]
+[ext_resource type="Script" path="res://enemy/enemy_types/watermelon_enemy/watermelon_walk.gd" id="2_dtm5x"]
+[ext_resource type="Shader" path="res://main/flash.gdshader" id="2_nmtun"]
+[ext_resource type="Script" path="res://enemy/enemy_types/watermelon_enemy/watermelon_shoot.gd" id="4_tjxyr"]
+[ext_resource type="PackedScene" uid="uid://bgea3qtj6ed4a" path="res://enemy/enemy_types/watermelon_enemy/watermelon_seed.tscn" id="5_uad8s"]
+[ext_resource type="PackedScene" uid="uid://btxiylg0mia14" path="res://player_detection.tscn" id="7_b7q6e"]
+[ext_resource type="Texture2D" uid="uid://dwo2hhaubv6u3" path="res://enemy/enemy_types/watermelon_enemy/watermelon.png" id="7_vlddm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p6lv8"]
+resource_local_to_scene = true
+shader = ExtResource("2_nmtun")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/alpha = 1.0
+shader_parameter/active = false
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s13vl"]
+radius = 42.0
+height = 120.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_htdb3"]
+radius = 1292.6
+
+[node name="Watermelon" instance=ExtResource("1_bmi7l")]
+
+[node name="Movement" parent="." index="0"]
+direction_cannot_be_zero = true
+acceleration = 800000.0
+friction = 0.8
+move_on_y = false
+
+[node name="WatermelonBehavior" type="Node" parent="." index="1" node_paths=PackedStringArray("enemy_rest_state")]
+script = ExtResource("2_40oqt")
+enemy_rest_state = NodePath("../StateMachine/Rest")
+
+[node name="Wait" parent="StateMachine" index="0"]
+next_state = "Walk"
+
+[node name="Rest" parent="StateMachine" index="1"]
+max_rest_time = 3.0
+next_state = "Walk"
+movement_animation_to_play = "shake"
+mouth_animation_to_play = "long_neutral"
+eyes_animation_to_play = "blink"
+
+[node name="Walk" type="Node" parent="StateMachine" index="2" node_paths=PackedStringArray("hurt_box", "fire_point", "watermelon", "enemy", "player_detection", "storage", "head", "enemy_movement")]
+script = ExtResource("2_dtm5x")
+seed_bullet = ExtResource("5_uad8s")
+hurt_box = NodePath("../../Head/EnemyHurtBox")
+fire_point = NodePath("../../Head")
+watermelon = NodePath("../../WatermelonBehavior")
+enemy = NodePath("../..")
+player_detection = NodePath("../../Head/PlayerDetection")
+storage = NodePath("../../EnemyStorage")
+head = NodePath("../../Head")
+enemy_movement = NodePath("../../Movement")
+
+[node name="Shoot" type="Node" parent="StateMachine" index="3"]
+script = ExtResource("4_tjxyr")
+
+[node name="EnemyJuiceColor" parent="." index="4"]
+self_modulate = Color(1, 0.329412, 0.286275, 1)
+
+[node name="Shadow" parent="ShadowHolder" index="0"]
+position = Vector2(0, 60)
+scale = Vector2(1.78, 1.1)
+
+[node name="Head" parent="." index="10"]
+material = SubResource("ShaderMaterial_p6lv8")
+mass = 5.0
+
+[node name="FirePoint" type="Node2D" parent="Head" index="0"]
+
+[node name="Grabbed" parent="Head/HeadStateMachine" index="1"]
+animation_to_play = "very_small_open"
+leave_animation_to_play = "long_neutral"
+
+[node name="Stand" parent="Head/HeadStateMachine" index="3"]
+animation_to_play = "long_neutral"
+
+[node name="Head" parent="Head/BodyHolder/BodySprites/HeadHolder" index="0"]
+texture = ExtResource("7_vlddm")
+
+[node name="MouthHolder" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face" index="0"]
+position = Vector2(0, 20)
+
+[node name="EyeHolder" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face" index="1"]
+position = Vector2(2, 19)
+
+[node name="EyeHolder2" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face" index="2"]
+position = Vector2(-4, 20)
+
+[node name="HandHolder" parent="Head/BodyHolder/BodySprites" index="1"]
+position = Vector2(71, 4)
+
+[node name="EnemyHand" parent="Head/BodyHolder/BodySprites/HandHolder" index="0"]
+modulate = Color(0.168627, 0.168627, 0.168627, 1)
+
+[node name="HandHolder2" parent="Head/BodyHolder/BodySprites" index="2"]
+position = Vector2(-71, 4)
+
+[node name="EnemyHand2" parent="Head/BodyHolder/BodySprites/HandHolder2" index="0"]
+modulate = Color(0.168627, 0.168627, 0.168627, 1)
+
+[node name="FootHolder" parent="Head/BodyHolder/BodySprites" index="3"]
+position = Vector2(50, 45)
+
+[node name="EnemyFoot" parent="Head/BodyHolder/BodySprites/FootHolder" index="0"]
+modulate = Color(0.168627, 0.168627, 0.168627, 1)
+
+[node name="FootHolder2" parent="Head/BodyHolder/BodySprites" index="4"]
+position = Vector2(-50, 45)
+
+[node name="EnemyFoot2" parent="Head/BodyHolder/BodySprites/FootHolder2" index="0"]
+modulate = Color(0.168627, 0.168627, 0.168627, 1)
+
+[node name="CollisionShape2D" parent="Head" index="3"]
+position = Vector2(0, 13)
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_s13vl")
+
+[node name="PlayerDetection" parent="Head" index="6" instance=ExtResource("7_b7q6e")]
+position = Vector2(0, -300)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head/PlayerDetection" index="0"]
+shape = SubResource("CircleShape2D_htdb3")
+debug_color = Color(0.482353, 0.501961, 0.807843, 0.188235)

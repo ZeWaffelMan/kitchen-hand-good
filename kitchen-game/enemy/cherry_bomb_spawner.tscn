@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://dae3ga8axdsjv"]
+
+[ext_resource type="PackedScene" uid="uid://dlq4loyy712rr" path="res://enemy/onion_spawner.tscn" id="1_6cs1p"]
+[ext_resource type="PackedScene" uid="uid://1c1fmhdoydcc" path="res://enemy/enemy_types/cherry_bomb/cherry_bomb_enemy.tscn" id="2_ulret"]
+
+[node name="CherryBombSpawner" instance=ExtResource("1_6cs1p")]
+enemy_to_spawn = ExtResource("2_ulret")

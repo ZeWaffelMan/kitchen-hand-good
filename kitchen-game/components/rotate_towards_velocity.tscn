@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dm2tb45hjx2as"]
+
+[ext_resource type="Script" path="res://components/rotate_towards_velocity.gd" id="1_onjlh"]
+
+[node name="RotateTowardsVelocity" type="Node"]
+script = ExtResource("1_onjlh")

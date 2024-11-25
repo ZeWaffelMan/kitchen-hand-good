@@ -1,0 +1,113 @@
+[gd_scene load_steps=12 format=3 uid="uid://nqmv8g1xsaih"]
+
+[ext_resource type="PackedScene" uid="uid://ccewotvxo4pxr" path="res://enemy/enemy.tscn" id="1_8ycax"]
+[ext_resource type="Script" path="res://pepper_walk.gd" id="2_v1u5u"]
+[ext_resource type="Script" path="res://enemy/hot_pepper_shoot.gd" id="4_ao656"]
+[ext_resource type="Shader" path="res://main/flash.gdshader" id="4_vmnv8"]
+[ext_resource type="PackedScene" uid="uid://btxiylg0mia14" path="res://player_detection.tscn" id="5_twvo7"]
+[ext_resource type="Texture2D" uid="uid://ckr6gi2q3puct" path="res://enemy/faces/mustache.png" id="7_jukrf"]
+[ext_resource type="Texture2D" uid="uid://sllepk0ljwui" path="res://enemy/hot_pepper.png" id="7_qgbo5"]
+[ext_resource type="PackedScene" uid="uid://dl74or3yeb5ly" path="res://main/hazard.tscn" id="8_2rmxj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_acckt"]
+resource_local_to_scene = true
+shader = ExtResource("4_vmnv8")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/alpha = 1.0
+shader_parameter/active = false
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w88f3"]
+radius = 1176.1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_khd4l"]
+size = Vector2(72.5, 1768)
+
+[node name="HotPepper" instance=ExtResource("1_8ycax")]
+
+[node name="Movement" parent="." index="2"]
+acceleration = 8e+06
+
+[node name="Wait" parent="StateMachine" index="0"]
+next_state = "Walk"
+
+[node name="Rest" parent="StateMachine" index="1"]
+max_rest_time = 3.0
+next_state = "Walk"
+
+[node name="Walk" type="Node" parent="StateMachine" index="2" node_paths=PackedStringArray("enemy", "storage", "movement", "head", "player_detection")]
+script = ExtResource("2_v1u5u")
+enemy = NodePath("../..")
+storage = NodePath("../../EnemyStorage")
+movement = NodePath("../../Movement")
+head = NodePath("../../Head")
+max_switch_time = 2.5
+player_detection = NodePath("../../Head/PlayerDetection")
+
+[node name="Shoot" type="Node" parent="StateMachine" index="3" node_paths=PackedStringArray("movement", "enemy", "storage", "head", "head_holder", "hazard", "face_controller")]
+script = ExtResource("4_ao656")
+movement = NodePath("../../Movement")
+enemy = NodePath("../..")
+storage = NodePath("../../EnemyStorage")
+head = NodePath("../../Head")
+head_holder = NodePath("../../Head/BodyHolder/BodySprites/HeadHolder")
+hazard = NodePath("../../Head/BodyHolder/BodySprites/HeadHolder/Hazard")
+face_controller = NodePath("../../Head/BodyHolder/BodySprites/FaceController")
+
+[node name="Head" parent="." index="11"]
+material = SubResource("ShaderMaterial_acckt")
+
+[node name="PlayerDetection" parent="Head" index="0" instance=ExtResource("5_twvo7")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head/PlayerDetection" index="0"]
+shape = SubResource("CircleShape2D_w88f3")
+debug_color = Color(1, 0.27, 0.622833, 0.0352941)
+
+[node name="Head" parent="Head/BodyHolder/BodySprites/HeadHolder" index="0"]
+texture = ExtResource("7_qgbo5")
+
+[node name="Mustache" type="Sprite2D" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face" index="0"]
+position = Vector2(6, -7)
+texture = ExtResource("7_jukrf")
+
+[node name="MouthHolder" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face" index="1"]
+visible = false
+position = Vector2(7, 5)
+
+[node name="EyeHolder" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face" index="2"]
+position = Vector2(0, 3)
+
+[node name="EyeHolder2" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face" index="3"]
+position = Vector2(14, 3)
+
+[node name="Hazard" parent="Head/BodyHolder/BodySprites/HeadHolder" index="1" node_paths=PackedStringArray("hurt_box_exception") instance=ExtResource("8_2rmxj")]
+position = Vector2(-3, -900)
+monitoring = false
+hurt_box_exception = NodePath("../../../../EnemyHurtBox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head/BodyHolder/BodySprites/HeadHolder/Hazard" index="1"]
+shape = SubResource("RectangleShape2D_khd4l")
+debug_color = Color(1, 0.00784314, 0.0509804, 0.0235294)
+
+[node name="HandHolder" parent="Head/BodyHolder/BodySprites" index="1"]
+position = Vector2(36, 9)
+
+[node name="EnemyHand" parent="Head/BodyHolder/BodySprites/HandHolder" index="0"]
+modulate = Color(0.671949, 0.108305, 0.139441, 1)
+
+[node name="HandHolder2" parent="Head/BodyHolder/BodySprites" index="2"]
+position = Vector2(-24, 9)
+
+[node name="EnemyHand2" parent="Head/BodyHolder/BodySprites/HandHolder2" index="0"]
+modulate = Color(0.671949, 0.108305, 0.139441, 1)
+
+[node name="FootHolder" parent="Head/BodyHolder/BodySprites" index="3"]
+position = Vector2(1, 82)
+
+[node name="EnemyFoot" parent="Head/BodyHolder/BodySprites/FootHolder" index="0"]
+modulate = Color(0.671949, 0.108305, 0.139441, 1)
+
+[node name="FootHolder2" parent="Head/BodyHolder/BodySprites" index="4"]
+position = Vector2(-39, 81)
+
+[node name="EnemyFoot2" parent="Head/BodyHolder/BodySprites/FootHolder2" index="0"]
+modulate = Color(0.671949, 0.108305, 0.139441, 1)

@@ -1,0 +1,194 @@
+[gd_scene load_steps=15 format=3 uid="uid://66tit61tr2k7"]
+
+[ext_resource type="Script" path="res://player/effects/hand_echo.gd" id="1_kn54c"]
+[ext_resource type="Script" path="res://effects/effect.gd" id="2_frcqo"]
+[ext_resource type="Texture2D" uid="uid://c81kipxoqpjrk" path="res://player/hands/point_hand/full_point_white.png" id="2_liaik"]
+[ext_resource type="Texture2D" uid="uid://jggawvmvh4t7" path="res://player/hands/grab_hand/full_grab_white.png" id="3_w2grx"]
+[ext_resource type="Texture2D" uid="uid://c8yygo6jstjlg" path="res://player/hands/open_hand/full_open_white.png" id="5_u410e"]
+
+[sub_resource type="Animation" id="Animation_tag2m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hands:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ic8eo"]
+resource_name = "fade"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hands:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.196078), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_us68f"]
+_data = {
+"RESET": SubResource("Animation_tag2m"),
+"fade": SubResource("Animation_ic8eo")
+}
+
+[sub_resource type="Animation" id="Animation_nuffo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hands/Hand:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_liaik")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hands/Hand:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ms8e0"]
+resource_name = "grab"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hands/Hand:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_w2grx")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hands/Hand:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_77776"]
+resource_name = "point"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hands/Hand:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_liaik")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hands/Hand:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_nsjyn"]
+resource_name = "slap"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hands/Hand:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_u410e")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hands/Hand:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_g27bk"]
+resource_name = "spread"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ef8b5"]
+_data = {
+"RESET": SubResource("Animation_nuffo"),
+"grab": SubResource("Animation_ms8e0"),
+"point": SubResource("Animation_77776"),
+"slap": SubResource("Animation_nsjyn"),
+"spread": SubResource("Animation_g27bk")
+}
+
+[node name="HandEcho" type="Node2D" node_paths=PackedStringArray("hand_type_animation_player")]
+z_index = 2
+script = ExtResource("1_kn54c")
+hand_type_animation_player = NodePath("HandTypeAnimationPlayer")
+
+[node name="Hands" type="Node2D" parent="." node_paths=PackedStringArray("node_to_destroy")]
+script = ExtResource("2_frcqo")
+has_destroy_time = true
+max_destroy_time = 0.2
+node_to_destroy = NodePath("..")
+
+[node name="Hand" type="Sprite2D" parent="Hands"]
+visible = false
+texture = ExtResource("2_liaik")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_us68f")
+}
+autoplay = "fade"
+
+[node name="HandTypeAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ef8b5")
+}

@@ -1,0 +1,39 @@
+[gd_scene load_steps=8 format=3 uid="uid://bvf1tg20ooh21"]
+
+[ext_resource type="Texture2D" uid="uid://q6h8mbr14eh7" path="res://enemy/effects/blood_squirt_big0000.png" id="1_14qb2"]
+[ext_resource type="Texture2D" uid="uid://tjth3ml0lkxa" path="res://enemy/effects/blood_squirt_big0001.png" id="2_uojjf"]
+[ext_resource type="Texture2D" uid="uid://7gw4gx8rc45w" path="res://enemy/effects/blood_squirt_big0002.png" id="3_kursa"]
+[ext_resource type="Texture2D" uid="uid://dyjcse7cbjhyc" path="res://enemy/effects/blood_squirt_big0003.png" id="4_huic4"]
+[ext_resource type="Texture2D" uid="uid://dsjsakgbv0nty" path="res://enemy/effects/blood_squirt_big0004.png" id="5_kthoj"]
+[ext_resource type="Script" path="res://effects/effect.gd" id="6_rugf0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d66se"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_14qb2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uojjf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_kursa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_huic4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_kthoj")
+}],
+"loop": false,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="BloodSquirt" type="AnimatedSprite2D" node_paths=PackedStringArray("node_to_destroy")]
+sprite_frames = SubResource("SpriteFrames_d66se")
+autoplay = "default"
+script = ExtResource("6_rugf0")
+node_to_destroy = NodePath(".")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

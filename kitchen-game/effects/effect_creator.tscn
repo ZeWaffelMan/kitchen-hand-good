@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://buxvaqdtcf2ck"]
+
+[ext_resource type="Script" path="res://effects/effect_creator.gd" id="1_wnpqu"]
+
+[node name="EffectCreator" type="Node"]
+script = ExtResource("1_wnpqu")

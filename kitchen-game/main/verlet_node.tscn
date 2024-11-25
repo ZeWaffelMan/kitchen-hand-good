@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://i2aorjwt2gev"]
+
+[ext_resource type="Script" path="res://main/verlet_node.gd" id="1_yamf3"]
+
+[node name="VerletNode" type="Node2D"]
+script = ExtResource("1_yamf3")

@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://dffxclsrq3vsb"]
+
+[ext_resource type="PackedScene" uid="uid://ccewotvxo4pxr" path="res://enemy/enemy.tscn" id="1_1ybaj"]
+[ext_resource type="Script" path="res://launch_baby_peach.gd" id="2_kifn3"]
+[ext_resource type="Shader" path="res://main/flash.gdshader" id="3_x3tf4"]
+[ext_resource type="PackedScene" uid="uid://btxiylg0mia14" path="res://player_detection.tscn" id="4_g5cbr"]
+[ext_resource type="Texture2D" uid="uid://bsj5ua6le431v" path="res://environment/circle.png" id="4_yrxne"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_33ix3"]
+resource_local_to_scene = true
+shader = ExtResource("3_x3tf4")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/alpha = 1.0
+shader_parameter/active = false
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q3pxo"]
+radius = 65.123
+
+[node name="BabyPeach" instance=ExtResource("1_1ybaj")]
+
+[node name="LaunchBabyPeach" type="Node" parent="." index="0" node_paths=PackedStringArray("enemy_health", "head", "body_sprites", "speed_box", "player_detection")]
+script = ExtResource("2_kifn3")
+enemy_health = NodePath("../EnemyHealth")
+head = NodePath("../Head")
+body_sprites = NodePath("../Head/BodyHolder/BodySprites")
+speed_box = NodePath("../Head/SpeedDamageHurtBox")
+player_detection = NodePath("../Head/PlayerDetection")
+
+[node name="Wait" parent="StateMachine" index="0"]
+next_state = "none"
+
+[node name="Rest" parent="StateMachine" index="1"]
+next_state = "none"
+
+[node name="Head" parent="." index="12"]
+material = SubResource("ShaderMaterial_33ix3")
+is_only_ragdoll = true
+
+[node name="PlayerDetection" parent="Head" index="0" instance=ExtResource("4_g5cbr")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head/PlayerDetection" index="0"]
+shape = SubResource("CircleShape2D_q3pxo")
+debug_color = Color(0.964706, 0, 0.482353, 0.188235)
+
+[node name="Head" parent="Head/BodyHolder/BodySprites/HeadHolder" index="0"]
+texture = ExtResource("4_yrxne")

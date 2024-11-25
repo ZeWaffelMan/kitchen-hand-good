@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmqpg03naiyd1"]
+
+[ext_resource type="Script" path="res://enemy/effects/blood.gd" id="1_ewjqa"]
+[ext_resource type="PackedScene" uid="uid://cam1lmmbn0ia4" path="res://blood_particle.tscn" id="2_aekkf"]
+[ext_resource type="Script" path="res://effects/effect.gd" id="3_7rhen"]
+
+[node name="Blood" type="Node2D"]
+script = ExtResource("1_ewjqa")
+blood_particle = ExtResource("2_aekkf")
+
+[node name="Destroy" type="Node" parent="." node_paths=PackedStringArray("node_to_destroy")]
+script = ExtResource("3_7rhen")
+has_destroy_time = true
+max_destroy_time = 2.0
+node_to_destroy = NodePath("..")
