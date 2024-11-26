@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://cwfghs50ucry5"]
+[gd_scene load_steps=13 format=3 uid="uid://cwfghs50ucry5"]
 
 [ext_resource type="PackedScene" uid="uid://ccewotvxo4pxr" path="res://enemy/enemy.tscn" id="1_oicjm"]
 [ext_resource type="Shader" path="res://main/flash.gdshader" id="2_37clv"]
 [ext_resource type="Script" path="res://enemy/enemy_types/banana/banana_walk.gd" id="2_bkqob"]
 [ext_resource type="Script" path="res://enemy/enemy_types/banana/banana_launch.gd" id="3_41haj"]
 [ext_resource type="PackedScene" uid="uid://b0phrf1ujagw2" path="res://enemy/enemy_types/banana/banana_chunks.tscn" id="4_i4dn8"]
+[ext_resource type="PackedScene" uid="uid://d4n04182ffevt" path="res://enemy/enemy_types/banana/banana_peel.tscn" id="4_xxlge"]
 [ext_resource type="PackedScene" uid="uid://btxiylg0mia14" path="res://player_detection.tscn" id="6_8okia"]
 [ext_resource type="Texture2D" uid="uid://d2lbms1uu46ci" path="res://enemy/enemy_types/banana/editable_banana.png" id="7_6n2xb"]
 [ext_resource type="Texture2D" uid="uid://faft8ea6rkir" path="res://enemy/enemy_types/banana/banana_peel.png" id="8_8k4om"]
@@ -17,7 +18,11 @@ shader_parameter/alpha = 1.0
 shader_parameter/active = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0q3e8"]
-size = Vector2(1340, 2422)
+size = Vector2(865, 854)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ligdi"]
+radius = 26.0
+height = 142.0
 
 [node name="BananaEnemy" instance=ExtResource("1_oicjm")]
 
@@ -25,29 +30,35 @@ size = Vector2(1340, 2422)
 next_state = "Walk"
 
 [node name="Rest" parent="StateMachine" index="1" node_paths=PackedStringArray("player_detection")]
-next_state = "LaunchSplit"
+next_state = "Walk"
 does_switch_if_player = true
 player_detection = NodePath("../../Head/PlayerDetection")
 
-[node name="Walk" type="Node" parent="StateMachine" index="2" node_paths=PackedStringArray("movement", "head", "player_detection")]
+[node name="Walk" type="Node" parent="StateMachine" index="2" node_paths=PackedStringArray("enemy", "movement", "head", "player_detection")]
 script = ExtResource("2_bkqob")
+enemy = NodePath("../..")
 movement = NodePath("../../Movement")
 head = NodePath("../../Head")
 player_detection = NodePath("../../Head/PlayerDetection")
 
-[node name="LaunchSplit" type="Node" parent="StateMachine" index="3" node_paths=PackedStringArray("movement", "head", "health", "peel")]
+[node name="LaunchSplit" type="Node" parent="StateMachine" index="3" node_paths=PackedStringArray("enemy", "movement", "head", "health", "peel")]
 script = ExtResource("3_41haj")
+enemy = NodePath("../..")
 movement = NodePath("../../Movement")
 head = NodePath("../../Head")
 health = NodePath("../../EnemyHealth")
+peel_to_spawn = ExtResource("4_xxlge")
 peel = NodePath("../../Head/BodyHolder/BodySprites/HeadHolder/Head/Peel")
 chunks = ExtResource("4_i4dn8")
+
+[node name="EnemyJuiceColor" parent="." index="6"]
+self_modulate = Color(1, 0.945098, 0.654902, 1)
 
 [node name="Head" parent="." index="13"]
 material = SubResource("ShaderMaterial_5ovcy")
 
 [node name="PlayerDetection" parent="Head" index="0" instance=ExtResource("6_8okia")]
-position = Vector2(0, -1314)
+position = Vector2(0, -600)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Head/PlayerDetection" index="0"]
 shape = SubResource("RectangleShape2D_0q3e8")
@@ -85,13 +96,17 @@ position = Vector2(-41, 1)
 modulate = Color(0.286275, 0.243137, 0.164706, 1)
 
 [node name="FootHolder" parent="Head/BodyHolder/BodySprites" index="3"]
-position = Vector2(28, 54)
+position = Vector2(14, 53)
 
 [node name="EnemyFoot" parent="Head/BodyHolder/BodySprites/FootHolder" index="0"]
 modulate = Color(0.286275, 0.243137, 0.164706, 1)
 
 [node name="FootHolder2" parent="Head/BodyHolder/BodySprites" index="4"]
-position = Vector2(-15, 54)
+position = Vector2(-23, 51)
 
 [node name="EnemyFoot2" parent="Head/BodyHolder/BodySprites/FootHolder2" index="0"]
 modulate = Color(0.286275, 0.243137, 0.164706, 1)
+
+[node name="CollisionShape2D" parent="Head" index="7"]
+position = Vector2(-6, -24)
+shape = SubResource("CapsuleShape2D_ligdi")

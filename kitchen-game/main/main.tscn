@@ -210,7 +210,7 @@ max_destroy_spawners_timer = 20.0
 position = Vector2(220, -660)
 
 [node name="Background" type="Sprite2D" parent="World/Level1"]
-modulate = Color(0.907941, 0.907942, 0.907942, 1)
+modulate = Color(0.925353, 0.925353, 0.925352, 1)
 position = Vector2(959.5, 525.5)
 scale = Vector2(45.2757, 26.5017)
 texture = ExtResource("1_avalh")

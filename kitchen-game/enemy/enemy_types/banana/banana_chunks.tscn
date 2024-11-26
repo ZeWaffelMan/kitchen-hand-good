@@ -1,19 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://b0phrf1ujagw2"]
+[gd_scene load_steps=7 format=3 uid="uid://b0phrf1ujagw2"]
 
 [ext_resource type="Script" path="res://shotgun.gd" id="1_h44mp"]
 [ext_resource type="Script" path="res://main/hazard.gd" id="2_p6ng5"]
-[ext_resource type="Texture2D" uid="uid://bsj5ua6le431v" path="res://environment/circle.png" id="3_w1aw6"]
+[ext_resource type="Texture2D" uid="uid://wnjmrg1jegtx" path="res://enemy/enemy_types/banana/banana_chunk_blade.png" id="3_r7i3u"]
+[ext_resource type="Texture2D" uid="uid://yuv1w8fmt73f" path="res://enemy/enemy_types/banana/banana_chunk.png" id="4_ekm5h"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lb31i"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a8eqm"]
-radius = 22.8035
+radius = 32.0
 
 [node name="BananaChunks" type="Node2D" node_paths=PackedStringArray("bullets_to_spawn")]
 script = ExtResource("1_h44mp")
-bullets_to_spawn = [NodePath("Chunk")]
+bullets_to_spawn = [NodePath("Chunk"), NodePath("Chunk2"), NodePath("Chunk3"), NodePath("Chunk4"), NodePath("Chunk5")]
 
 [node name="Chunk" type="RigidBody2D" parent="."]
+modulate = Color(0.93845, 0.93845, 0.93845, 1)
 mass = 3.0
 gravity_scale = 5.0
 
@@ -21,18 +23,218 @@ gravity_scale = 5.0
 shape = SubResource("CircleShape2D_lb31i")
 disabled = true
 
-[node name="Hazard" type="Area2D" parent="Chunk"]
+[node name="Hazard" type="Area2D" parent="Chunk" node_paths=PackedStringArray("node_to_destroy")]
 collision_layer = 32
 collision_mask = 16
 script = ExtResource("2_p6ng5")
+node_to_destroy = NodePath("..")
+destroy_when_hit = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Chunk/Hazard"]
 shape = SubResource("CircleShape2D_a8eqm")
-debug_color = Color(0.998516, 0.011134, 0, 0.207843)
+debug_color = Color(1, 0.0117647, 0, 0.0235294)
+
+[node name="BananaChunkBlade3" type="Sprite2D" parent="Chunk"]
+position = Vector2(-15, 23)
+rotation = 3.35397
+texture = ExtResource("3_r7i3u")
+
+[node name="BananaChunkBlade4" type="Sprite2D" parent="Chunk"]
+position = Vector2(-23, -18)
+rotation = 5.01375
+texture = ExtResource("3_r7i3u")
+
+[node name="BananaChunkBlade5" type="Sprite2D" parent="Chunk"]
+position = Vector2(26, 19)
+rotation = 8.05049
+texture = ExtResource("3_r7i3u")
 
 [node name="Sprite2D" type="Sprite2D" parent="Chunk"]
-modulate = Color(0.80565, 0.63224, 0.482886, 1)
-scale = Vector2(0.6, 0.6)
-texture = ExtResource("3_w1aw6")
+texture = ExtResource("4_ekm5h")
+
+[node name="BananaChunkBlade" type="Sprite2D" parent="Chunk"]
+position = Vector2(15, -17)
+rotation = 0.213686
+texture = ExtResource("3_r7i3u")
+
+[node name="Chunk2" type="RigidBody2D" parent="."]
+modulate = Color(0.93845, 0.93845, 0.93845, 1)
+rotation = 0.977384
+mass = 3.0
+gravity_scale = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chunk2"]
+shape = SubResource("CircleShape2D_lb31i")
+disabled = true
+
+[node name="Hazard" type="Area2D" parent="Chunk2" node_paths=PackedStringArray("node_to_destroy")]
+collision_layer = 32
+collision_mask = 16
+script = ExtResource("2_p6ng5")
+node_to_destroy = NodePath("..")
+destroy_when_hit = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chunk2/Hazard"]
+shape = SubResource("CircleShape2D_a8eqm")
+debug_color = Color(1, 0.0117647, 0, 0.0235294)
+
+[node name="BananaChunkBlade3" type="Sprite2D" parent="Chunk2"]
+position = Vector2(-15, 23)
+rotation = 3.35397
+texture = ExtResource("3_r7i3u")
+
+[node name="BananaChunkBlade4" type="Sprite2D" parent="Chunk2"]
+position = Vector2(-23, -18)
+rotation = 5.01375
+texture = ExtResource("3_r7i3u")
+
+[node name="BananaChunkBlade5" type="Sprite2D" parent="Chunk2"]
+position = Vector2(26, 19)
+rotation = 8.05049
+texture = ExtResource("3_r7i3u")
+
+[node name="Sprite2D" type="Sprite2D" parent="Chunk2"]
+texture = ExtResource("4_ekm5h")
+
+[node name="BananaChunkBlade" type="Sprite2D" parent="Chunk2"]
+position = Vector2(15, -17)
+rotation = 0.213686
+texture = ExtResource("3_r7i3u")
+
+[node name="Chunk3" type="RigidBody2D" parent="."]
+modulate = Color(0.93845, 0.93845, 0.93845, 1)
+rotation = 0.733038
+mass = 3.0
+gravity_scale = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chunk3"]
+shape = SubResource("CircleShape2D_lb31i")
+disabled = true
+
+[node name="Hazard" type="Area2D" parent="Chunk3" node_paths=PackedStringArray("node_to_destroy")]
+collision_layer = 32
+collision_mask = 16
+script = ExtResource("2_p6ng5")
+node_to_destroy = NodePath("..")
+destroy_when_hit = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chunk3/Hazard"]
+shape = SubResource("CircleShape2D_a8eqm")
+debug_color = Color(1, 0.0117647, 0, 0.0235294)
+
+[node name="BananaChunkBlade3" type="Sprite2D" parent="Chunk3"]
+position = Vector2(-15, 23)
+rotation = 3.35397
+texture = ExtResource("3_r7i3u")
+
+[node name="BananaChunkBlade4" type="Sprite2D" parent="Chunk3"]
+position = Vector2(-23, -18)
+rotation = 5.01375
+texture = ExtResource("3_r7i3u")
+
+[node name="BananaChunkBlade5" type="Sprite2D" parent="Chunk3"]
+position = Vector2(26, 19)
+rotation = 8.05049
+texture = ExtResource("3_r7i3u")
+
+[node name="Sprite2D" type="Sprite2D" parent="Chunk3"]
+texture = ExtResource("4_ekm5h")
+
+[node name="BananaChunkBlade" type="Sprite2D" parent="Chunk3"]
+position = Vector2(15, -17)
+rotation = 0.213686
+texture = ExtResource("3_r7i3u")
+
+[node name="Chunk4" type="RigidBody2D" parent="."]
+modulate = Color(0.93845, 0.93845, 0.93845, 1)
+rotation = 0.314159
+mass = 3.0
+gravity_scale = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chunk4"]
+shape = SubResource("CircleShape2D_lb31i")
+disabled = true
+
+[node name="Hazard" type="Area2D" parent="Chunk4" node_paths=PackedStringArray("node_to_destroy")]
+collision_layer = 32
+collision_mask = 16
+script = ExtResource("2_p6ng5")
+node_to_destroy = NodePath("..")
+destroy_when_hit = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chunk4/Hazard"]
+shape = SubResource("CircleShape2D_a8eqm")
+debug_color = Color(1, 0.0117647, 0, 0.0235294)
+
+[node name="BananaChunkBlade3" type="Sprite2D" parent="Chunk4"]
+position = Vector2(-15, 23)
+rotation = 3.35397
+texture = ExtResource("3_r7i3u")
+
+[node name="BananaChunkBlade4" type="Sprite2D" parent="Chunk4"]
+position = Vector2(-23, -18)
+rotation = 5.01375
+texture = ExtResource("3_r7i3u")
+
+[node name="BananaChunkBlade5" type="Sprite2D" parent="Chunk4"]
+position = Vector2(26, 19)
+rotation = 8.05049
+texture = ExtResource("3_r7i3u")
+
+[node name="Sprite2D" type="Sprite2D" parent="Chunk4"]
+texture = ExtResource("4_ekm5h")
+
+[node name="BananaChunkBlade" type="Sprite2D" parent="Chunk4"]
+position = Vector2(15, -17)
+rotation = 0.213686
+texture = ExtResource("3_r7i3u")
+
+[node name="Chunk5" type="RigidBody2D" parent="."]
+modulate = Color(0.93845, 0.93845, 0.93845, 1)
+rotation = 1.25664
+mass = 3.0
+gravity_scale = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chunk5"]
+shape = SubResource("CircleShape2D_lb31i")
+disabled = true
+
+[node name="Hazard" type="Area2D" parent="Chunk5" node_paths=PackedStringArray("node_to_destroy")]
+collision_layer = 32
+collision_mask = 16
+script = ExtResource("2_p6ng5")
+node_to_destroy = NodePath("..")
+destroy_when_hit = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chunk5/Hazard"]
+shape = SubResource("CircleShape2D_a8eqm")
+debug_color = Color(1, 0.0117647, 0, 0.0235294)
+
+[node name="BananaChunkBlade3" type="Sprite2D" parent="Chunk5"]
+position = Vector2(-15, 23)
+rotation = 3.35397
+texture = ExtResource("3_r7i3u")
+
+[node name="BananaChunkBlade4" type="Sprite2D" parent="Chunk5"]
+position = Vector2(-23, -18)
+rotation = 5.01375
+texture = ExtResource("3_r7i3u")
+
+[node name="BananaChunkBlade5" type="Sprite2D" parent="Chunk5"]
+position = Vector2(26, 19)
+rotation = 8.05049
+texture = ExtResource("3_r7i3u")
+
+[node name="Sprite2D" type="Sprite2D" parent="Chunk5"]
+texture = ExtResource("4_ekm5h")
+
+[node name="BananaChunkBlade" type="Sprite2D" parent="Chunk5"]
+position = Vector2(15, -17)
+rotation = 0.213686
+texture = ExtResource("3_r7i3u")
 
 [connection signal="area_entered" from="Chunk/Hazard" to="Chunk/Hazard" method="_on_area_entered"]
+[connection signal="area_entered" from="Chunk2/Hazard" to="Chunk2/Hazard" method="_on_area_entered"]
+[connection signal="area_entered" from="Chunk3/Hazard" to="Chunk3/Hazard" method="_on_area_entered"]
+[connection signal="area_entered" from="Chunk4/Hazard" to="Chunk4/Hazard" method="_on_area_entered"]
+[connection signal="area_entered" from="Chunk5/Hazard" to="Chunk5/Hazard" method="_on_area_entered"]

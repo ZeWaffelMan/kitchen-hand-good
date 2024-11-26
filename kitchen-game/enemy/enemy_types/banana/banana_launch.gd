@@ -1,6 +1,7 @@
 extends State
 
 
+@export var enemy: Enemy
 @export var movement: EnemyMovement
 
 @export var launch_force: float = 15000.0
@@ -9,6 +10,8 @@ extends State
 
 @export var max_time_until_split: float = 0.5
 @onready var time_until_split: float = max_time_until_split
+
+@export var peel_to_spawn: Resource
 @export var peel: Sprite2D
 
 @export var chunks: Resource
@@ -16,6 +19,7 @@ extends State
 
 func enter_state() -> void:
 	movement.movement_animation_player.play("RESET")
+	enemy.face_animation_player.play("toungue_out")
 	launch()
 
 
@@ -36,6 +40,8 @@ func physics_update_state(delta) -> void:
 
 func launch() -> void:
 	print("launch")
+	EffectCreator.create_effect(peel_to_spawn, "ffffff")
+	EffectCreator.set_effect_position(peel.global_position)
 	movement.squash_animation_player.play("squash")
 	peel.visible = false
 	
