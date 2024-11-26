@@ -1,6 +1,6 @@
 extends Node2D
 
-
+var test
 #func add_new_player(player_id, number, joined_with_mouse) -> void:
 	#var new_player: Player = player.instantiate()
 	#get_tree().current_scene.add_child(new_player)
