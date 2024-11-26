@@ -15,12 +15,11 @@ class_name HandShockWave
 
 @export var shock_wave_effect: Resource
 @export var gradient: Node2D
-@onready var player_color = gradient.modulate
 
 
 func enter_state() -> void:
 	shockwave(shock_wave_force)
-	EffectCreator.create_effect(shock_wave_effect, player_color)
+	EffectCreator.create_effect(shock_wave_effect, gradient.modulate)
 	EffectCreator.set_effect_position(gradient.global_position)
 	CameraShake.add_trama(0.5)
 

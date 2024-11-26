@@ -43,8 +43,7 @@ func change_speed(time_scale: float, duration: float) -> void:
 	Engine.time_scale = 1.0
 
 
-func hit_stop(duration: float, time_scale: float) -> void:
-	time_scale = clampf(time_scale, 0.1, 2.0)
-	Engine.time_scale = time_scale
+func hit_stop(duration: float) -> void:
+	get_tree().paused = true
 	await get_tree().create_timer(duration, true, false, true).timeout
-	Engine.time_scale = 1.0
+	get_tree().paused = false

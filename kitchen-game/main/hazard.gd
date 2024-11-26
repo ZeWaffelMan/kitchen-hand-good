@@ -2,6 +2,8 @@ extends Area2D
 class_name Hazard
 
 
+@export var is_auto_kill: bool = false
+
 @export var damage_amount: float = 1.0
 @export var hurt_box_exception: Area2D
 @export var node_to_destroy: Node2D
@@ -21,6 +23,8 @@ func _process(delta: float) -> void:
 					if area != hurt_box_exception or hurt_box_exception == null:
 						if area is EnemyHurtBox and !only_hurt_player:
 							var hurt_box: EnemyHurtBox = area
+							if is_auto_kill:
+								hurt_box.health.kill()
 							hurt_box.damage(damage_amount, self, applies_enemy_hit_force)
 							if destroy_when_hit:
 								if node_to_destroy != null:
@@ -29,6 +33,8 @@ func _process(delta: float) -> void:
 									print_debug("can't find node to destroy")
 						elif area is PlayerHurtBox:
 							var hurt_box: PlayerHurtBox = area
+							if is_auto_kill:
+								area.health.kill()
 							area.damage(damage_amount, self)
 							if destroy_when_hit:
 								if node_to_destroy != null:

@@ -127,7 +127,6 @@ func _process(delta: float) -> void:
 				health.is_invincible = false
 			else:
 				if wall_time_until_death > 0:
-					print(wall_time_until_death)
 					wall_time_until_death -= delta
 				else:
 					health.kill()

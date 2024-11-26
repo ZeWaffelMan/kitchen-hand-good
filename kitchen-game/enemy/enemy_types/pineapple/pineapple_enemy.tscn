@@ -21,12 +21,12 @@ shader_parameter/active = false
 [sub_resource type="CircleShape2D" id="CircleShape2D_fnggh"]
 radius = 627.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_srxmi"]
-radius = 64.0312
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s5td3"]
 radius = 56.0
 height = 142.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_srxmi"]
+radius = 64.0312
 
 [node name="PineappleEnemy" instance=ExtResource("1_eyd8f")]
 
@@ -54,7 +54,6 @@ player_detection = NodePath("../../Head/PlayerDetection")
 storage = NodePath("../../EnemyStorage")
 head = NodePath("../../Head")
 movement = NodePath("../../Movement")
-max_time_until_switch = 0.5
 face_controller = NodePath("../../Head/BodyHolder/BodySprites/FaceController")
 eyes_animation_player = NodePath("../../Head/BodyHolder/BodySprites/BlinkAnimationPlayer")
 mouth_animation_controller = NodePath("../../Head/BodyHolder/BodySprites/MouthAnimationPlayer")
@@ -80,7 +79,7 @@ position = Vector2(0, 20)
 position = Vector2(0, 90)
 scale = Vector2(1.2, 1.2)
 
-[node name="Head" parent="." index="13"]
+[node name="Head" parent="." index="14"]
 material = SubResource("ShaderMaterial_tu1x8")
 
 [node name="PlayerDetection" parent="Head" index="0" instance=ExtResource("5_3iapr")]
@@ -95,7 +94,21 @@ jump_force = 7000.0
 [node name="Stand" parent="Head/HeadStateMachine" index="3"]
 animation_to_play = "toungue_out"
 
-[node name="BodyHolder" parent="Head" index="4"]
+[node name="Hazard" parent="Head" index="6" node_paths=PackedStringArray("hurt_box_exception") instance=ExtResource("7_8843n")]
+position = Vector2(0, 16)
+monitoring = false
+hurt_box_exception = NodePath("../EnemyHurtBox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head/Hazard" index="0"]
+shape = SubResource("CapsuleShape2D_s5td3")
+debug_color = Color(1, 0.407843, 0.419608, 0.0588235)
+
+[node name="Square" parent="Head/Hazard" index="1"]
+modulate = Color(1, 0.321569, 0.321569, 0.113725)
+scale = Vector2(4.69221, 4.69221)
+texture = ExtResource("6_o3wu2")
+
+[node name="BodyHolder" parent="Head" index="7"]
 position = Vector2(-1, 49)
 
 [node name="HeadHolder" parent="Head/BodyHolder/BodySprites" index="0"]
@@ -148,31 +161,17 @@ position = Vector2(-33, 38)
 [node name="EnemyFoot2" parent="Head/BodyHolder/BodySprites/FootHolder2" index="0"]
 modulate = Color(0.319783, 0.22735, 0.134822, 1)
 
-[node name="CollisionShape2D" parent="Head" index="5"]
+[node name="CollisionShape2D" parent="Head" index="8"]
 use_parent_material = true
 shape = SubResource("CircleShape2D_srxmi")
 
-[node name="Hazard" parent="Head" index="6" node_paths=PackedStringArray("hurt_box_exception") instance=ExtResource("7_8843n")]
-position = Vector2(0, 16)
-monitoring = false
-hurt_box_exception = NodePath("../EnemyHurtBox")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Head/Hazard" index="0"]
-shape = SubResource("CapsuleShape2D_s5td3")
-debug_color = Color(1, 0.407843, 0.419608, 0.0588235)
-
-[node name="Square" parent="Head/Hazard" index="1"]
-modulate = Color(1, 0.321569, 0.321569, 0.113725)
-scale = Vector2(4.69221, 4.69221)
-texture = ExtResource("6_o3wu2")
-
-[node name="EnemyHurtBox" parent="Head" index="7"]
+[node name="EnemyHurtBox" parent="Head" index="9"]
 position = Vector2(-1, 49)
 
-[node name="SpeedDamageHurtBox" parent="Head" index="8"]
+[node name="SpeedDamageHurtBox" parent="Head" index="10"]
 position = Vector2(-1, 49)
 
-[node name="ShadowPoint" parent="Head" index="9"]
+[node name="ShadowPoint" parent="Head" index="11"]
 position = Vector2(0, 96)
 
 [editable path="Head/Hazard"]

@@ -2,6 +2,7 @@ extends Node
 class_name PlayerHealth
 
 
+@export var player: Player
 @export var life_sprites: Array[Node2D]
 
 @export var max_health: int = 3
@@ -63,6 +64,7 @@ func kill() -> void:
 		EffectCreator.create_effect(echo_effect, hand_gradient.modulate)
 		EffectCreator.set_effect_position(hand_sprites.global_position)
 		i += 1
+		player.queue_free()
 
 
 func damage(amount: int, area: Node2D) -> void:
@@ -71,13 +73,13 @@ func damage(amount: int, area: Node2D) -> void:
 		var axis = hand.global_position - area.global_position
 		var direction = axis.normalized()
 		hand.apply_impulse(hurt_impulse * direction)
-		CameraShake.hit_stop(0.3, 0.2)
+		CameraShake.change_speed(0.3, 0.4)
 		CameraShake.add_trama(0.6)
 		has_gotten_hurt = true
 		effect_animation_player.play("invincibility")
 		is_invincible = true
-		health -= amount
 		
 		EffectCreator.create_effect(hurt_effect, hand_gradient.modulate)
 		EffectCreator.set_effect_position(hand_sprites.global_position)
 		EffectCreator.direction_rotate(hand_sprites, area, 0.0)
+		health -= amount

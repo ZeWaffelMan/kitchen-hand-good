@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=3 uid="uid://ccewotvxo4pxr"]
+[gd_scene load_steps=90 format=3 uid="uid://ccewotvxo4pxr"]
 
 [ext_resource type="Script" path="res://enemy/main/enemy_health.gd" id="1_cw4vx"]
 [ext_resource type="Script" path="res://enemy/enemy.gd" id="1_gip5k"]
@@ -28,6 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://yfn0bpdtelax" path="res://enemy/body_parts/enemy_hand.png" id="15_5rehg"]
 [ext_resource type="Script" path="res://enemy/enemy_states/trapped.gd" id="15_gxq37"]
 [ext_resource type="Texture2D" uid="uid://dyuqeo0w8ep35" path="res://enemy/faces/eyes/blink_eye.PNG" id="16_466g7"]
+[ext_resource type="Script" path="res://enemy/enemy_push.gd" id="16_x6dhl"]
 [ext_resource type="PackedScene" uid="uid://btxiylg0mia14" path="res://player_detection.tscn" id="17_c0kkh"]
 [ext_resource type="Script" path="res://enemy/face_controller.gd" id="17_l6qtf"]
 [ext_resource type="Script" path="res://components/object_detection.gd" id="18_e750g"]
@@ -53,7 +54,7 @@ size = Vector2(76, 231)
 size = Vector2(76, 65)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_se7w1"]
-size = Vector2(78.4, 90)
+size = Vector2(78.4, 164)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_873fp"]
 radius = 63.0317
@@ -68,6 +69,8 @@ shader_parameter/active = false
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_u2t3m"]
 friction = 0.1
 bounce = 0.3
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xben5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_swjg4"]
 radius = 11.1803
@@ -1052,7 +1055,6 @@ enemy = NodePath("..")
 head = NodePath("../Head")
 effect_animation_player = NodePath("../EffectAnimationPlayer")
 blood_effect = ExtResource("3_4mpgo")
-max_health = 3.0
 hit_effect = ExtResource("9_yme7h")
 
 [node name="LookingForGround" type="Node2D" parent="."]
@@ -1081,7 +1083,7 @@ debug_color = Color(4.81307e-07, 0.612491, 0.621388, 0.42)
 collision_mask = 64
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LookingForGround/PlatformCheck"]
-position = Vector2(0, 74)
+position = Vector2(0, 111)
 shape = SubResource("RectangleShape2D_se7w1")
 debug_color = Color(4.28364e-06, 0.637208, 0.395067, 0.42)
 
@@ -1111,6 +1113,12 @@ modulate = Color(1, 1, 1, 0.509804)
 position = Vector2(0, 52)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("22_4qbt1")
+
+[node name="EnemyPush" type="Node" parent="." node_paths=PackedStringArray("head", "enemy_push_check", "enemy_exception")]
+script = ExtResource("16_x6dhl")
+head = NodePath("../Head")
+enemy_push_check = NodePath("../Head/EnemyPushCheck")
+enemy_exception = NodePath("../Head")
 
 [node name="Head" type="RigidBody2D" parent="." node_paths=PackedStringArray("big_player_detection", "rope", "anchor_point", "body_sprites_holder", "enemy_hurt_box", "speed_hurt_box", "ground_check", "platform_check", "inside_wall_check", "body_sprites", "enemy", "head", "health", "ragdoll_state", "movement", "rebalance_state", "shadow", "platform", "shadow_point", "find_bounce_raycast", "bounce_point", "squash_animation_player", "stand_ground_check", "looking_for_ground_nodes", "inside_wall_check_2")]
 material = SubResource("ShaderMaterial_gobm4")
@@ -1148,6 +1156,14 @@ squash_magnitude_threshold = 1200.0
 stand_ground_check = NodePath("../LookingForGround/StandGroundCheck")
 looking_for_ground_nodes = NodePath("../LookingForGround")
 inside_wall_check_2 = NodePath("InsideWallCheck2")
+
+[node name="EnemyPushCheck" type="Area2D" parent="Head"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("18_e750g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head/EnemyPushCheck"]
+shape = SubResource("CircleShape2D_xben5")
 
 [node name="InsideWallCheck2" type="Area2D" parent="Head"]
 z_index = 3

@@ -570,9 +570,10 @@ this_player_box = NodePath("../../Hand/PlayerFindBox")
 shock_wave_effect = ExtResource("18_awneo")
 gradient = NodePath("../../Hand/HandSprites/HandStats/Gradiant")
 
-[node name="PlayerHealth" type="Node" parent="." node_paths=PackedStringArray("life_sprites", "effect_animation_player", "hand", "hand_gradient", "hand_sprites")]
+[node name="PlayerHealth" type="Node" parent="." node_paths=PackedStringArray("player", "life_sprites", "effect_animation_player", "hand", "hand_gradient", "hand_sprites")]
 script = ExtResource("6_gd46d")
-life_sprites = [NodePath("../Hand/HandSprites/HandStats/Gradiant/HandMarks/Life3"), NodePath("../Hand/HandSprites/HandStats/Gradiant/HandMarks/Life2"), NodePath("../Hand/HandSprites/HandStats/Gradiant/HandMarks/Life")]
+player = NodePath("..")
+life_sprites = [NodePath("../Hand/HandSprites/HandStats/Gradiant/HandMarks/Life2"), NodePath("../Hand/HandSprites/HandStats/Gradiant/HandMarks/Life"), NodePath("../Hand/HandSprites/HandStats/Gradiant/HandMarks/Life3")]
 effect_animation_player = NodePath("../EffectAnimationPlayer")
 hand = NodePath("../Hand")
 hand_gradient = NodePath("../Hand/HandSprites/HandStats/Gradiant")

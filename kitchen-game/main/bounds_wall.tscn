@@ -2,7 +2,7 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yg2ap"]
 resource_local_to_scene = true
-size = Vector2(6185, 630.992)
+size = Vector2(27243, 5001)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dyihf"]
 resource_local_to_scene = true
@@ -17,9 +17,9 @@ collision_layer = 8192
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KeepBoundsWall"]
-position = Vector2(-1.16415e-10, -64.5041)
+position = Vector2(-164.516, 2120.5)
 shape = SubResource("RectangleShape2D_yg2ap")
-debug_color = Color(0.86503, 0.311299, 0.457477, 0.42)
+debug_color = Color(0.94, 0.55178, 0.3854, 0.0431373)
 
 [node name="Wall" type="StaticBody2D" parent="."]
 rotation = 1.57079

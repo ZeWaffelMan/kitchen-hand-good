@@ -15,7 +15,7 @@ class_name EnemyHealth
 var juice_color
 
 @export_group("Health")
-@export var max_health: float
+@export var max_health: float = 2.0
 @onready var health: float = max_health:
 	set(value):
 		blood()

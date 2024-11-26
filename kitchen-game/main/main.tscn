@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://b18jghfgdrfrf"]
+[gd_scene load_steps=38 format=3 uid="uid://b18jghfgdrfrf"]
 
 [ext_resource type="Texture2D" uid="uid://c2uo5aw8kd330" path="res://environment/square.png" id="1_avalh"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_emppk"]
@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://kg6h4tnt75ni" path="res://enemy/pineapple_spawner.tscn" id="17_r3k14"]
 [ext_resource type="PackedScene" uid="uid://85c7kmh5sa64" path="res://main/bounds_wall.tscn" id="20_43wd5"]
 [ext_resource type="Texture2D" uid="uid://dyxrt66c4xuwq" path="res://Screenshot 2024-11-22 172431.png" id="24_3w4uc"]
+[ext_resource type="PackedScene" uid="uid://dl74or3yeb5ly" path="res://main/hazard.tscn" id="26_cm7ic"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xsd7k"]
 size = Vector2(400, 400)
@@ -53,14 +54,20 @@ size = Vector2(182.897, 57.3439)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o7mcj"]
 size = Vector2(356, 176)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sfjl0"]
+size = Vector2(3830, 1666)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vjoqm"]
+size = Vector2(11783, 11109)
+
 [node name="Main" type="Node2D"]
 script = ExtResource("1_emppk")
 
-[node name="PauseMenu" parent="." instance=ExtResource("2_77jcd")]
-process_mode = 2
-
 [node name="GameStats" type="Node" parent="."]
 script = ExtResource("2_uli3e")
+
+[node name="PauseMenu" parent="." instance=ExtResource("2_77jcd")]
+process_mode = 2
 
 [node name="World" type="Node2D" parent="."]
 script = ExtResource("2_h2c5a")
@@ -163,9 +170,9 @@ enemy_spawn_points = [NodePath("SpawnPointPlatform"), NodePath("SpawnPointPlatfo
 enemy_air_spawn_point_1 = NodePath("RangeSpawnPoints/TopLeftSpawn")
 enemy_air_spawn_point_2 = NodePath("RangeSpawnPoints/TopRightSpawn")
 enemy_spawners_to_spawn = Array[Resource]([ExtResource("12_cs1vm"), ExtResource("17_r3k14"), ExtResource("16_2cem5"), ExtResource("17_qell4"), ExtResource("13_05g0p")])
-max_next_spawner_time = 24.0
-min_next_spawner_time = 24.0
-max_destroy_spawners_timer = 24.0
+max_next_spawner_time = 12.0
+min_next_spawner_time = 12.0
+max_destroy_spawners_timer = 20.0
 
 [node name="SecretIngredientSpawn" type="Node2D" parent="World/Level1"]
 position = Vector2(220, -660)
@@ -341,6 +348,15 @@ position = Vector2(3005, 1491)
 [node name="SpawnPointPlatform5" type="Node2D" parent="World/Level1"]
 position = Vector2(-1087, 1495)
 
+[node name="Arena" type="Area2D" parent="World/Level1"]
+collision_layer = 16384
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Level1/Arena"]
+position = Vector2(960, 316)
+shape = SubResource("RectangleShape2D_sfjl0")
+debug_color = Color(0.3698, 0.52503, 0.86, 0.0705882)
+
 [node name="PlayerManager" type="Node2D" parent="World"]
 position = Vector2(961, 520)
 script = ExtResource("2_ccx1v")
@@ -374,6 +390,42 @@ visible = false
 position = Vector2(1011, 677)
 scale = Vector2(3.47608, 3.47608)
 texture = ExtResource("24_3w4uc")
+
+[node name="Hazard" parent="World" instance=ExtResource("26_cm7ic")]
+position = Vector2(-207, 682)
+damage_amount = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Hazard"]
+position = Vector2(-7152, 749)
+shape = SubResource("RectangleShape2D_vjoqm")
+debug_color = Color(1, 0.03, 0.03, 0.0588235)
+
+[node name="Hazard2" parent="World" instance=ExtResource("26_cm7ic")]
+position = Vector2(7989, 6931)
+damage_amount = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Hazard2"]
+position = Vector2(-7152, 749)
+shape = SubResource("RectangleShape2D_vjoqm")
+debug_color = Color(1, 0.03, 0.03, 0.0588235)
+
+[node name="Hazard3" parent="World" instance=ExtResource("26_cm7ic")]
+position = Vector2(16420, -363)
+damage_amount = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Hazard3"]
+position = Vector2(-7152, 749)
+shape = SubResource("RectangleShape2D_vjoqm")
+debug_color = Color(1, 0.03, 0.03, 0.0588235)
+
+[node name="Hazard4" parent="World" instance=ExtResource("26_cm7ic")]
+position = Vector2(9238, -7351)
+damage_amount = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Hazard4"]
+position = Vector2(-7152, 749)
+shape = SubResource("RectangleShape2D_vjoqm")
+debug_color = Color(1, 0.03, 0.03, 0.0588235)
 
 [editable path="World/LevelManager"]
 [editable path="World/Level1/Area/Ground"]
