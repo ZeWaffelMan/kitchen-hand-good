@@ -48,6 +48,9 @@ face_animation_player = NodePath("../../Head/BodyHolder/BodySprites/MouthAnimati
 squash_animation_player = NodePath("../../SquashAnimationPlayer")
 eyes_animation_player = NodePath("../../Head/BodyHolder/BodySprites/BlinkAnimationPlayer")
 
+[node name="EnemyJuiceColor" parent="." index="6"]
+self_modulate = Color(1, 0.592157, 0.435294, 1)
+
 [node name="Head" parent="." index="12"]
 material = SubResource("ShaderMaterial_cb3cm")
 is_only_ragdoll = true

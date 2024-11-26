@@ -105,7 +105,7 @@ _data = {
 size = Vector2(154, 259)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_161fh"]
-size = Vector2(250, 362.25)
+size = Vector2(275, 386.125)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_10sw7"]
 resource_local_to_scene = true
@@ -503,6 +503,7 @@ _data = {
 }
 
 [node name="Player" type="Node2D" node_paths=PackedStringArray("grab_throw_state", "player_type_animation_player")]
+process_mode = 3
 z_index = 8
 position = Vector2(992, 571)
 script = ExtResource("1_ar7mc")
@@ -719,14 +720,14 @@ libraries = {
 "": SubResource("AnimationLibrary_8t0pt")
 }
 
-[node name="TopHandBounds" type="Node2D" parent="."]
-position = Vector2(1920, -1080)
-
-[node name="BottomHandBounds" type="Node2D" parent="."]
-position = Vector2(-1920, 1080)
-
 [node name="PlayerTypeAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_2lla4")
 }
 autoplay = "player1"
+
+[node name="TopHandBounds" type="Node2D" parent="."]
+position = Vector2(1850, -1000)
+
+[node name="BottomHandBounds" type="Node2D" parent="."]
+position = Vector2(-1850, 1000)

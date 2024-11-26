@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://btwx3ajq3klfp"]
+
+[ext_resource type="PackedScene" uid="uid://cp8u253qeyfka" path="res://enemy/enemy_spawner.tscn" id="1_q4axv"]
+[ext_resource type="PackedScene" uid="uid://uficjikli4pj" path="res://enemy/enemy_types/mama_peach/mama_peach.tscn" id="2_jlvue"]
+
+[node name="PeachSpawner" instance=ExtResource("1_q4axv")]
+spawn_in_the_air = true
+spawn_on_other = false
+enemy_to_spawn = ExtResource("2_jlvue")

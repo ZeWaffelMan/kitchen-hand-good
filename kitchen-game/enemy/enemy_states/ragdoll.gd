@@ -27,29 +27,39 @@ var rebalance_rotation_threshold: float = 3.0
 @onready var default_head_gravity: float = head.gravity_scale
 @export var platform: StaticBody2D
 
+@export var max_time_to_collide_platform: float = 0.2
+@onready var time_to_collide_platform: float = max_time_to_collide_platform
+
+@export var speed_damage_hurt_box: Area2D
+
 
 func enter_state() -> void:
 	enemy.enemy_state = enemy.EnemyStates.RAGDOLL
-	platform.set_collision_layer_value(7, false)
+	platform.set_collision_layer_value(7, true)
+	head.set_collision_mask_value(7, true)
 	head.gravity_scale = default_head_gravity
 	
 	random_y_distance = randf_range(min_land_distance, max_land_distance)
 	
 	current_time_before_standing = max_time_before_standing
-	
-	# can collide with platform
-	head.set_collision_mask_value(7, true)
 
 
 func exit_state() -> void:
+	platform.set_collision_layer_value(7, false)
+	head.set_collision_mask_value(7, false)
+	speed_damage_hurt_box.set_collision_mask_value(7, false)
 	current_time_before_standing = max_time_before_standing
 	has_set_land_position = false
-	
-	# cant collide with platform
-	head.set_collision_mask_value(7, false)
 
 
 func update_state(delta) -> void:
+	# dont want to get damaged when colliding with ground at first
+	if time_to_collide_platform > 0:
+		time_to_collide_platform -= delta
+	else:
+		speed_damage_hurt_box.set_collision_mask_value(7, false)
+		time_to_collide_platform = max_time_to_collide_platform
+		
 	if head.collides_with_ground:
 		var head_magnitude: float = head.velocity.length()
 		

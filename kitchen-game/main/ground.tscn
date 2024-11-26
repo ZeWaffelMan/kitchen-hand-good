@@ -27,6 +27,7 @@ position = Vector2(316, -65.7919)
 shape = SubResource("RectangleShape2D_tikvx")
 
 [node name="EnemyBounds" type="Node2D" parent="."]
+visible = false
 modulate = Color(0.47, 0.6025, 1, 1)
 
 [node name="TopRightBounds" type="Sprite2D" parent="EnemyBounds"]

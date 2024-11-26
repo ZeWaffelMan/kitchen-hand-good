@@ -25,15 +25,14 @@ radius = 1292.6
 
 [node name="Watermelon" instance=ExtResource("1_bmi7l")]
 
-[node name="Movement" parent="." index="0"]
-direction_cannot_be_zero = true
-acceleration = 800000.0
-friction = 0.8
-move_on_y = false
-
 [node name="WatermelonBehavior" type="Node" parent="." index="1" node_paths=PackedStringArray("enemy_rest_state")]
 script = ExtResource("2_40oqt")
 enemy_rest_state = NodePath("../StateMachine/Rest")
+
+[node name="Movement" parent="." index="4"]
+direction_cannot_be_zero = true
+acceleration = 800000.0
+friction = 0.8
 
 [node name="Wait" parent="StateMachine" index="0"]
 next_state = "Walk"
@@ -60,14 +59,14 @@ enemy_movement = NodePath("../../Movement")
 [node name="Shoot" type="Node" parent="StateMachine" index="3"]
 script = ExtResource("4_tjxyr")
 
-[node name="EnemyJuiceColor" parent="." index="4"]
+[node name="EnemyJuiceColor" parent="." index="7"]
 self_modulate = Color(1, 0.329412, 0.286275, 1)
 
 [node name="Shadow" parent="ShadowHolder" index="0"]
 position = Vector2(0, 60)
 scale = Vector2(1.78, 1.1)
 
-[node name="Head" parent="." index="10"]
+[node name="Head" parent="." index="13"]
 material = SubResource("ShaderMaterial_p6lv8")
 mass = 5.0
 
@@ -116,7 +115,7 @@ position = Vector2(-50, 45)
 [node name="EnemyFoot2" parent="Head/BodyHolder/BodySprites/FootHolder2" index="0"]
 modulate = Color(0.168627, 0.168627, 0.168627, 1)
 
-[node name="CollisionShape2D" parent="Head" index="3"]
+[node name="CollisionShape2D" parent="Head" index="5"]
 position = Vector2(0, 13)
 rotation = -1.5708
 shape = SubResource("CapsuleShape2D_s13vl")

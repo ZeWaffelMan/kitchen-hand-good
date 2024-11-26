@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dffxclsrq3vsb"]
+[gd_scene load_steps=10 format=3 uid="uid://dffxclsrq3vsb"]
 
 [ext_resource type="PackedScene" uid="uid://ccewotvxo4pxr" path="res://enemy/enemy.tscn" id="1_1ybaj"]
 [ext_resource type="Script" path="res://launch_baby_peach.gd" id="2_kifn3"]
 [ext_resource type="Shader" path="res://main/flash.gdshader" id="3_x3tf4"]
+[ext_resource type="PackedScene" uid="uid://dl74or3yeb5ly" path="res://main/hazard.tscn" id="4_0vpwv"]
 [ext_resource type="PackedScene" uid="uid://btxiylg0mia14" path="res://player_detection.tscn" id="4_g5cbr"]
 [ext_resource type="Texture2D" uid="uid://dw23w50425xts" path="res://enemy/baby_peach.png" id="5_ha0pp"]
 
@@ -12,6 +13,9 @@ shader = ExtResource("3_x3tf4")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/alpha = 1.0
 shader_parameter/active = false
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vgy1g"]
+radius = 75.0067
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q3pxo"]
 radius = 65.123
@@ -32,11 +36,20 @@ next_state = "none"
 [node name="Rest" parent="StateMachine" index="1"]
 next_state = "none"
 
+[node name="EnemyJuiceColor" parent="." index="7"]
+self_modulate = Color(1, 0.592157, 0.435294, 1)
+
 [node name="Head" parent="." index="13"]
 material = SubResource("ShaderMaterial_33ix3")
 is_only_ragdoll = true
 
-[node name="PlayerDetection" parent="Head" index="0" instance=ExtResource("4_g5cbr")]
+[node name="Hazard" parent="Head" index="0" instance=ExtResource("4_0vpwv")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head/Hazard" index="1"]
+shape = SubResource("CircleShape2D_vgy1g")
+debug_color = Color(0.98, 0, 0.0163331, 0.0980392)
+
+[node name="PlayerDetection" parent="Head" index="1" instance=ExtResource("4_g5cbr")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Head/PlayerDetection" index="0"]
 shape = SubResource("CircleShape2D_q3pxo")
@@ -57,14 +70,26 @@ position = Vector2(1, -2)
 [node name="EyeHolder2" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face" index="2"]
 position = Vector2(1, -2)
 
+[node name="HandHolder" parent="Head/BodyHolder/BodySprites" index="1"]
+position = Vector2(52, -17)
+
 [node name="EnemyHand" parent="Head/BodyHolder/BodySprites/HandHolder" index="0"]
 modulate = Color(1, 0.329412, 0.239216, 1)
+
+[node name="HandHolder2" parent="Head/BodyHolder/BodySprites" index="2"]
+position = Vector2(-47, -17)
 
 [node name="EnemyHand2" parent="Head/BodyHolder/BodySprites/HandHolder2" index="0"]
 modulate = Color(1, 0.329412, 0.239216, 1)
 
+[node name="FootHolder" parent="Head/BodyHolder/BodySprites" index="3"]
+position = Vector2(34, 41)
+
 [node name="EnemyFoot" parent="Head/BodyHolder/BodySprites/FootHolder" index="0"]
 modulate = Color(1, 0.329412, 0.239216, 1)
+
+[node name="FootHolder2" parent="Head/BodyHolder/BodySprites" index="4"]
+position = Vector2(-30, 40)
 
 [node name="EnemyFoot2" parent="Head/BodyHolder/BodySprites/FootHolder2" index="0"]
 modulate = Color(1, 0.329412, 0.239216, 1)

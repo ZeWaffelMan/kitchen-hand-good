@@ -33,7 +33,7 @@ height = 142.0
 [node name="PineappleBehavior" type="Node" parent="." index="0"]
 script = ExtResource("2_d2ecy")
 
-[node name="Movement" parent="." index="3"]
+[node name="Movement" parent="." index="4"]
 acceleration = 80000.0
 
 [node name="Wait" parent="StateMachine" index="0"]
@@ -70,7 +70,7 @@ mouth_animation_player = NodePath("../../Head/BodyHolder/BodySprites/MouthAnimat
 spikes = NodePath("../../Head/BodyHolder/BodySprites/HeadHolder/Head/PineappleSpikes")
 storage = NodePath("../../EnemyStorage")
 
-[node name="EnemyJuiceColor" parent="." index="6"]
+[node name="EnemyJuiceColor" parent="." index="7"]
 self_modulate = Color(1, 0.749836, 0.554323, 1)
 
 [node name="GroundCheck" parent="LookingForGround" index="0"]
@@ -80,7 +80,7 @@ position = Vector2(0, 20)
 position = Vector2(0, 90)
 scale = Vector2(1.2, 1.2)
 
-[node name="Head" parent="." index="12"]
+[node name="Head" parent="." index="13"]
 material = SubResource("ShaderMaterial_tu1x8")
 
 [node name="PlayerDetection" parent="Head" index="0" instance=ExtResource("5_3iapr")]
@@ -95,7 +95,7 @@ jump_force = 7000.0
 [node name="Stand" parent="Head/HeadStateMachine" index="3"]
 animation_to_play = "toungue_out"
 
-[node name="BodyHolder" parent="Head" index="3"]
+[node name="BodyHolder" parent="Head" index="4"]
 position = Vector2(-1, 49)
 
 [node name="HeadHolder" parent="Head/BodyHolder/BodySprites" index="0"]
@@ -148,12 +148,9 @@ position = Vector2(-33, 38)
 [node name="EnemyFoot2" parent="Head/BodyHolder/BodySprites/FootHolder2" index="0"]
 modulate = Color(0.319783, 0.22735, 0.134822, 1)
 
-[node name="CollisionShape2D" parent="Head" index="4"]
+[node name="CollisionShape2D" parent="Head" index="5"]
 use_parent_material = true
 shape = SubResource("CircleShape2D_srxmi")
-
-[node name="EnemyHurtBox" parent="Head" index="5"]
-position = Vector2(-1, 49)
 
 [node name="Hazard" parent="Head" index="6" node_paths=PackedStringArray("hurt_box_exception") instance=ExtResource("7_8843n")]
 position = Vector2(0, 16)
@@ -169,10 +166,13 @@ modulate = Color(1, 0.321569, 0.321569, 0.113725)
 scale = Vector2(4.69221, 4.69221)
 texture = ExtResource("6_o3wu2")
 
-[node name="SpeedDamageHurtBox" parent="Head" index="7"]
+[node name="EnemyHurtBox" parent="Head" index="7"]
 position = Vector2(-1, 49)
 
-[node name="ShadowPoint" parent="Head" index="8"]
+[node name="SpeedDamageHurtBox" parent="Head" index="8"]
+position = Vector2(-1, 49)
+
+[node name="ShadowPoint" parent="Head" index="9"]
 position = Vector2(0, 96)
 
 [editable path="Head/Hazard"]

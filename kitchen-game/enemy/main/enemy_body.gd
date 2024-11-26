@@ -4,7 +4,7 @@ class_name EnemyHead
 
 @export var big_player_detection: PlayerDetection
 @export var launch_into_arena: bool = true
-@export var launch_force: float = 3000.0
+@export var launch_force: float = 6000.0
 
 @export var secret_area_detection: ObjectDetection
 var secret_area: SecretArea
@@ -99,18 +99,11 @@ var can_check_for_wall: bool = false
 
 
 func _ready() -> void:
+	health.is_invincible = true
 	shadow.visible = false
 
 
 func _process(delta: float) -> void:
-	if inside_wall_check.sees_object():
-		can_check_for_wall = true
-	if can_check_for_wall:
-		if !has_checked_for_wall:
-			if !inside_wall_check.sees_object():
-				set_collision_mask_value(1, true)
-				has_checked_for_wall = true
-	
 	if big_player_detection.sees_player():
 		var player = big_player_detection.closest_player()
 		if !has_launched_into_arena:
@@ -119,6 +112,15 @@ func _process(delta: float) -> void:
 				direction = direction.normalized()
 				apply_impulse(direction * launch_force)
 				has_launched_into_arena = true
+	
+	if inside_wall_check.sees_object():
+		can_check_for_wall = true
+	if can_check_for_wall:
+		if !has_checked_for_wall:
+			if !inside_wall_check.sees_object():
+				set_collision_mask_value(1, true)
+				has_checked_for_wall = true
+				health.is_invincible = false
 	
 	bounce_point.global_position.x = global_position.x
 	# find velocity and magnitude

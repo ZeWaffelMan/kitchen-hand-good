@@ -168,6 +168,7 @@ _data = {
 }
 
 [node name="HandEcho" type="Node2D" node_paths=PackedStringArray("hand_type_animation_player")]
+process_mode = 3
 z_index = 2
 script = ExtResource("1_kn54c")
 hand_type_animation_player = NodePath("HandTypeAnimationPlayer")

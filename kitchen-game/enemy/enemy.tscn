@@ -1034,7 +1034,7 @@ self_modulate = Color(1, 0.783547, 0.980002, 1)
 
 [node name="Platform" type="StaticBody2D" parent="."]
 position = Vector2(0, 55)
-collision_layer = 64
+collision_layer = 0
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
@@ -1162,7 +1162,7 @@ debug_color = Color(0.421617, 0.3854, 0.82, 0)
 [node name="HeadStateMachine" parent="Head" node_paths=PackedStringArray("initial_state") instance=ExtResource("5_hq61y")]
 initial_state = NodePath("Ragdoll")
 
-[node name="Ragdoll" type="Node" parent="Head/HeadStateMachine" node_paths=PackedStringArray("enemy", "head", "hurt_box", "ground_check", "platform_check", "land_point", "land_raycast", "stand_ground_check", "platform")]
+[node name="Ragdoll" type="Node" parent="Head/HeadStateMachine" node_paths=PackedStringArray("enemy", "head", "hurt_box", "ground_check", "platform_check", "land_point", "land_raycast", "stand_ground_check", "platform", "speed_damage_hurt_box")]
 script = ExtResource("7_vi2fd")
 enemy = NodePath("../../..")
 head = NodePath("../..")
@@ -1173,6 +1173,7 @@ land_point = NodePath("../../../BouncePlatform")
 land_raycast = NodePath("../../../LookingForGround/LandingRaycast")
 stand_ground_check = NodePath("../../../LookingForGround/StandGroundCheck")
 platform = NodePath("../../../Platform")
+speed_damage_hurt_box = NodePath("../../SpeedDamageHurtBox")
 
 [node name="Grabbed" type="Node" parent="Head/HeadStateMachine" node_paths=PackedStringArray("enemy", "head_collision", "head", "ground_check", "bounce_point", "mouth_animation_player", "movement_animation_player", "shadow")]
 script = ExtResource("6_1gq2t")
@@ -1329,7 +1330,7 @@ debug_color = Color(0.1242, 0.5957, 0.69, 0.227451)
 
 [node name="EnemyHurtBox" type="Area2D" parent="Head" node_paths=PackedStringArray("enemy", "health")]
 collision_layer = 16
-collision_mask = 41
+collision_mask = 32
 script = ExtResource("5_bk282")
 enemy = NodePath("../..")
 health = NodePath("../../EnemyHealth")
@@ -1339,8 +1340,8 @@ shape = SubResource("CircleShape2D_olom2")
 debug_color = Color(0.99, 0, 0.2805, 0.0431373)
 
 [node name="SpeedDamageHurtBox" type="Area2D" parent="Head"]
-collision_layer = 16
-collision_mask = 105
+collision_layer = 0
+collision_mask = 65
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Head/SpeedDamageHurtBox"]
 shape = SubResource("CircleShape2D_olom2")

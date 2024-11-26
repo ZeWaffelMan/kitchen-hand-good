@@ -9,7 +9,7 @@ extends State
 @export var max_shoot_time: float = 2.0
 @onready var shoot_time: float = max_shoot_time
 
-@export var baby_shoot_force: float = 5000.0
+@export var baby_shoot_force: float = 2500.0
 
 @export var fire_point: Node2D
 

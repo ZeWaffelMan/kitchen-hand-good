@@ -1,6 +1,8 @@
 extends Node2D
 
 
+@onready var pause_menu = $PauseMenu
+
 var is_paused: bool = false
 var is_fullscreen: bool = false
 
@@ -13,20 +15,37 @@ func set_settings() -> void:
 	Engine.time_scale = 1.0
 
 
-func _process(delta) -> void:
-	pause_game()
+func _physics_process(delta: float) -> void:
+	if is_paused:
+		if Input.is_action_just_pressed("pause"):
+			unpause()
+	else:
+		if Input.is_action_just_pressed("pause"):
+			pause()
 	if Input.is_action_just_pressed("tab"):
 		epic_fullscreen()
-
-
-func pause_game() -> void:
-	if Input.is_action_just_pressed("pause"):
-		if !is_paused:
-			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-			is_paused = true
-	elif Input.is_action_just_pressed("left_click"):
+	
+	if !is_paused:
+		if Input.is_action_just_pressed("left_click"):
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	else:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		is_paused = false
+
+
+func pause() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	pause_menu.show()
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	is_paused = true
+	get_tree().paused = true
+
+
+func unpause() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	pause_menu.hide()
+	is_paused = false
+	Engine.time_scale = 0
+	get_tree().paused = false
 
 
 func epic_fullscreen() -> void:
