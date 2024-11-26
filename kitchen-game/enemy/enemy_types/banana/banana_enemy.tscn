@@ -1,0 +1,97 @@
+[gd_scene load_steps=11 format=3 uid="uid://cwfghs50ucry5"]
+
+[ext_resource type="PackedScene" uid="uid://ccewotvxo4pxr" path="res://enemy/enemy.tscn" id="1_oicjm"]
+[ext_resource type="Shader" path="res://main/flash.gdshader" id="2_37clv"]
+[ext_resource type="Script" path="res://enemy/enemy_types/banana/banana_walk.gd" id="2_bkqob"]
+[ext_resource type="Script" path="res://enemy/enemy_types/banana/banana_launch.gd" id="3_41haj"]
+[ext_resource type="PackedScene" uid="uid://b0phrf1ujagw2" path="res://enemy/enemy_types/banana/banana_chunks.tscn" id="4_i4dn8"]
+[ext_resource type="PackedScene" uid="uid://btxiylg0mia14" path="res://player_detection.tscn" id="6_8okia"]
+[ext_resource type="Texture2D" uid="uid://d2lbms1uu46ci" path="res://enemy/enemy_types/banana/editable_banana.png" id="7_6n2xb"]
+[ext_resource type="Texture2D" uid="uid://faft8ea6rkir" path="res://enemy/enemy_types/banana/banana_peel.png" id="8_8k4om"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5ovcy"]
+resource_local_to_scene = true
+shader = ExtResource("2_37clv")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/alpha = 1.0
+shader_parameter/active = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0q3e8"]
+size = Vector2(1340, 2422)
+
+[node name="BananaEnemy" instance=ExtResource("1_oicjm")]
+
+[node name="Wait" parent="StateMachine" index="0"]
+next_state = "Walk"
+
+[node name="Rest" parent="StateMachine" index="1" node_paths=PackedStringArray("player_detection")]
+next_state = "LaunchSplit"
+does_switch_if_player = true
+player_detection = NodePath("../../Head/PlayerDetection")
+
+[node name="Walk" type="Node" parent="StateMachine" index="2" node_paths=PackedStringArray("movement", "head", "player_detection")]
+script = ExtResource("2_bkqob")
+movement = NodePath("../../Movement")
+head = NodePath("../../Head")
+player_detection = NodePath("../../Head/PlayerDetection")
+
+[node name="LaunchSplit" type="Node" parent="StateMachine" index="3" node_paths=PackedStringArray("movement", "head", "health", "peel")]
+script = ExtResource("3_41haj")
+movement = NodePath("../../Movement")
+head = NodePath("../../Head")
+health = NodePath("../../EnemyHealth")
+peel = NodePath("../../Head/BodyHolder/BodySprites/HeadHolder/Head/Peel")
+chunks = ExtResource("4_i4dn8")
+
+[node name="Head" parent="." index="13"]
+material = SubResource("ShaderMaterial_5ovcy")
+
+[node name="PlayerDetection" parent="Head" index="0" instance=ExtResource("6_8okia")]
+position = Vector2(0, -1314)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head/PlayerDetection" index="0"]
+shape = SubResource("RectangleShape2D_0q3e8")
+debug_color = Color(0.980392, 0, 0.537255, 0.0941176)
+
+[node name="Head" parent="Head/BodyHolder/BodySprites/HeadHolder" index="0"]
+texture = ExtResource("7_6n2xb")
+
+[node name="Peel" type="Sprite2D" parent="Head/BodyHolder/BodySprites/HeadHolder/Head" index="0"]
+position = Vector2(-8, 30)
+texture = ExtResource("8_8k4om")
+
+[node name="MouthHolder" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face" index="0"]
+position = Vector2(-15, -31)
+scale = Vector2(0.9, 0.9)
+
+[node name="EyeHolder" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face" index="1"]
+position = Vector2(-25, -35)
+scale = Vector2(0.9, 0.9)
+
+[node name="EyeHolder2" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face" index="2"]
+position = Vector2(-6, -34)
+scale = Vector2(0.9, 0.9)
+
+[node name="HandHolder" parent="Head/BodyHolder/BodySprites" index="1"]
+position = Vector2(10, -2)
+
+[node name="EnemyHand" parent="Head/BodyHolder/BodySprites/HandHolder" index="0"]
+modulate = Color(0.286275, 0.243137, 0.164706, 1)
+
+[node name="HandHolder2" parent="Head/BodyHolder/BodySprites" index="2"]
+position = Vector2(-41, 1)
+
+[node name="EnemyHand2" parent="Head/BodyHolder/BodySprites/HandHolder2" index="0"]
+modulate = Color(0.286275, 0.243137, 0.164706, 1)
+
+[node name="FootHolder" parent="Head/BodyHolder/BodySprites" index="3"]
+position = Vector2(28, 54)
+
+[node name="EnemyFoot" parent="Head/BodyHolder/BodySprites/FootHolder" index="0"]
+modulate = Color(0.286275, 0.243137, 0.164706, 1)
+
+[node name="FootHolder2" parent="Head/BodyHolder/BodySprites" index="4"]
+position = Vector2(-15, 54)
+
+[node name="EnemyFoot2" parent="Head/BodyHolder/BodySprites/FootHolder2" index="0"]
+modulate = Color(0.286275, 0.243137, 0.164706, 1)

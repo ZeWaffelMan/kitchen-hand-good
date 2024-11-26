@@ -38,10 +38,9 @@ movement = NodePath("../../Movement")
 movement_animation_player = NodePath("../../MovementAnimationPlayer")
 
 [node name="EnemyHealth" parent="." index="9"]
-max_health = 2.0
 death_hazard = ExtResource("3_sqvs6")
 
-[node name="Head" parent="." index="13"]
+[node name="Head" parent="." index="14"]
 material = SubResource("ShaderMaterial_w1yey")
 collision_mask = 65
 

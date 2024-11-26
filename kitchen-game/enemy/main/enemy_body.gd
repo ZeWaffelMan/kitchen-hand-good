@@ -31,7 +31,6 @@ var player: PlayerHand
 @export var grab_scale_amount: float = 1.3
 @export var body_sprites_holder: Node2D
 @onready var default_size: float = body_sprites_holder.scale.x
-var has_grabbed: bool = false
 
 @export_group("Hit & Hurt Boxes")
 @export var enemy_hurt_box: EnemyHurtBox
@@ -50,7 +49,7 @@ var has_grabbed: bool = false
 @export var movement: EnemyMovement
 
 @export_group("Movement")
-@export var max_speed: float = 20000.0
+@export var max_speed: float = 15000.0
 var velocity: Vector2 = Vector2.ZERO
 @onready var last_position: Vector2 = global_position
 @export var rebalance_state: RebalanceEnemy
@@ -117,19 +116,16 @@ func _process(delta: float) -> void:
 				apply_impulse(direction * launch_force)
 				has_launched_into_arena = true
 	
-	if inside_wall_check_2.sees_object():
-		can_check_for_wall = true
-	if can_check_for_wall:
-		if !has_checked_for_wall:
-			if !inside_wall_check_2.sees_object():
-				set_collision_mask_value(1, true)
-				has_checked_for_wall = true
-				health.is_invincible = false
+	if !has_checked_for_wall:
+		if !inside_wall_check_2.sees_object():
+			set_collision_mask_value(1, true)
+			has_checked_for_wall = true
+			health.is_invincible = false
+		else:
+			if wall_time_until_death > 0:
+				wall_time_until_death -= delta
 			else:
-				if wall_time_until_death > 0:
-					wall_time_until_death -= delta
-				else:
-					health.kill()
+				health.kill()
 	
 	bounce_point.global_position.x = global_position.x
 	# find velocity and magnitude
@@ -184,18 +180,19 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 				if stand_ground_check.sees_object():
 					if head_magnitude > squash_magnitude_threshold:
 						squash_animation_player.play("squash")
+						
+					# when stopped bouncing, set position to ground when hitting the ground
+					if global_position.y >= bounce_point.global_position.y:
+						linear_velocity.y = 0
+						global_position.y = bounce_point.global_position.y
+						apply_impulse(Vector2.UP * velocity.y * floor_bounce)
 					if velocity.y > magnitude_threshold_to_bounce:
 						if platform_check.sees_object():
 							if head_magnitude > enemy.speed_damage_threshold:
 								enemy_hurt_box.damage(1, head, false)
 							if !enemy_hurt_box.health.is_invincible:
 								CameraShake.add_trama(speed_damage_camera_shake_amount)
-							bounce()
-					# when stopped bouncing, set position to ground when hitting the ground
-					if global_position.y >= bounce_point.global_position.y:
-						global_position.y = bounce_point.global_position.y
-						linear_velocity.y = 0
-						apply_impulse(Vector2.UP * velocity.y * floor_bounce)
+						bounce()
 		enemy.EnemyStates.REBALANCE:
 			head.set_collision_mask_value(3, false)
 			head.set_collision_mask_value(7, false)
@@ -232,15 +229,13 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		if stop_swinging_if_grabbed:
 			does_hang = false
 		shadow.visible = false
-		if !has_grabbed:
+		if body_sprites.scale != Vector2(default_size, default_size) * grab_scale_amount:
 			rotation_before_grabbed = global_rotation
 			body_sprites_holder.scale = Vector2(default_size * grab_scale_amount, default_size * grab_scale_amount)
-		has_grabbed = true
 		grab()
 	else:
-		if has_grabbed:
+		if body_sprites.scale != Vector2(default_size, default_size):
 			body_sprites_holder.scale = Vector2(default_size, default_size)
-		has_grabbed = false
 	
 	if linear_velocity.length() > max_speed:
 		linear_velocity = linear_velocity.normalized() * max_speed

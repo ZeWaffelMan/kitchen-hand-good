@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://b0phrf1ujagw2"]
+
+[ext_resource type="Script" path="res://shotgun.gd" id="1_h44mp"]
+[ext_resource type="Script" path="res://main/hazard.gd" id="2_p6ng5"]
+[ext_resource type="Texture2D" uid="uid://bsj5ua6le431v" path="res://environment/circle.png" id="3_w1aw6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lb31i"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a8eqm"]
+radius = 22.8035
+
+[node name="BananaChunks" type="Node2D" node_paths=PackedStringArray("bullets_to_spawn")]
+script = ExtResource("1_h44mp")
+bullets_to_spawn = [NodePath("Chunk")]
+
+[node name="Chunk" type="RigidBody2D" parent="."]
+mass = 3.0
+gravity_scale = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chunk"]
+shape = SubResource("CircleShape2D_lb31i")
+disabled = true
+
+[node name="Hazard" type="Area2D" parent="Chunk"]
+collision_layer = 32
+collision_mask = 16
+script = ExtResource("2_p6ng5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chunk/Hazard"]
+shape = SubResource("CircleShape2D_a8eqm")
+debug_color = Color(0.998516, 0.011134, 0, 0.207843)
+
+[node name="Sprite2D" type="Sprite2D" parent="Chunk"]
+modulate = Color(0.80565, 0.63224, 0.482886, 1)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("3_w1aw6")
+
+[connection signal="area_entered" from="Chunk/Hazard" to="Chunk/Hazard" method="_on_area_entered"]

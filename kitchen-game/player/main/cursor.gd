@@ -29,7 +29,7 @@ func _process(delta: float) -> void:
 	bounds()
 	
 	if object_detection.sees_object():
-		if object_detection != null:
+		if object_detection.body != null:
 			if object_detection.body is EnemyHead:
 				grabbable_body = object_detection.body
 		else:

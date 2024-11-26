@@ -41,3 +41,7 @@ func _process(delta: float) -> void:
 									node_to_destroy.queue_free()
 								else:
 									print_debug("can't find node to destroy")
+
+
+func _on_area_entered(area: Area2D) -> void:
+	pass # Replace with function body.
