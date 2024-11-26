@@ -21,7 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://3ww5a3heppml" path="res://enemy/avocado_spawner.tscn" id="13_05g0p"]
 [ext_resource type="PackedScene" uid="uid://crqlvwv8eqnun" path="res://enemy/watermelon_spawner.tscn" id="16_2cem5"]
 [ext_resource type="Script" path="res://main/level.gd" id="16_6h127"]
-[ext_resource type="PackedScene" uid="uid://btwx3ajq3klfp" path="res://enemy/peach_spawner.tscn" id="17_qell4"]
+[ext_resource type="PackedScene" uid="uid://btwx3ajq3klfp" path="res://enemy/enemy_types/mama_peach/peach_spawner.tscn" id="17_qell4"]
 [ext_resource type="PackedScene" uid="uid://kg6h4tnt75ni" path="res://enemy/pineapple_spawner.tscn" id="17_r3k14"]
 [ext_resource type="PackedScene" uid="uid://85c7kmh5sa64" path="res://main/bounds_wall.tscn" id="20_43wd5"]
 [ext_resource type="Texture2D" uid="uid://dyxrt66c4xuwq" path="res://Screenshot 2024-11-22 172431.png" id="24_3w4uc"]
@@ -166,6 +166,9 @@ enemy_spawners_to_spawn = Array[Resource]([ExtResource("12_cs1vm"), ExtResource(
 max_next_spawner_time = 24.0
 min_next_spawner_time = 24.0
 max_destroy_spawners_timer = 24.0
+
+[node name="SecretIngredientSpawn" type="Node2D" parent="World/Level1"]
+position = Vector2(220, -660)
 
 [node name="Background" type="Sprite2D" parent="World/Level1"]
 modulate = Color(0.907941, 0.907942, 0.907942, 1)

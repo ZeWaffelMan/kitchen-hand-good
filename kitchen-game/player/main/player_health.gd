@@ -26,10 +26,15 @@ class_name PlayerHealth
 @export var hand_sprites: Node2D
 
 @export var hurt_effect: Resource
+@export var echo_effect: Resource
 
 var is_invincible: bool = false
 
 var has_gotten_hurt: bool = false
+
+@export var kill_effect_amount: int = 3
+
+var has_died: bool = false
 
 
 func _process(delta) -> void:
@@ -42,11 +47,22 @@ func _process(delta) -> void:
 		else:
 			effect_animation_player.play("RESET")
 			end_invincibility()
+	
+	if health <= 0 and !has_died:
+		kill()
+		has_died = true
 
 
 func end_invincibility() -> void:
 	is_invincible = false
 	current_invincibility_time = max_invincibility_time
+
+
+func kill() -> void:
+	for i in kill_effect_amount:
+		EffectCreator.create_effect(echo_effect, hand_gradient.modulate)
+		EffectCreator.set_effect_position(hand_sprites.global_position)
+		i += 1
 
 
 func damage(amount: int, area: Node2D) -> void:

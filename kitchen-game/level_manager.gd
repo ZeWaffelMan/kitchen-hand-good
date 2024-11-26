@@ -36,14 +36,16 @@ var secret_ingredient_instance: Enemy
 func _process(delta):
 	match level_state:
 		LevelStates.WAIT:
+			print("wait for level finish")
 			#expose the secret if the level is finished
 			if current_level != null:
 				if current_level.is_finished:
 					level_state = LevelStates.EXPOSE_SECRET
 		LevelStates.EXPOSE_SECRET:
+			print("spawn secret ingredient")
 			if check_if_dead():
 				spawn_secret_ingrediant()
-				
+			
 			# collect the ingredient and switch to the map if is collected
 			if !secret_area.has_collected_ingredient:
 				if secret_ingredient_instance != null:
@@ -53,6 +55,7 @@ func _process(delta):
 				level_state = LevelStates.WAIT_FOR_MAP
 				map.is_active = true
 		LevelStates.WAIT_FOR_MAP:
+			print("wait for map")
 			hide_secret_area(delta)
 			if !map.is_active:
 				secret_ingredient_instance.queue_free()
@@ -60,6 +63,7 @@ func _process(delta):
 				level_state = LevelStates.SET_NEW_LEVEL
 		LevelStates.SET_NEW_LEVEL:
 			switch_to_new_level()
+			print("new level")
 
 
 func check_if_dead() -> bool:

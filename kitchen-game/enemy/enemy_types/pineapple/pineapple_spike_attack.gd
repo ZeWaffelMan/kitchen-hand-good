@@ -5,7 +5,7 @@ extends State
 @export var hazard: Hazard
 @export var player_detection: PlayerDetection
 
-@export var max_go_back_time: float = 1.0
+@export var max_go_back_time: float = 0.5
 @onready var go_back_time: float = max_go_back_time
 
 @export var face_controller: FaceController

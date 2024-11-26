@@ -2,7 +2,7 @@ extends Node2D
 class_name Player
 
 
-@export var max_slap_cooldown: float = 0.5
+@export var max_slap_cooldown: float = 0.4
 @onready var slap_cooldown = max_slap_cooldown
 
 var player_id: int = 0

@@ -549,7 +549,6 @@ hand = NodePath("../../Hand")
 player_health = NodePath("../../PlayerHealth")
 hand_collision = NodePath("../../Hand/CollisionShape2D")
 hand_sprite = NodePath("../../Hand/HandSprites/Fill")
-magnitude_damage_threshold = 400.0
 hit_detection = NodePath("../../Hand/HitDetection")
 hit_impulse_amount = 10000.0
 hand_animation_player = NodePath("../../HandStateAnimationPlayer")
@@ -579,8 +578,11 @@ hand = NodePath("../Hand")
 hand_gradient = NodePath("../Hand/HandSprites/HandStats/Gradiant")
 hand_sprites = NodePath("../Hand/HandSprites")
 hurt_effect = ExtResource("10_3pqj3")
+echo_effect = ExtResource("15_jbcim")
 
 [node name="Hand" type="StaticBody2D" parent="." node_paths=PackedStringArray("hand_sprites", "hurt_box", "top_cursor_bounds", "bottom_cursor_bounds", "object_detection")]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_i03mm")
 mass = 3.0
 hand_sprites = NodePath("HandSprites")

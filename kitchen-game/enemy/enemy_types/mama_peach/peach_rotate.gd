@@ -34,6 +34,7 @@ func update_state(delta) -> void:
 			switch_time = max_switch_time
 			if player != null:
 				storage.last_player_position = player.global_position
+				storage.player = player
 				transitioned.emit(self, "Shoot")
 		
 		if player_detection.sees_player():

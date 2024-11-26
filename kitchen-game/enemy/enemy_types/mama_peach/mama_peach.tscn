@@ -1,12 +1,12 @@
 [gd_scene load_steps=11 format=3 uid="uid://uficjikli4pj"]
 
 [ext_resource type="PackedScene" uid="uid://ccewotvxo4pxr" path="res://enemy/enemy.tscn" id="1_xw8wk"]
-[ext_resource type="Script" path="res://peach_rotate.gd" id="2_j7rq7"]
+[ext_resource type="Script" path="res://enemy/enemy_types/mama_peach/peach_rotate.gd" id="2_j7rq7"]
 [ext_resource type="Script" path="res://enemy/enemy_types/mama_peach/peach_shoot.gd" id="3_2w6gt"]
 [ext_resource type="Shader" path="res://main/flash.gdshader" id="3_7b2i3"]
 [ext_resource type="PackedScene" uid="uid://btxiylg0mia14" path="res://player_detection.tscn" id="4_2ktno"]
 [ext_resource type="PackedScene" uid="uid://dffxclsrq3vsb" path="res://enemy/enemy_types/mama_peach/baby_peach.tscn" id="4_ismkp"]
-[ext_resource type="Texture2D" uid="uid://ckja01vr4qkie" path="res://enemy/peach.png" id="6_yju76"]
+[ext_resource type="Texture2D" uid="uid://ckja01vr4qkie" path="res://enemy/enemy_types/mama_peach/peach.png" id="6_yju76"]
 [ext_resource type="Texture2D" uid="uid://cv0nq8yt5jani" path="res://enemy/eyelash.png" id="7_ahxfd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cb3cm"]
@@ -37,7 +37,7 @@ body_sprites = NodePath("../../Head/BodyHolder/BodySprites")
 head = NodePath("../../Head")
 face_animation_player = NodePath("../../Head/BodyHolder/BodySprites/MouthAnimationPlayer")
 
-[node name="Shoot" type="Node" parent="StateMachine" index="3" node_paths=PackedStringArray("storage", "head", "fire_point", "face_animation_player", "squash_animation_player", "eyes_animation_player")]
+[node name="Shoot" type="Node" parent="StateMachine" index="3" node_paths=PackedStringArray("storage", "head", "fire_point", "face_animation_player", "squash_animation_player", "eyes_animation_player", "hurt_box", "body_sprites")]
 script = ExtResource("3_2w6gt")
 storage = NodePath("../../EnemyStorage")
 baby_peach_enemy = ExtResource("4_ismkp")
@@ -47,9 +47,14 @@ fire_point = NodePath("../../Head")
 face_animation_player = NodePath("../../Head/BodyHolder/BodySprites/MouthAnimationPlayer")
 squash_animation_player = NodePath("../../SquashAnimationPlayer")
 eyes_animation_player = NodePath("../../Head/BodyHolder/BodySprites/BlinkAnimationPlayer")
+hurt_box = NodePath("../../Head/EnemyHurtBox")
+body_sprites = NodePath("../../Head/BodyHolder/BodySprites")
 
 [node name="EnemyJuiceColor" parent="." index="6"]
 self_modulate = Color(1, 0.592157, 0.435294, 1)
+
+[node name="EnemyHealth" parent="." index="8"]
+max_health = 2.0
 
 [node name="Head" parent="." index="12"]
 material = SubResource("ShaderMaterial_cb3cm")

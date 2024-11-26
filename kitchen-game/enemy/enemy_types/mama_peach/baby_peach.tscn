@@ -1,11 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://dffxclsrq3vsb"]
+[gd_scene load_steps=12 format=3 uid="uid://dffxclsrq3vsb"]
 
 [ext_resource type="PackedScene" uid="uid://ccewotvxo4pxr" path="res://enemy/enemy.tscn" id="1_1ybaj"]
-[ext_resource type="Script" path="res://launch_baby_peach.gd" id="2_kifn3"]
+[ext_resource type="Script" path="res://enemy/enemy_types/mama_peach/launch_baby_peach.gd" id="2_kifn3"]
+[ext_resource type="Script" path="res://enemy/enemy_types/watermelon_enemy/find_hazard.gd" id="2_wqfsa"]
 [ext_resource type="Shader" path="res://main/flash.gdshader" id="3_x3tf4"]
 [ext_resource type="PackedScene" uid="uid://dl74or3yeb5ly" path="res://main/hazard.tscn" id="4_0vpwv"]
 [ext_resource type="PackedScene" uid="uid://btxiylg0mia14" path="res://player_detection.tscn" id="4_g5cbr"]
-[ext_resource type="Texture2D" uid="uid://dw23w50425xts" path="res://enemy/baby_peach.png" id="5_ha0pp"]
+[ext_resource type="Texture2D" uid="uid://dw23w50425xts" path="res://enemy/enemy_types/mama_peach/baby_peach.png" id="5_ha0pp"]
+[ext_resource type="Texture2D" uid="uid://baa8lfbb18ssv" path="res://enemy/enemy_types/mama_peach/fork.png" id="7_cuvh4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_33ix3"]
 resource_local_to_scene = true
@@ -20,9 +22,14 @@ radius = 75.0067
 [sub_resource type="CircleShape2D" id="CircleShape2D_q3pxo"]
 radius = 65.123
 
-[node name="BabyPeach" instance=ExtResource("1_1ybaj")]
+[node name="BabyPeach" node_paths=PackedStringArray("find_hazard") instance=ExtResource("1_1ybaj")]
+find_hazard = NodePath("FindHazard")
 
-[node name="LaunchBabyPeach" type="Node" parent="." index="0" node_paths=PackedStringArray("enemy_health", "head", "body_sprites", "speed_box", "player_detection")]
+[node name="FindHazard" type="Node2D" parent="." index="0" node_paths=PackedStringArray("hazard")]
+script = ExtResource("2_wqfsa")
+hazard = NodePath("../Head/Hazard")
+
+[node name="LaunchBabyPeach" type="Node" parent="." index="1" node_paths=PackedStringArray("enemy_health", "head", "body_sprites", "speed_box", "player_detection")]
 script = ExtResource("2_kifn3")
 enemy_health = NodePath("../EnemyHealth")
 head = NodePath("../Head")
@@ -36,10 +43,10 @@ next_state = "none"
 [node name="Rest" parent="StateMachine" index="1"]
 next_state = "none"
 
-[node name="EnemyJuiceColor" parent="." index="7"]
+[node name="EnemyJuiceColor" parent="." index="8"]
 self_modulate = Color(1, 0.592157, 0.435294, 1)
 
-[node name="Head" parent="." index="13"]
+[node name="Head" parent="." index="14"]
 material = SubResource("ShaderMaterial_33ix3")
 is_only_ragdoll = true
 
@@ -73,23 +80,53 @@ position = Vector2(1, -2)
 [node name="HandHolder" parent="Head/BodyHolder/BodySprites" index="1"]
 position = Vector2(52, -17)
 
-[node name="EnemyHand" parent="Head/BodyHolder/BodySprites/HandHolder" index="0"]
+[node name="Fork" type="Sprite2D" parent="Head/BodyHolder/BodySprites/HandHolder" index="0"]
+modulate = Color(0.168627, 0.168627, 0.168627, 1)
+position = Vector2(13.6364, -17.2727)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("7_cuvh4")
+
+[node name="EnemyHand" parent="Head/BodyHolder/BodySprites/HandHolder" index="1"]
 modulate = Color(1, 0.329412, 0.239216, 1)
 
 [node name="HandHolder2" parent="Head/BodyHolder/BodySprites" index="2"]
 position = Vector2(-47, -17)
 
-[node name="EnemyHand2" parent="Head/BodyHolder/BodySprites/HandHolder2" index="0"]
+[node name="Fork2" type="Sprite2D" parent="Head/BodyHolder/BodySprites/HandHolder2" index="0"]
+modulate = Color(0.168627, 0.168627, 0.168627, 1)
+position = Vector2(-10.9091, -19.0909)
+rotation = -1.0472
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("7_cuvh4")
+
+[node name="EnemyHand2" parent="Head/BodyHolder/BodySprites/HandHolder2" index="1"]
 modulate = Color(1, 0.329412, 0.239216, 1)
 
 [node name="FootHolder" parent="Head/BodyHolder/BodySprites" index="3"]
 position = Vector2(34, 41)
 
-[node name="EnemyFoot" parent="Head/BodyHolder/BodySprites/FootHolder" index="0"]
+[node name="Fork4" type="Sprite2D" parent="Head/BodyHolder/BodySprites/FootHolder" index="0"]
+modulate = Color(0.168627, 0.168627, 0.168627, 1)
+position = Vector2(9.0909, 20)
+rotation = 2.0944
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("7_cuvh4")
+
+[node name="EnemyFoot" parent="Head/BodyHolder/BodySprites/FootHolder" index="1"]
 modulate = Color(1, 0.329412, 0.239216, 1)
 
 [node name="FootHolder2" parent="Head/BodyHolder/BodySprites" index="4"]
 position = Vector2(-30, 40)
 
-[node name="EnemyFoot2" parent="Head/BodyHolder/BodySprites/FootHolder2" index="0"]
+[node name="Fork3" type="Sprite2D" parent="Head/BodyHolder/BodySprites/FootHolder2" index="0"]
+modulate = Color(0.168627, 0.168627, 0.168627, 1)
+position = Vector2(-12.7273, 17.2727)
+rotation = -3.14159
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("7_cuvh4")
+
+[node name="EnemyFoot2" parent="Head/BodyHolder/BodySprites/FootHolder2" index="1"]
 modulate = Color(1, 0.329412, 0.239216, 1)
+
+[node name="SpeedDamageHurtBox" parent="Head" index="8"]
+collision_mask = 9

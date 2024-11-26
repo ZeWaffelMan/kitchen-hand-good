@@ -2,6 +2,7 @@ extends Node2D
 class_name Enemy
 
 
+@export var find_hazard: Bullet
 @export var enemy_movement: EnemyMovement
 
 @export var movement_animation_player: AnimationPlayer

@@ -10,7 +10,7 @@ class_name EnemyRagdoll
 @export var platform_check: ObjectDetection
 
 @export var velocity_fall_threshold: float = 500.0
-@export var max_time_before_standing: float = 1.0
+@export var max_time_before_standing: float = 0.4
 @onready var current_time_before_standing: float = max_time_before_standing
 
 @export_group("Bounce Platform")
