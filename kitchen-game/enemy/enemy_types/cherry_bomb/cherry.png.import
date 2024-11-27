@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ntgsifqiylnk"
-path="res://.godot/imported/banana_peel.png-333f889c6d943eaa83d0977d95bb40bb.ctex"
+uid="uid://b1f6i777mfpti"
+path="res://.godot/imported/cherry.png-658f6c721d1329b0a125cd2e7cb55953.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://enemy/enemy_types/banana/banana_peel.png"
-dest_files=["res://.godot/imported/banana_peel.png-333f889c6d943eaa83d0977d95bb40bb.ctex"]
+source_file="res://enemy/enemy_types/cherry_bomb/cherry.png"
+dest_files=["res://.godot/imported/cherry.png-658f6c721d1329b0a125cd2e7cb55953.ctex"]
 
 [params]
 

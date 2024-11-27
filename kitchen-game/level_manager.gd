@@ -3,13 +3,14 @@ class_name LevelManager
 
 
 enum LevelStates{
+	NOT_ACTIVE,
 	WAIT,
 	EXPOSE_SECRET,
 	WAIT_FOR_MAP,
 	SET_NEW_LEVEL,
 }
 
-var level_state = LevelStates.WAIT
+var level_state = LevelStates.NOT_ACTIVE
 
 @export var world: Node2D
 
@@ -34,6 +35,12 @@ var secret_ingredient_instance: Enemy
 
 
 func _process(delta):
+	# check if there are players to start the level
+	if !check_if_player_dead():
+		current_level.is_active = true
+	else:
+		current_level.is_active = false
+	
 	match level_state:
 		LevelStates.WAIT:
 			#expose the secret if the level is finished
@@ -64,6 +71,13 @@ func _process(delta):
 
 func check_if_dead() -> bool:
 	if get_tree().get_nodes_in_group("enemy").is_empty():
+		return true
+	else:
+		return false
+
+
+func check_if_player_dead() -> bool:
+	if get_tree().get_nodes_in_group("player").is_empty():
 		return true
 	else:
 		return false

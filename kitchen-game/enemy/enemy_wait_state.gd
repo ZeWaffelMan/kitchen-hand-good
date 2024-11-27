@@ -11,12 +11,7 @@ class_name WaitState
 
 
 func enter_state() -> void:
-	print("wait")
 	movement_animation_player.play("RESET")
-
-
-func exit_state() -> void:
-	print("leave wait state")
 
 
 func update_state(delta) -> void:
@@ -27,6 +22,5 @@ func update_state(delta) -> void:
 			print("switch to next state")
 	else:
 		transitioned.emit(self, next_state)
-		print("switch to next state")
 	if next_state == "":
 		print_debug("forgot to set next state for enemy")

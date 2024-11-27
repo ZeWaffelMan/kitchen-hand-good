@@ -11,11 +11,11 @@
 radius = 32.0
 
 [node name="BananaChunks" type="Node2D" node_paths=PackedStringArray("bullets_to_spawn")]
+modulate = Color(0.886262, 0.886261, 0.886262, 1)
 script = ExtResource("1_h44mp")
 bullets_to_spawn = [NodePath("Chunk"), NodePath("Chunk2"), NodePath("Chunk3"), NodePath("Chunk4"), NodePath("Chunk5")]
 
 [node name="Chunk" type="RigidBody2D" parent="."]
-modulate = Color(0.93845, 0.93845, 0.93845, 1)
 mass = 3.0
 gravity_scale = 5.0
 
@@ -36,17 +36,19 @@ debug_color = Color(1, 0.0117647, 0, 0.0235294)
 
 [node name="BananaChunkBlade3" type="Sprite2D" parent="Chunk"]
 position = Vector2(-15, 23)
-rotation = 3.35397
+rotation = -2.92922
 texture = ExtResource("3_r7i3u")
 
 [node name="BananaChunkBlade4" type="Sprite2D" parent="Chunk"]
 position = Vector2(-23, -18)
-rotation = 5.01375
+rotation = -1.26944
+scale = Vector2(1, 1)
 texture = ExtResource("3_r7i3u")
 
 [node name="BananaChunkBlade5" type="Sprite2D" parent="Chunk"]
 position = Vector2(26, 19)
-rotation = 8.05049
+rotation = 1.76731
+scale = Vector2(1, 1)
 texture = ExtResource("3_r7i3u")
 
 [node name="Sprite2D" type="Sprite2D" parent="Chunk"]
@@ -58,7 +60,6 @@ rotation = 0.213686
 texture = ExtResource("3_r7i3u")
 
 [node name="Chunk2" type="RigidBody2D" parent="."]
-modulate = Color(0.93845, 0.93845, 0.93845, 1)
 rotation = 0.977384
 mass = 3.0
 gravity_scale = 5.0
@@ -102,7 +103,6 @@ rotation = 0.213686
 texture = ExtResource("3_r7i3u")
 
 [node name="Chunk3" type="RigidBody2D" parent="."]
-modulate = Color(0.93845, 0.93845, 0.93845, 1)
 rotation = 0.733038
 mass = 3.0
 gravity_scale = 5.0
@@ -146,7 +146,6 @@ rotation = 0.213686
 texture = ExtResource("3_r7i3u")
 
 [node name="Chunk4" type="RigidBody2D" parent="."]
-modulate = Color(0.93845, 0.93845, 0.93845, 1)
 rotation = 0.314159
 mass = 3.0
 gravity_scale = 5.0
@@ -190,7 +189,6 @@ rotation = 0.213686
 texture = ExtResource("3_r7i3u")
 
 [node name="Chunk5" type="RigidBody2D" parent="."]
-modulate = Color(0.93845, 0.93845, 0.93845, 1)
 rotation = 1.25664
 mass = 3.0
 gravity_scale = 5.0

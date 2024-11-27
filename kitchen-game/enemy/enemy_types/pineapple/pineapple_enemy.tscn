@@ -54,6 +54,7 @@ player_detection = NodePath("../../Head/PlayerDetection")
 storage = NodePath("../../EnemyStorage")
 head = NodePath("../../Head")
 movement = NodePath("../../Movement")
+max_time_until_switch = 0.5
 face_controller = NodePath("../../Head/BodyHolder/BodySprites/FaceController")
 eyes_animation_player = NodePath("../../Head/BodyHolder/BodySprites/BlinkAnimationPlayer")
 mouth_animation_controller = NodePath("../../Head/BodyHolder/BodySprites/MouthAnimationPlayer")

@@ -28,13 +28,14 @@ radius = 1014.06
 
 [node name="Avocado" instance=ExtResource("1_nyw8g")]
 
-[node name="LaunchSeed" type="Node" parent="." index="1" node_paths=PackedStringArray("avocado_pit", "pit_player_detection", "head", "launch_seed_point")]
+[node name="LaunchSeed" type="Node" parent="." index="1" node_paths=PackedStringArray("avocado_pit", "pit_player_detection", "head", "launch_seed_point", "squash_animation_player")]
 script = ExtResource("2_kbg5d")
 avocado_pit = NodePath("../Head/BodyHolder/BodySprites/HeadHolder/Head/Pit")
 pit_player_detection = NodePath("../Head/PlayerDetection")
 pit_enemy = ExtResource("3_rspms")
 head = NodePath("../Head")
 launch_seed_point = NodePath("../Head/LaunchPosition")
+squash_animation_player = NodePath("../SquashAnimationPlayer")
 
 [node name="Movement" parent="." index="4"]
 movement_max_speed = 700.0
@@ -70,13 +71,10 @@ squash_check = NodePath("../../Head/SquashCheck")
 [node name="EnemyJuiceColor" parent="." index="7"]
 self_modulate = Color(0.552941, 1, 0.54902, 1)
 
-[node name="EnemyHealth" parent="." index="9"]
-max_health = 2.0
-
 [node name="CollisionShape2D" parent="LookingForGround/GroundCheck" index="0"]
 position = Vector2(0, 105.5)
 
-[node name="Head" parent="." index="13"]
+[node name="Head" parent="." index="14"]
 material = SubResource("ShaderMaterial_g1dsy")
 
 [node name="SquashCheck" parent="Head" index="0" instance=ExtResource("7_l5lmh")]
@@ -149,7 +147,7 @@ position = Vector2(-25, 45)
 [node name="EnemyFoot2" parent="Head/BodyHolder/BodySprites/FootHolder2" index="0"]
 modulate = Color(0.27451, 0.509804, 0.282353, 1)
 
-[node name="SpeedDamageHurtBox" parent="Head" index="7"]
+[node name="SpeedDamageHurtBox" parent="Head" index="9"]
 collision_mask = 41
 
 [node name="PlayerDetection" parent="Head" index="10" instance=ExtResource("6_qwoxp")]

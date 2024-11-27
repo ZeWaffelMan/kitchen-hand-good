@@ -9,6 +9,7 @@ class_name HoldAndDamage
 
 @export var max_damage_time: float = 2.0
 @onready var damage_time: float = max_damage_time
+@export var squash_animation_player: AnimationPlayer
 
 
 func enter_state() -> void:

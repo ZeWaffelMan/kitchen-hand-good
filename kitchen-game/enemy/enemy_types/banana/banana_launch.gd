@@ -39,7 +39,6 @@ func physics_update_state(delta) -> void:
 
 
 func launch() -> void:
-	print("launch")
 	EffectCreator.create_effect(peel_to_spawn, "ffffff")
 	EffectCreator.set_effect_position(peel.global_position)
 	movement.squash_animation_player.play("squash")
@@ -50,8 +49,6 @@ func launch() -> void:
 
 
 func split() -> void:
-	print("SPLIT!!!!!")
-	
 	var chunks_instance: Node2D = chunks.instantiate()
 	get_tree().current_scene.add_child(chunks_instance)
 	chunks_instance.global_position = head.global_position

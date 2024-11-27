@@ -502,7 +502,7 @@ _data = {
 "player4": SubResource("Animation_xqia3")
 }
 
-[node name="Player" type="Node2D" node_paths=PackedStringArray("grab_throw_state", "player_type_animation_player")]
+[node name="Player" type="Node2D" node_paths=PackedStringArray("grab_throw_state", "player_type_animation_player") groups=["player"]]
 process_mode = 3
 z_index = 8
 position = Vector2(992, 571)
@@ -573,7 +573,7 @@ gradient = NodePath("../../Hand/HandSprites/HandStats/Gradiant")
 [node name="PlayerHealth" type="Node" parent="." node_paths=PackedStringArray("player", "life_sprites", "effect_animation_player", "hand", "hand_gradient", "hand_sprites")]
 script = ExtResource("6_gd46d")
 player = NodePath("..")
-life_sprites = [NodePath("../Hand/HandSprites/HandStats/Gradiant/HandMarks/Life2"), NodePath("../Hand/HandSprites/HandStats/Gradiant/HandMarks/Life"), NodePath("../Hand/HandSprites/HandStats/Gradiant/HandMarks/Life3")]
+life_sprites = [NodePath("../Hand/HandSprites/HandStats/Gradiant/HandMarks/Life"), NodePath("../Hand/HandSprites/HandStats/Gradiant/HandMarks/Life2"), NodePath("../Hand/HandSprites/HandStats/Gradiant/HandMarks/Life3")]
 effect_animation_player = NodePath("../EffectAnimationPlayer")
 hand = NodePath("../Hand")
 hand_gradient = NodePath("../Hand/HandSprites/HandStats/Gradiant")
@@ -623,15 +623,15 @@ z_index = 1
 position = Vector2(7, 44)
 texture = ExtResource("13_bxevt")
 
-[node name="Life" type="Sprite2D" parent="Hand/HandSprites/HandStats/Gradiant/HandMarks"]
+[node name="Life2" type="Sprite2D" parent="Hand/HandSprites/HandStats/Gradiant/HandMarks"]
 position = Vector2(25, 94)
 texture = ExtResource("10_snd0n")
 
-[node name="Life2" type="Sprite2D" parent="Hand/HandSprites/HandStats/Gradiant/HandMarks"]
+[node name="Life3" type="Sprite2D" parent="Hand/HandSprites/HandStats/Gradiant/HandMarks"]
 position = Vector2(-3, 94)
 texture = ExtResource("10_snd0n")
 
-[node name="Life3" type="Sprite2D" parent="Hand/HandSprites/HandStats/Gradiant/HandMarks"]
+[node name="Life" type="Sprite2D" parent="Hand/HandSprites/HandStats/Gradiant/HandMarks"]
 position = Vector2(11, 94)
 texture = ExtResource("10_snd0n")
 

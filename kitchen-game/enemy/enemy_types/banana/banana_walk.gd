@@ -16,7 +16,6 @@ extends State
 
 func enter_state() -> void:
 	movement.movement_animation_player.play("run")
-	print("walk")
 
 
 func exit_state() -> void:

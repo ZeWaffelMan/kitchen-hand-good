@@ -17,7 +17,7 @@ shader_parameter/alpha = 1.0
 shader_parameter/active = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vgy1g"]
-radius = 75.0067
+radius = 72.0625
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q3pxo"]
 radius = 65.123
@@ -46,7 +46,7 @@ next_state = "none"
 [node name="EnemyJuiceColor" parent="." index="8"]
 self_modulate = Color(1, 0.592157, 0.435294, 1)
 
-[node name="Head" parent="." index="14"]
+[node name="Head" parent="." index="15"]
 material = SubResource("ShaderMaterial_33ix3")
 is_only_ragdoll = true
 
@@ -128,5 +128,5 @@ texture = ExtResource("7_cuvh4")
 [node name="EnemyFoot2" parent="Head/BodyHolder/BodySprites/FootHolder2" index="1"]
 modulate = Color(1, 0.329412, 0.239216, 1)
 
-[node name="SpeedDamageHurtBox" parent="Head" index="8"]
+[node name="SpeedDamageHurtBox" parent="Head" index="10"]
 collision_mask = 9

@@ -17,6 +17,8 @@ var changed_throw_force: bool = false
 
 @export var player_type_animation_player: AnimationPlayer
 
+var is_dead = false
+
 
 enum HandStates{
 	POINT,
@@ -43,6 +45,9 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if is_dead:
+		visible = false
+		process_mode = PROCESS_MODE_DISABLED
 	if !changed_throw_force:
 		if !using_mouse:
 			grab_throw_state.hand_release_force = grab_throw_state.hand_release_force * 2.0

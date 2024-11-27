@@ -64,7 +64,7 @@ func kill() -> void:
 		EffectCreator.create_effect(echo_effect, hand_gradient.modulate)
 		EffectCreator.set_effect_position(hand_sprites.global_position)
 		i += 1
-		player.queue_free()
+		player.is_dead = true
 
 
 func damage(amount: int, area: Node2D) -> void:

@@ -1,6 +1,7 @@
 extends Node2D
 
 
+@export var transition_animation_player: AnimationPlayer
 @onready var pause_menu = $PauseMenu
 
 var is_paused: bool = false
@@ -8,6 +9,7 @@ var is_fullscreen: bool = false
 
 
 func _ready() -> void:
+	print("main restarted")
 	set_settings()
 
 

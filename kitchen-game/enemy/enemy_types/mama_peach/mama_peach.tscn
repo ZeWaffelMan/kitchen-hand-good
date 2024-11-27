@@ -53,10 +53,7 @@ body_sprites = NodePath("../../Head/BodyHolder/BodySprites")
 [node name="EnemyJuiceColor" parent="." index="6"]
 self_modulate = Color(1, 0.592157, 0.435294, 1)
 
-[node name="EnemyHealth" parent="." index="8"]
-max_health = 2.0
-
-[node name="Head" parent="." index="12"]
+[node name="Head" parent="." index="13"]
 material = SubResource("ShaderMaterial_cb3cm")
 is_only_ragdoll = true
 does_hang = true

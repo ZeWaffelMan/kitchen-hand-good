@@ -116,16 +116,19 @@ func _process(delta: float) -> void:
 				apply_impulse(direction * launch_force)
 				has_launched_into_arena = true
 	
-	if !has_checked_for_wall:
-		if !inside_wall_check_2.sees_object():
-			set_collision_mask_value(1, true)
-			has_checked_for_wall = true
-			health.is_invincible = false
-		else:
-			if wall_time_until_death > 0:
-				wall_time_until_death -= delta
+	if inside_wall_check_2.sees_object():
+		can_check_for_wall = true
+	if can_check_for_wall:
+		if !has_checked_for_wall:
+			if !inside_wall_check_2.sees_object():
+				set_collision_mask_value(1, true)
+				has_checked_for_wall = true
+				health.is_invincible = false
 			else:
-				health.kill()
+				if wall_time_until_death > 0:
+					wall_time_until_death -= delta
+				else:
+					health.kill()
 	
 	bounce_point.global_position.x = global_position.x
 	# find velocity and magnitude

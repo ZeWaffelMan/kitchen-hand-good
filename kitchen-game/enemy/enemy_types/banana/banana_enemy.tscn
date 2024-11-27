@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://d4n04182ffevt" path="res://enemy/enemy_types/banana/banana_peel.tscn" id="4_xxlge"]
 [ext_resource type="PackedScene" uid="uid://btxiylg0mia14" path="res://player_detection.tscn" id="6_8okia"]
 [ext_resource type="Texture2D" uid="uid://d2lbms1uu46ci" path="res://enemy/enemy_types/banana/editable_banana.png" id="7_6n2xb"]
-[ext_resource type="Texture2D" uid="uid://faft8ea6rkir" path="res://enemy/enemy_types/banana/banana_peel.png" id="8_8k4om"]
+[ext_resource type="Texture2D" uid="uid://ntgsifqiylnk" path="res://enemy/enemy_types/banana/banana_peel.png" id="8_8k4om"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5ovcy"]
 resource_local_to_scene = true
@@ -64,15 +64,18 @@ position = Vector2(0, -600)
 shape = SubResource("RectangleShape2D_0q3e8")
 debug_color = Color(0.980392, 0, 0.537255, 0.0941176)
 
+[node name="Grabbed" parent="Head/HeadStateMachine" index="1"]
+animation_to_play = "small_open"
+
 [node name="Head" parent="Head/BodyHolder/BodySprites/HeadHolder" index="0"]
 texture = ExtResource("7_6n2xb")
 
 [node name="Peel" type="Sprite2D" parent="Head/BodyHolder/BodySprites/HeadHolder/Head" index="0"]
-position = Vector2(-8, 30)
+position = Vector2(-10, 27)
 texture = ExtResource("8_8k4om")
 
 [node name="MouthHolder" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face" index="0"]
-position = Vector2(-15, -31)
+position = Vector2(-15, -34)
 scale = Vector2(0.9, 0.9)
 
 [node name="EyeHolder" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face" index="1"]

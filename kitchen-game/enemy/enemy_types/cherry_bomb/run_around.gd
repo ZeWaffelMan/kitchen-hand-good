@@ -1,6 +1,7 @@
 extends State
 class_name CherryRunAround
 
+
 @export var storage: EnemyStorage
 @export var enemy: Enemy
 @export var movement: EnemyMovement
@@ -12,10 +13,12 @@ class_name CherryRunAround
 
 @export var player_detection: PlayerDetection
 var player: PlayerHand
+@export var face_controller: FaceController
 
 
 func enter_state() -> void:
-	pass
+	movement.movement_animation_player.play("run")
+	enemy.face_animation_player.play("sad")
 
 
 func update_state(delta) -> void:

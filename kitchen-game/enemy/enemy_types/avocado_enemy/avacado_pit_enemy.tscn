@@ -34,10 +34,11 @@ storage = NodePath("../../EnemyStorage")
 body_sprites = NodePath("../../Head/BodyHolder/BodySprites")
 mouth_animation_player = NodePath("../../Head/BodyHolder/BodySprites/MouthAnimationPlayer")
 
-[node name="HoldAndDamage" type="Node" parent="StateMachine" index="2" node_paths=PackedStringArray("head", "storage")]
+[node name="HoldAndDamage" type="Node" parent="StateMachine" index="2" node_paths=PackedStringArray("head", "storage", "squash_animation_player")]
 script = ExtResource("3_bqajf")
 head = NodePath("../../Head")
 storage = NodePath("../../EnemyStorage")
+squash_animation_player = NodePath("../../SquashAnimationPlayer")
 
 [node name="Flung" type="Node" parent="StateMachine" index="3" node_paths=PackedStringArray("storage", "head", "node_to_destroy")]
 script = ExtResource("4_p4h31")
@@ -63,7 +64,7 @@ monitoring = false
 [node name="Shadow" parent="ShadowHolder" index="0"]
 visible = false
 
-[node name="Head" parent="." index="11"]
+[node name="Head" parent="." index="13"]
 material = SubResource("ShaderMaterial_1welh")
 collision_layer = 0
 collision_mask = 0
@@ -140,8 +141,8 @@ scale = Vector2(0.5, 0.5)
 [node name="EnemyFoot2" parent="Head/BodyHolder/BodySprites/FootHolder2" index="0"]
 modulate = Color(0.3402, 0.219431, 0.0662317, 1)
 
-[node name="CollisionShape2D" parent="Head" index="4"]
+[node name="CollisionShape2D" parent="Head" index="7"]
 disabled = true
 
-[node name="SpeedDamageHurtBox" parent="Head" index="6"]
+[node name="SpeedDamageHurtBox" parent="Head" index="9"]
 monitoring = false

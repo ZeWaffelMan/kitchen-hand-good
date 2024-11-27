@@ -14,6 +14,8 @@ class_name AvocadoLaunchSeed
 @export var launch_seed_point: Node2D
 @export var has_launched_pit: bool = false
 
+@export var squash_animation_player: AnimationPlayer
+
 var player: Node2D
 
 
@@ -28,6 +30,7 @@ func _physics_process(delta: float) -> void:
 					current_launch_time -= delta
 				else:
 					if avocado_pit != null:
+						squash_animation_player.play("squash")
 						avocado_pit.visible = false
 					current_launch_time = max_launch_time
 					has_launched_pit = true

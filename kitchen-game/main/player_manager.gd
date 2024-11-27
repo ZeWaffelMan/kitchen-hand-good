@@ -25,7 +25,7 @@ func _physics_process(delta: float) -> void:
 
 func add_new_player(player_id, number, joined_with_mouse) -> void:
 	var new_player: Player = player.instantiate()
-	get_tree().current_scene.add_child(new_player)
+	get_tree().root.add_child(new_player)
 	
 	new_player.global_position = global_position
 	new_player.player_id = player_id
