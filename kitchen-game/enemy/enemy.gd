@@ -13,6 +13,8 @@ class_name Enemy
 
 var speed_damage_threshold: float = 3000.0
 var ragdoll_magnitude_threshold: float = 400.0
+
+@export var does_wait_to_launch: bool = true
 @export var head: EnemyHead
 @export var speed_hurt_box_collision: CollisionShape2D
 

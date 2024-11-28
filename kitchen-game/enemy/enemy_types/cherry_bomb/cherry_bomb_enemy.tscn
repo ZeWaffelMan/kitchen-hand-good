@@ -95,14 +95,7 @@ leave_animation_to_play = "sad"
 [node name="HeadHolder" parent="Head/BodyHolder/BodySprites" index="0"]
 position = Vector2(-3, -2)
 
-[node name="Fuse" type="AnimatedSprite2D" parent="Head/BodyHolder/BodySprites/HeadHolder" index="0"]
-z_index = 1
-position = Vector2(60, -90)
-sprite_frames = SubResource("SpriteFrames_grlgl")
-autoplay = "default"
-frame_progress = 0.999141
-
-[node name="Head" parent="Head/BodyHolder/BodySprites/HeadHolder" index="1"]
+[node name="Head" parent="Head/BodyHolder/BodySprites/HeadHolder" index="0"]
 texture = ExtResource("7_8yvdj")
 
 [node name="MouthHolder" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face" index="0"]
@@ -113,6 +106,13 @@ position = Vector2(3, 10)
 
 [node name="EyeHolder2" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face" index="2"]
 position = Vector2(3, 10)
+
+[node name="Fuse" type="AnimatedSprite2D" parent="Head/BodyHolder/BodySprites/HeadHolder/Head" index="2"]
+z_index = 1
+position = Vector2(60, -71)
+sprite_frames = SubResource("SpriteFrames_grlgl")
+autoplay = "default"
+frame_progress = 0.999141
 
 [node name="EnemyHand" parent="Head/BodyHolder/BodySprites/HandHolder" index="0"]
 modulate = Color(0.644862, 0.105323, 0.135684, 1)

@@ -19,7 +19,6 @@ func update_state(delta) -> void:
 	if does_wait_to_stand:
 		if enemy.enemy_state == enemy.EnemyStates.STAND:
 			transitioned.emit(self, next_state)
-			print("switch to next state")
 	else:
 		transitioned.emit(self, next_state)
 	if next_state == "":

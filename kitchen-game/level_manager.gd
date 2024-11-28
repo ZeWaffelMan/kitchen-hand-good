@@ -15,8 +15,6 @@ var level_state = LevelStates.NOT_ACTIVE
 @export var world: Node2D
 
 @export var current_level: Level
-@export var levels: Array[Resource]
-var level_index: int = 0
 
 @export_group("Secret Ingredient")
 @onready var secret_ingredient_spawn_area: Node2D = current_level.secret_ingredient_spawn_area
@@ -31,15 +29,27 @@ var secret_ingredient_instance: Enemy
 @onready var secret_box_default_position = secret_box.global_position
 
 @export_group("Map")
+@export var transition: Transition
 @export var map: Map
+
+var has_checked_to_start = false
+
+
+func _ready() -> void:
+	current_level.show()
+	current_level.is_active = true
+	current_level.process_mode = PROCESS_MODE_INHERIT
 
 
 func _process(delta):
 	# check if there are players to start the level
-	if !check_if_player_dead():
-		current_level.is_active = true
-	else:
-		current_level.is_active = false
+	if !has_checked_to_start:
+		if !check_if_player_dead():
+			current_level.is_active = true
+			level_state = LevelStates.WAIT
+			has_checked_to_start = true
+		else:
+			current_level.is_active = false
 	
 	match level_state:
 		LevelStates.WAIT:
@@ -48,6 +58,7 @@ func _process(delta):
 				if current_level.is_finished:
 					level_state = LevelStates.EXPOSE_SECRET
 		LevelStates.EXPOSE_SECRET:
+			#print("expose secret")
 			if check_if_dead():
 				spawn_secret_ingrediant()
 			
@@ -66,7 +77,7 @@ func _process(delta):
 				secret_area.has_collected_ingredient = false
 				level_state = LevelStates.SET_NEW_LEVEL
 		LevelStates.SET_NEW_LEVEL:
-			switch_to_new_level()
+			switch_to_new_level(current_level.next_level, current_level.next_level_animation)
 
 
 func check_if_dead() -> bool:
@@ -100,19 +111,20 @@ func spawn_secret_ingrediant() -> void:
 		print_debug("can't find secret ingredient or spawn area for secret ingredient")
 
 
-func switch_to_new_level() -> void:
+func switch_to_new_level(level_to_switch_to: Level, map_animation_to_play: String) -> void:
 	if current_level != null:
-		if level_index < len(levels):
-			current_level.queue_free()
-			
-			var new_level: Level = levels[level_index].instantiate()
-			level_index += 1
-			world.add_child(new_level)
-			new_level.global_position = Vector2.ZERO
-			
-			current_level = new_level
-			secret_ingredient_spawn_area = current_level.secret_ingredient_spawn_area
-			
-			level_state = LevelStates.WAIT
-		else:
-			print("beat the last level!")
+		current_level.reset_level()
+		transition.transition_level(level_to_switch_to, map_animation_to_play, false)
+		current_level.process_mode = PROCESS_MODE_DISABLED
+		
+		var new_level: Level = transition.new_level
+		
+		world.add_child(new_level)
+		new_level.global_position = Vector2.ZERO
+		
+		current_level = new_level
+		current_level.reset_level()
+		secret_ingredient_spawn_area = current_level.secret_ingredient_spawn_area
+		
+		has_checked_to_start = false
+		#level_state = LevelStates.WAIT

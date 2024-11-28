@@ -107,28 +107,33 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if big_player_detection.sees_player():
-		var player = big_player_detection.closest_player()
-		if !has_launched_into_arena:
-			if launch_into_arena:
-				var direction: Vector2 = player.global_position - global_position
-				direction = direction.normalized()
-				apply_impulse(direction * launch_force)
-				has_launched_into_arena = true
-	
-	if inside_wall_check_2.sees_object():
-		can_check_for_wall = true
-	if can_check_for_wall:
-		if !has_checked_for_wall:
-			if !inside_wall_check_2.sees_object():
-				set_collision_mask_value(1, true)
-				has_checked_for_wall = true
-				health.is_invincible = false
-			else:
-				if wall_time_until_death > 0:
-					wall_time_until_death -= delta
+	if enemy.does_wait_to_launch:
+		if big_player_detection.sees_player():
+			var player = big_player_detection.closest_player()
+			if !has_launched_into_arena:
+				if launch_into_arena:
+					var direction: Vector2 = player.global_position - global_position
+					direction = direction.normalized()
+					apply_impulse(direction * launch_force)
+					has_launched_into_arena = true
+		
+		if inside_wall_check_2.sees_object():
+			can_check_for_wall = true
+		if can_check_for_wall:
+			if !has_checked_for_wall:
+				if !inside_wall_check_2.sees_object():
+					set_collision_mask_value(1, true)
+					has_checked_for_wall = true
+					health.is_invincible = false
 				else:
-					health.kill()
+					if wall_time_until_death > 0:
+						wall_time_until_death -= delta
+					else:
+						health.kill()
+	else:
+		set_collision_mask_value(1, true)
+		has_checked_for_wall = true
+		has_launched_into_arena = true
 	
 	bounce_point.global_position.x = global_position.x
 	# find velocity and magnitude

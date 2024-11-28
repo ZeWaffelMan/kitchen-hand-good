@@ -9,7 +9,7 @@ extends State
 @export var head: EnemyHead
 @export var storage: EnemyStorage
 
-@export var jump_impulse: float = 16000.0
+@export var jump_impulse: float = 13000.0
 @export var y_impulse_multiplier: float = 1.6
 @export var enemy_health: EnemyHealth
 @export var boom: Resource

@@ -2,6 +2,8 @@ extends Node2D
 class_name Level
 
 
+@export var is_last_level: bool = false
+
 enum LevelStates{
 	WAIT,
 	SPAWN,
@@ -32,6 +34,15 @@ var enemy_spawn_level: int = 0
 @export var max_destroy_spawners_timer: float = 2.0
 @onready var destroy_spawners_timer: float = max_destroy_spawners_timer
 
+@export_group("New Level")
+@export var next_level: Level
+@export var next_level_animation: String = ""
+
+@export var has_spawned_box: bool = false
+@export var box: Resource
+
+@export var box_spawn_point: Node2D
+
 
 func _process(delta):
 	if is_active:
@@ -55,6 +66,13 @@ func _process(delta):
 					else:
 						destroy_all_spawners()
 						is_finished = true
+
+
+func reset_level() -> void:
+	enemy_spawn_level = 0
+	is_finished = false
+	level_state = LevelStates.WAIT
+	is_active = true
 
 
 func destroy_all_spawners() -> void:

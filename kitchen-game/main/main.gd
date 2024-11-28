@@ -9,7 +9,6 @@ var is_fullscreen: bool = false
 
 
 func _ready() -> void:
-	print("main restarted")
 	set_settings()
 
 

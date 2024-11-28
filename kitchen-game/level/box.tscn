@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bfa54w4i0i8f1"]
+
+[ext_resource type="PackedScene" uid="uid://ccewotvxo4pxr" path="res://enemy/enemy.tscn" id="1_ctvl7"]
+[ext_resource type="Shader" path="res://main/flash.gdshader" id="2_tt17l"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sdwe2"]
+resource_local_to_scene = true
+shader = ExtResource("2_tt17l")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/alpha = 1.0
+shader_parameter/active = false
+
+[node name="Box" instance=ExtResource("1_ctvl7")]
+modulate = Color(0.529067, 0.529067, 0.529067, 1)
+
+[node name="EnemyJuiceColor" parent="." index="6"]
+self_modulate = Color(1, 1, 1, 0)
+
+[node name="Head" parent="." index="13"]
+material = SubResource("ShaderMaterial_sdwe2")

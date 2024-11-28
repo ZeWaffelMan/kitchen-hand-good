@@ -5,9 +5,12 @@ class_name Player
 @export var max_slap_cooldown: float = 0.4
 @onready var slap_cooldown = max_slap_cooldown
 
+@export var health: PlayerHealth
+@export var can_be_damaged = true
+
 var player_id: int = 0
 var player_number: int = 0
-var using_mouse: bool = false
+var using_mouse: bool = true
 
 var can_shockwave: bool = true
 var can_slap: bool = true
@@ -31,17 +34,15 @@ var hand_state = HandStates.POINT
 
 
 func _ready() -> void:
-	player_id = GameStats.player_id
-	player_number = GameStats.player_number
-	
-	if player_number == 0:
-		player_type_animation_player.play("player1")
-	elif player_number == 1:
-		player_type_animation_player.play("player2")
-	elif player_number == 2:
-		player_type_animation_player.play("player3")
-	elif player_number == 3:
-		player_type_animation_player.play("player4")
+	pass
+	#if player_number == 0:
+		#player_type_animation_player.play("player1")
+	#elif player_number == 1:
+		#player_type_animation_player.play("player2")
+	#elif player_number == 2:
+		#player_type_animation_player.play("player3")
+	#elif player_number == 3:
+		#player_type_animation_player.play("player4")
 
 
 func _process(delta: float) -> void:

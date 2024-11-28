@@ -6,6 +6,8 @@ class_name EnemyGrabbed
 @export var head_collision: CollisionShape2D
 @export var head: EnemyHead
 
+@export var struggle_when_grabbed: bool = true
+
 @export var ground_check: ObjectDetection
 @export var bounce_point: Node2D
 
@@ -32,7 +34,8 @@ func exit_state() -> void:
 
 
 func update_state(delta) -> void:
-	movement_animation_player.play("grabbed")
+	if struggle_when_grabbed:
+		movement_animation_player.play("grabbed")
 	if !head.is_grabbed:
 		if enemy.is_secret_ingredient:
 			if enemy.is_in_box:

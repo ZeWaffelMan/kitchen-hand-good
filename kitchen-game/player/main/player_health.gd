@@ -69,7 +69,7 @@ func kill() -> void:
 
 func damage(amount: int, area: Node2D) -> void:
 	# damage the player if it isn't invinsible
-	if !is_invincible:
+	if !is_invincible and player.can_be_damaged:
 		var axis = hand.global_position - area.global_position
 		var direction = axis.normalized()
 		hand.apply_impulse(hurt_impulse * direction)

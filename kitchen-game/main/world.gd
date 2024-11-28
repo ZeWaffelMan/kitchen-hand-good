@@ -1,8 +1,13 @@
 extends Node2D
+class_name World
 
 
 @onready var level_manager: LevelManager = $LevelManager
 @export var transition_animation_player: AnimationPlayer
+@export var transition: Transition
+@export var lobby_level: Level
+
+@export var player: Player
 
 
 #func add_new_player(player_id, number, joined_with_mouse) -> void:
@@ -16,22 +21,14 @@ extends Node2D
 	#
 
 
-func _process(delta: float) -> void:
-	if level_manager.current_level.is_active:
-		if check_if_player_dead():
-			start_over()
-
-
 func start_over():
-	transition_animation_player.play("transition_close")
-	#if !transition_animation_player.is_playing():
-	var world =get_tree().current_scene.get_node("World")
-	print("you died. go again!")
+	#transition_animation_player.play("transition_close")
+	transition.transition_level(lobby_level, "", true)
+	level_manager.level_state = level_manager.LevelStates.NOT_ACTIVE
 
 
 func check_if_player_dead() -> bool:
-	#print(get_tree().get_nodes_in_group("player"))
-	if get_tree().get_nodes_in_group("player").is_empty():
+	if player.is_dead:
 		return true
 	else:
 		return false
