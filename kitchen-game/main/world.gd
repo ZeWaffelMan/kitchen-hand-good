@@ -4,10 +4,13 @@ class_name World
 
 @onready var level_manager: LevelManager = $LevelManager
 @export var transition_animation_player: AnimationPlayer
-@export var transition: Transition
+
+@export var players: Array[Player]
+
+@export var transition_controller: Transition
 @export var lobby_level: Level
 
-@export var player: Player
+var has_restarted: bool = false
 
 
 #func add_new_player(player_id, number, joined_with_mouse) -> void:
@@ -21,14 +24,15 @@ class_name World
 	#
 
 
-func start_over():
-	#transition_animation_player.play("transition_close")
-	transition.transition_level(lobby_level, "", true)
-	level_manager.level_state = level_manager.LevelStates.NOT_ACTIVE
-
-
-func check_if_player_dead() -> bool:
-	if player.is_dead:
-		return true
-	else:
-		return false
+func _process(delta: float) -> void:
+	var all_players_dead = true
+	if players != null:
+		for player in players:
+			if not player.is_dead:
+				all_players_dead = false
+				break
+		
+		if all_players_dead and !has_restarted:
+			level_manager.switch_to_new_level(lobby_level, level_manager.old_level, "")
+			all_players_dead = false
+			has_restarted = true

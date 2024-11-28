@@ -2,6 +2,7 @@ extends Node2D
 class_name Level
 
 
+@export var is_lobby_level: bool = false
 @export var is_last_level: bool = false
 
 enum LevelStates{
@@ -70,7 +71,6 @@ func _process(delta):
 
 
 func reset_level() -> void:
-	print("reset level")
 	enemy_spawn_level = 0
 	level_state = LevelStates.WAIT
 	destroy_spawners_timer = max_destroy_spawners_timer

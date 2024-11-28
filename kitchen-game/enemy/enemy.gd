@@ -27,6 +27,8 @@ var is_secret_ingredient: bool = false
 @export var enemy_juice_color_node: Node2D
 @onready var juice_color = enemy_juice_color_node.self_modulate
 
+@export var dust_particles: GPUParticles2D
+
 @export var storage: EnemyStorage
 
 enum EnemyStates{
@@ -42,6 +44,8 @@ var enemy_state = EnemyStates.RAGDOLL
 
 
 func _ready() -> void:
+	if dust_particles != null:
+		dust_particles.emitting = true
 	if turn_into_secret != null:
 		is_secret_ingredient = true
 

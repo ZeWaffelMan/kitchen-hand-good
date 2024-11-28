@@ -66,6 +66,33 @@ tracks/2/keys = {
 "values": [false]
 }
 
+[sub_resource type="Animation" id="Animation_uq3rs"]
+resource_name = "transition_close"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TransitionSquare:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TransitionSquare:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(930, -230), Vector2(894, -3651)]
+}
+
 [sub_resource type="Animation" id="Animation_sv5wl"]
 resource_name = "transition_open"
 step = 0.5
@@ -92,33 +119,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
-}
-
-[sub_resource type="Animation" id="Animation_uq3rs"]
-resource_name = "transition_close"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TransitionSquare:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TransitionSquare:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(-2, -2),
-"update": 0,
-"values": [Vector2(930, -230), Vector2(894, -3651)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qkx15"]
@@ -185,19 +185,20 @@ texture = ExtResource("1_avalh")
 [node name="PlayerManager" type="Node2D" parent="."]
 position = Vector2(961, 520)
 
-[node name="World" type="Node2D" parent="." node_paths=PackedStringArray("transition_animation_player", "transition", "lobby_level", "player")]
+[node name="World" type="Node2D" parent="." node_paths=PackedStringArray("transition_animation_player", "players", "transition_controller", "lobby_level")]
 script = ExtResource("2_h2c5a")
 transition_animation_player = NodePath("Transition/TransitionAnimationPlayer")
-transition = NodePath("Transition")
-lobby_level = NodePath("Level2")
-player = NodePath("Player")
+players = [NodePath("Player")]
+transition_controller = NodePath("Transition")
+lobby_level = NodePath("Level1")
 
-[node name="Transition" type="Node2D" parent="World" node_paths=PackedStringArray("world", "transition_animation_player", "level_manager")]
+[node name="Transition" type="Node2D" parent="World" node_paths=PackedStringArray("world", "transition_animation_player", "level_manager", "secret_box")]
 z_index = 30
 script = ExtResource("5_o23br")
 world = NodePath("..")
 transition_animation_player = NodePath("TransitionAnimationPlayer")
 level_manager = NodePath("../LevelManager")
+secret_box = NodePath("../LevelManager/SecretAreaAnchor/SecretBox")
 
 [node name="TransitionSquare" type="Sprite2D" parent="World/Transition"]
 visible = false
@@ -217,7 +218,7 @@ world = NodePath("..")
 current_level = NodePath("../Level1")
 secret_area = NodePath("SecretAreaAnchor/SecretBox/SecretArea")
 secret_box = NodePath("SecretAreaAnchor/SecretBox")
-secret_area_new_offset = NodePath("../Level1/SecretIngredientSpawn")
+secret_area_new_offset = NodePath("NewSecretAreaPosition")
 transition = NodePath("../Transition")
 
 [node name="SecretIngredientSpawn" type="Node2D" parent="World/LevelManager"]
@@ -305,7 +306,7 @@ max_destroy_spawners_timer = 0.0
 next_level = NodePath(".")
 
 [node name="SecretIngredientSpawn" type="Node2D" parent="World/Level1"]
-position = Vector2(-1067, -481)
+position = Vector2(-371, -688)
 
 [node name="Background" type="Sprite2D" parent="World/Level1"]
 modulate = Color(0.925353, 0.925353, 0.925352, 1)

@@ -35,8 +35,6 @@ var has_gotten_hurt: bool = false
 
 @export var kill_effect_amount: int = 3
 
-var has_died: bool = false
-
 
 func _process(delta) -> void:
 	# start the invincibility if hit
@@ -49,9 +47,9 @@ func _process(delta) -> void:
 			effect_animation_player.play("RESET")
 			end_invincibility()
 	
-	if health <= 0 and !has_died:
+	if health <= 0 and !player.is_dead:
 		kill()
-		has_died = true
+		player.hide()
 
 
 func end_invincibility() -> void:

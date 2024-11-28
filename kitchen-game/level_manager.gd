@@ -25,7 +25,7 @@ var secret_ingredient_instance: Enemy
 @export var secret_area: SecretArea
 @export var secret_box: Node2D
 @export var secret_area_new_offset: Node2D
-@export var secret_box_expose_speed: float = 30.0
+@export var secret_box_expose_speed: float = 15.0
 @onready var secret_box_default_position = secret_box.global_position
 
 @export_group("Map")
@@ -34,6 +34,7 @@ var secret_ingredient_instance: Enemy
 var has_checked_to_start: bool = false
 var can_start_level: bool = true
 var has_switched_level: bool = false
+@onready var old_level: Level = current_level
 
 
 func _process(delta):
@@ -58,7 +59,6 @@ func _process(delta):
 				if current_level.is_finished:
 					level_state = LevelStates.EXPOSE_SECRET
 		LevelStates.EXPOSE_SECRET:
-			#print("expose secret")
 			if check_if_dead():
 				spawn_secret_ingrediant()
 			
@@ -71,7 +71,7 @@ func _process(delta):
 				level_state = LevelStates.WAIT_FOR_MAP
 		LevelStates.WAIT_FOR_MAP:
 			if !has_switched_level:
-				switch_to_new_level(current_level.next_level, current_level.next_level_animation)
+				switch_to_new_level(current_level.next_level, current_level, current_level.next_level_animation)
 				has_switched_level = true
 			if !transition.is_transitioning:
 				hide_secret_area(delta)
@@ -111,11 +111,10 @@ func spawn_secret_ingrediant() -> void:
 		print_debug("can't find secret ingredient or spawn area for secret ingredient")
 
 
-func switch_to_new_level(level_to_switch_to: Level, map_animation_to_play: String) -> void:
+func switch_to_new_level(level_to_switch_to: Level, old_level: Level, map_animation_to_play: String) -> void:
 	if current_level != null:
-		transition.transition_level(level_to_switch_to, map_animation_to_play, false)
-		current_level.process_mode = PROCESS_MODE_DISABLED
-		
+		transition.transition_level(level_to_switch_to, old_level, map_animation_to_play)
+		print("transition")
 		
 		level_to_switch_to.global_position = Vector2.ZERO
 		

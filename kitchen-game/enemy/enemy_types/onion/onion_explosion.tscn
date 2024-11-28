@@ -11,22 +11,22 @@ radius = 189.011
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0816327, 1), 0.0, 0.0, 0, 0, Vector2(0.895196, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 4
 
-[sub_resource type="CurveTexture" id="CurveTexture_20gtf"]
+[sub_resource type="CurveTexture" id="CurveTexture_1sy3q"]
 curve = SubResource("Curve_i44g6")
 
 [sub_resource type="Gradient" id="Gradient_pwx3f"]
 colors = PackedColorArray(0.881937, 0.881937, 0.881937, 1, 1, 1, 1, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_6l5hn"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_b65a6"]
 gradient = SubResource("Gradient_pwx3f")
 
-[sub_resource type="CurveTexture" id="CurveTexture_uqw1g"]
+[sub_resource type="CurveTexture" id="CurveTexture_iv5j6"]
 
 [sub_resource type="Curve" id="Curve_gmtdv"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.736264), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_me1pd"]
+[sub_resource type="CurveTexture" id="CurveTexture_gc8ha"]
 curve = SubResource("Curve_gmtdv")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gm8qc"]
@@ -46,13 +46,13 @@ radial_velocity_max = 212.76
 gravity = Vector3(0, 0, 0)
 scale_min = 2.0
 scale_max = 3.0
-scale_curve = SubResource("CurveTexture_me1pd")
+scale_curve = SubResource("CurveTexture_gc8ha")
 scale_over_velocity_min = 21.28
 scale_over_velocity_max = 63.82
 color = Color(0.96, 0.6528, 0.7296, 0.298039)
-color_ramp = SubResource("GradientTexture1D_6l5hn")
-alpha_curve = SubResource("CurveTexture_20gtf")
-emission_curve = SubResource("CurveTexture_uqw1g")
+color_ramp = SubResource("GradientTexture1D_b65a6")
+alpha_curve = SubResource("CurveTexture_1sy3q")
+emission_curve = SubResource("CurveTexture_iv5j6")
 hue_variation_min = -0.01
 hue_variation_max = 0.02
 
