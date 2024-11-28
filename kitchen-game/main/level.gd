@@ -48,6 +48,7 @@ func _process(delta):
 	if is_active:
 		match level_state:
 			LevelStates.WAIT:
+				#reset_level()
 				level_state = LevelStates.SPAWN
 			LevelStates.SPAWN:
 				if next_spawner_time > 0:
@@ -69,9 +70,12 @@ func _process(delta):
 
 
 func reset_level() -> void:
+	print("reset level")
 	enemy_spawn_level = 0
-	is_finished = false
 	level_state = LevelStates.WAIT
+	destroy_spawners_timer = max_destroy_spawners_timer
+	
+	is_finished = false
 	is_active = true
 
 

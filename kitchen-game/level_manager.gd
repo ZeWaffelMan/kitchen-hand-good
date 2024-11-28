@@ -30,18 +30,18 @@ var secret_ingredient_instance: Enemy
 
 @export_group("Map")
 @export var transition: Transition
-@export var map: Map
 
-var has_checked_to_start = false
-
-
-func _ready() -> void:
-	current_level.show()
-	current_level.is_active = true
-	current_level.process_mode = PROCESS_MODE_INHERIT
+var has_checked_to_start: bool = false
+var can_start_level: bool = true
+var has_switched_level: bool = false
 
 
 func _process(delta):
+	if can_start_level:
+		current_level.show()
+		current_level.is_active = true
+		current_level.process_mode = PROCESS_MODE_INHERIT
+	
 	# check if there are players to start the level
 	if !has_checked_to_start:
 		if !check_if_player_dead():
@@ -69,15 +69,15 @@ func _process(delta):
 			else:
 				secret_area.has_collected_ingredient = true
 				level_state = LevelStates.WAIT_FOR_MAP
-				map.is_active = true
 		LevelStates.WAIT_FOR_MAP:
-			hide_secret_area(delta)
-			if !map.is_active:
-				secret_ingredient_instance.queue_free()
+			if !has_switched_level:
+				switch_to_new_level(current_level.next_level, current_level.next_level_animation)
+				has_switched_level = true
+			if !transition.is_transitioning:
+				hide_secret_area(delta)
 				secret_area.has_collected_ingredient = false
-				level_state = LevelStates.SET_NEW_LEVEL
-		LevelStates.SET_NEW_LEVEL:
-			switch_to_new_level(current_level.next_level, current_level.next_level_animation)
+				level_state = LevelStates.WAIT
+				has_switched_level = false
 
 
 func check_if_dead() -> bool:
@@ -103,9 +103,9 @@ func hide_secret_area(delta) -> void:
 
 
 func spawn_secret_ingrediant() -> void:
-	if secret_ingredient != null and secret_ingredient_spawn_area != null:
-		secret_ingredient_instance = secret_ingredient.instantiate()
-		secret_ingredient_instance.global_position = secret_ingredient_spawn_area.global_position
+	if current_level.secret_ingredient_to_spawn != null and current_level.secret_ingredient_spawn_area != null:
+		secret_ingredient_instance = current_level.secret_ingredient_to_spawn.instantiate()
+		secret_ingredient_instance.global_position = current_level.secret_ingredient_spawn_area.global_position
 		get_tree().current_scene.add_child(secret_ingredient_instance)
 	else:
 		print_debug("can't find secret ingredient or spawn area for secret ingredient")
@@ -113,18 +113,13 @@ func spawn_secret_ingrediant() -> void:
 
 func switch_to_new_level(level_to_switch_to: Level, map_animation_to_play: String) -> void:
 	if current_level != null:
-		current_level.reset_level()
 		transition.transition_level(level_to_switch_to, map_animation_to_play, false)
 		current_level.process_mode = PROCESS_MODE_DISABLED
 		
-		var new_level: Level = transition.new_level
 		
-		world.add_child(new_level)
-		new_level.global_position = Vector2.ZERO
+		level_to_switch_to.global_position = Vector2.ZERO
 		
-		current_level = new_level
-		current_level.reset_level()
+		current_level = level_to_switch_to
 		secret_ingredient_spawn_area = current_level.secret_ingredient_spawn_area
 		
 		has_checked_to_start = false
-		#level_state = LevelStates.WAIT

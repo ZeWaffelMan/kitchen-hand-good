@@ -13,15 +13,14 @@
 [ext_resource type="Script" path="res://main/secret_area.gd" id="8_ey3if"]
 [ext_resource type="PackedScene" uid="uid://3hxttdc8tr4g" path="res://level_manager.tscn" id="10_6wgdk"]
 [ext_resource type="Texture2D" uid="uid://dnakalufrck0v" path="res://environment/cross_hair.png" id="10_8aeo6"]
-[ext_resource type="Script" path="res://main/map.gd" id="11_807jm"]
 [ext_resource type="PackedScene" uid="uid://dlq4loyy712rr" path="res://enemy/onion_spawner.tscn" id="12_cs1vm"]
 [ext_resource type="PackedScene" uid="uid://b8luv6527ht6u" path="res://secret_ingredient_pepper.tscn" id="12_rkc0r"]
 [ext_resource type="PackedScene" uid="uid://3ww5a3heppml" path="res://enemy/avocado_spawner.tscn" id="13_05g0p"]
 [ext_resource type="PackedScene" uid="uid://crqlvwv8eqnun" path="res://enemy/watermelon_spawner.tscn" id="16_2cem5"]
 [ext_resource type="Script" path="res://main/level.gd" id="16_6h127"]
 [ext_resource type="PackedScene" uid="uid://kg6h4tnt75ni" path="res://enemy/pineapple_spawner.tscn" id="17_r3k14"]
+[ext_resource type="PackedScene" uid="uid://d1bynxqimc7hf" path="res://level/water.tscn" id="19_orn1x"]
 [ext_resource type="PackedScene" uid="uid://85c7kmh5sa64" path="res://main/bounds_wall.tscn" id="20_43wd5"]
-[ext_resource type="PackedScene" uid="uid://1c1fmhdoydcc" path="res://enemy/enemy_types/cherry_bomb/cherry_bomb_enemy.tscn" id="23_4uwth"]
 [ext_resource type="PackedScene" uid="uid://dl74or3yeb5ly" path="res://main/hazard.tscn" id="26_cm7ic"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l3uul"]
@@ -67,35 +66,6 @@ tracks/2/keys = {
 "values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_heorh"]
-resource_name = "transition_close"
-length = 1.5
-step = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TransitionSquare:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(-2, -2),
-"update": 0,
-"values": [Vector2(1603, -3570), Vector2(1432, -656)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
 [sub_resource type="Animation" id="Animation_sv5wl"]
 resource_name = "transition_open"
 step = 0.5
@@ -109,7 +79,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(-2, -2),
 "update": 0,
-"values": [Vector2(1152, 881), Vector2(849, 4199)]
+"values": [Vector2(849, 4199), Vector2(1152, 881)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -124,10 +94,37 @@ tracks/1/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_uq3rs"]
+resource_name = "transition_close"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TransitionSquare:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TransitionSquare:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(930, -230), Vector2(894, -3651)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qkx15"]
 _data = {
 "RESET": SubResource("Animation_66svl"),
-"transition_close": SubResource("Animation_heorh"),
+"transition_close": SubResource("Animation_uq3rs"),
 "transition_open": SubResource("Animation_sv5wl")
 }
 
@@ -157,6 +154,9 @@ size = Vector2(182.897, 57.3439)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sfjl0"]
 size = Vector2(3830, 1666)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bfojq"]
+size = Vector2(2373.5, 788.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vjoqm"]
 size = Vector2(11783, 11109)
@@ -192,14 +192,15 @@ transition = NodePath("Transition")
 lobby_level = NodePath("Level2")
 player = NodePath("Player")
 
-[node name="Transition" type="Node2D" parent="World" node_paths=PackedStringArray("world")]
+[node name="Transition" type="Node2D" parent="World" node_paths=PackedStringArray("world", "transition_animation_player", "level_manager")]
 z_index = 30
 script = ExtResource("5_o23br")
 world = NodePath("..")
+transition_animation_player = NodePath("TransitionAnimationPlayer")
+level_manager = NodePath("../LevelManager")
 
 [node name="TransitionSquare" type="Sprite2D" parent="World/Transition"]
 visible = false
-modulate = Color(0, 0, 0, 1)
 position = Vector2(949, -1176)
 scale = Vector2(100, 50)
 texture = ExtResource("1_avalh")
@@ -208,18 +209,16 @@ texture = ExtResource("1_avalh")
 libraries = {
 "": SubResource("AnimationLibrary_qkx15")
 }
-autoplay = "transition_open"
 
-[node name="LevelManager" parent="World" node_paths=PackedStringArray("world", "current_level", "secret_area", "secret_box", "secret_area_new_offset", "transition", "map") instance=ExtResource("10_6wgdk")]
+[node name="LevelManager" parent="World" node_paths=PackedStringArray("world", "current_level", "secret_area", "secret_box", "secret_area_new_offset", "transition") instance=ExtResource("10_6wgdk")]
 z_index = 2
 position = Vector2(-786, 747)
 world = NodePath("..")
 current_level = NodePath("../Level1")
 secret_area = NodePath("SecretAreaAnchor/SecretBox/SecretArea")
 secret_box = NodePath("SecretAreaAnchor/SecretBox")
-secret_area_new_offset = NodePath("NewSecretAreaPosition")
+secret_area_new_offset = NodePath("../Level1/SecretIngredientSpawn")
 transition = NodePath("../Transition")
-map = NodePath("Map")
 
 [node name="SecretIngredientSpawn" type="Node2D" parent="World/LevelManager"]
 position = Vector2(1753, 478)
@@ -286,37 +285,27 @@ shape = SubResource("RectangleShape2D_lwlm7")
 [node name="NewSecretAreaPosition" type="Node2D" parent="World/LevelManager"]
 position = Vector2(1740, -1031)
 
-[node name="Map" type="Node2D" parent="World/LevelManager" node_paths=PackedStringArray("new_position_node")]
-position = Vector2(1749, 2000)
-script = ExtResource("11_807jm")
-new_position_node = NodePath("../NewMapPosition")
-
-[node name="Sprite2D" type="Sprite2D" parent="World/LevelManager/Map"]
-modulate = Color(0.662452, 0.662452, 0.662452, 0.623529)
-scale = Vector2(39.6582, 21.5382)
-texture = ExtResource("1_avalh")
-
 [node name="NewMapPosition" type="Node2D" parent="World/LevelManager"]
 position = Vector2(1742, -207)
 
 [node name="Level1" type="Node2D" parent="World" node_paths=PackedStringArray("secret_ingredient_spawn_area", "enemy_spawn_points", "enemy_air_spawn_point_1", "enemy_air_spawn_point_2", "next_level")]
 process_mode = 4
-position = Vector2(0, -6)
+position = Vector2(0, -10)
 script = ExtResource("16_6h127")
 is_active = false
-secret_ingredient_spawn_area = NodePath(".")
+secret_ingredient_spawn_area = NodePath("SecretIngredientSpawn")
 secret_ingredient_to_spawn = ExtResource("12_rkc0r")
 enemy_spawn_points = [NodePath("SpawnPointPlatform"), NodePath("SpawnPointPlatform2"), NodePath("SpawnPointPlatform3"), NodePath("SpawnPointPlatform4"), NodePath("SpawnPointPlatform5")]
 enemy_air_spawn_point_1 = NodePath("RangeSpawnPoints/TopLeftSpawn")
 enemy_air_spawn_point_2 = NodePath("RangeSpawnPoints/TopRightSpawn")
 enemy_spawners_to_spawn = Array[Resource]([ExtResource("12_cs1vm"), ExtResource("17_r3k14"), ExtResource("16_2cem5"), ExtResource("13_05g0p")])
-max_next_spawner_time = 20.0
-min_next_spawner_time = 20.0
-max_destroy_spawners_timer = 20.0
-next_level = NodePath("../Level2")
+max_next_spawner_time = 0.0
+min_next_spawner_time = 0.0
+max_destroy_spawners_timer = 0.0
+next_level = NodePath(".")
 
 [node name="SecretIngredientSpawn" type="Node2D" parent="World/Level1"]
-position = Vector2(220, -660)
+position = Vector2(-1067, -481)
 
 [node name="Background" type="Sprite2D" parent="World/Level1"]
 modulate = Color(0.925353, 0.925353, 0.925352, 1)
@@ -521,10 +510,11 @@ z_index = 1
 position = Vector2(590, -85)
 
 [node name="Ground" parent="World/Level2/Area" instance=ExtResource("6_aco2f")]
+position = Vector2(-3483, 1647)
 
 [node name="Sprite" parent="World/Level2/Area/Ground" index="0"]
 modulate = Color(1, 1, 1, 1)
-scale = Vector2(32.1456, 4.16303)
+scale = Vector2(26.4975, 4.25919)
 
 [node name="CollisionShape2D" parent="World/Level2/Area/Ground" index="1"]
 position = Vector2(278.269, -126.76)
@@ -544,8 +534,33 @@ scale = Vector2(0.603621, 0.603621)
 position = Vector2(-12.2489, 0)
 shape = SubResource("RectangleShape2D_fiw01")
 
+[node name="Ground5" parent="World/Level2/Area" instance=ExtResource("6_aco2f")]
+position = Vector2(3189, 1647)
+
+[node name="Sprite" parent="World/Level2/Area/Ground5" index="0"]
+modulate = Color(1, 1, 1, 1)
+scale = Vector2(28.2159, 4.30932)
+
+[node name="CollisionShape2D" parent="World/Level2/Area/Ground5" index="1"]
+position = Vector2(278.269, -126.76)
+shape = SubResource("RectangleShape2D_1yp5y")
+
+[node name="TopRightBounds" parent="World/Level2/Area/Ground5/EnemyBounds" index="0"]
+position = Vector2(1333.4, -262.575)
+
+[node name="BottomLeftBounds" parent="World/Level2/Area/Ground5/EnemyBounds" index="1"]
+position = Vector2(-980.28, 15.0905)
+
+[node name="UpperArea" type="Area2D" parent="World/Level2/Area/Ground5"]
+position = Vector2(174.446, -309.657)
+scale = Vector2(0.603621, 0.603621)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Level2/Area/Ground5/UpperArea"]
+position = Vector2(-12.2489, 0)
+shape = SubResource("RectangleShape2D_fiw01")
+
 [node name="Ground2" parent="World/Level2/Area" instance=ExtResource("6_aco2f")]
-position = Vector2(-2956, 719)
+position = Vector2(-114, 1918)
 
 [node name="Sprite" parent="World/Level2/Area/Ground2" index="0"]
 modulate = Color(1, 1, 1, 1)
@@ -568,58 +583,6 @@ scale = Vector2(0.603621, 0.603621)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Level2/Area/Ground2/UpperArea2"]
 shape = SubResource("RectangleShape2D_fiw01")
-
-[node name="Ground3" parent="World/Level2/Area" instance=ExtResource("6_aco2f")]
-position = Vector2(1808, 1253)
-
-[node name="Sprite" parent="World/Level2/Area/Ground3" index="0"]
-modulate = Color(1, 1, 1, 1)
-position = Vector2(-199.798, -91.2797)
-scale = Vector2(1.84738, 3.37762)
-
-[node name="CollisionShape2D" parent="World/Level2/Area/Ground3" index="1"]
-position = Vector2(-198.591, -231.94)
-shape = SubResource("RectangleShape2D_jmkri")
-
-[node name="TopRightBounds" parent="World/Level2/Area/Ground3/EnemyBounds" index="0"]
-position = Vector2(-111.066, -255.935)
-
-[node name="BottomLeftBounds" parent="World/Level2/Area/Ground3/EnemyBounds" index="1"]
-position = Vector2(-283.702, -210.06)
-
-[node name="UpperArea" type="Area2D" parent="World/Level2/Area/Ground3"]
-position = Vector2(486.518, -300.603)
-scale = Vector2(0.603621, 0.603621)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Level2/Area/Ground3/UpperArea"]
-position = Vector2(-1136, 0)
-shape = SubResource("RectangleShape2D_g4ftu")
-
-[node name="Ground4" parent="World/Level2/Area" instance=ExtResource("6_aco2f")]
-position = Vector2(2126, 1253)
-
-[node name="Sprite" parent="World/Level2/Area/Ground4" index="0"]
-modulate = Color(1, 1, 1, 1)
-position = Vector2(-198.591, -59.8277)
-scale = Vector2(1.8373, 2.75113)
-
-[node name="CollisionShape2D" parent="World/Level2/Area/Ground4" index="1"]
-position = Vector2(-198.591, -171.428)
-shape = SubResource("RectangleShape2D_xyi0p")
-
-[node name="TopRightBounds" parent="World/Level2/Area/Ground4/EnemyBounds" index="0"]
-position = Vector2(-114.26, -193.335)
-
-[node name="BottomLeftBounds" parent="World/Level2/Area/Ground4/EnemyBounds" index="1"]
-position = Vector2(-286.896, -147.459)
-
-[node name="UpperArea" type="Area2D" parent="World/Level2/Area/Ground4"]
-position = Vector2(486.518, -233.601)
-scale = Vector2(0.603621, 0.603621)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Level2/Area/Ground4/UpperArea"]
-position = Vector2(-1136, 0)
-shape = SubResource("RectangleShape2D_g4ftu")
 
 [node name="BoundsWall" parent="World/Level2/Area" instance=ExtResource("20_43wd5")]
 position = Vector2(-1803, 350)
@@ -667,6 +630,13 @@ collision_mask = 0
 position = Vector2(960, 316)
 shape = SubResource("RectangleShape2D_sfjl0")
 debug_color = Color(0.3698, 0.52503, 0.86, 0.0705882)
+
+[node name="Water" parent="World/Level2" instance=ExtResource("19_orn1x")]
+position = Vector2(906, 1539)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Level2/Water"]
+shape = SubResource("RectangleShape2D_bfojq")
+debug_color = Color(0.39, 0.6955, 0.78, 0.254902)
 
 [node name="CameraHolder" type="Node2D" parent="World"]
 z_index = 3
@@ -729,15 +699,11 @@ debug_color = Color(1, 0.03, 0.03, 0.0588235)
 
 [node name="Player" parent="World" instance=ExtResource("3_xc6ge")]
 
-[node name="CherryBombEnemy" parent="." instance=ExtResource("23_4uwth")]
-position = Vector2(-1026, 1189)
-
 [editable path="World/LevelManager"]
 [editable path="World/Level1/Area/Ground"]
 [editable path="World/Level1/Area/Ground2"]
 [editable path="World/Level1/Area/Ground3"]
 [editable path="World/Level1/Area/Ground4"]
 [editable path="World/Level2/Area/Ground"]
+[editable path="World/Level2/Area/Ground5"]
 [editable path="World/Level2/Area/Ground2"]
-[editable path="World/Level2/Area/Ground3"]
-[editable path="World/Level2/Area/Ground4"]

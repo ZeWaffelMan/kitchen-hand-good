@@ -21,5 +21,3 @@ func update_state(delta) -> void:
 			transitioned.emit(self, next_state)
 	else:
 		transitioned.emit(self, next_state)
-	if next_state == "":
-		print_debug("forgot to set next state for enemy")

@@ -23,7 +23,6 @@ boot_splash/show_image=false
 
 CameraShake="*res://main/camera_shake.gd"
 EffectCreator="*res://effects/effect_creator.gd"
-GameStats="*res://main/game_stats.gd"
 
 [debug]
 

@@ -62,8 +62,6 @@ func update_state(delta) -> void:
 		rest_time -= delta
 	else:
 		transitioned.emit(self, next_state)
-	if next_state == "":
-		print_debug("forgot to set next state for enemy")
 	
 	if wait_state.does_wait_to_stand:
 		if enemy.enemy_state != enemy.EnemyStates.STAND:
