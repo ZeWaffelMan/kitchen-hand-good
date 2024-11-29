@@ -52,7 +52,7 @@ peel = NodePath("../../Head/BodyHolder/BodySprites/HeadHolder/Head/Peel")
 chunks = ExtResource("4_i4dn8")
 
 [node name="EnemyJuiceColor" parent="." index="6"]
-self_modulate = Color(1, 0.945098, 0.654902, 1)
+self_modulate = Color(0.960784, 0.901961, 0.6, 1)
 
 [node name="Head" parent="." index="13"]
 material = SubResource("ShaderMaterial_5ovcy")

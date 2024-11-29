@@ -11,7 +11,7 @@ class_name Enemy
 @export var face_animation_player: AnimationPlayer
 @export var eyes_animation_player: AnimationPlayer
 
-var speed_damage_threshold: float = 3000.0
+var speed_damage_threshold: float = 2750.0
 var ragdoll_magnitude_threshold: float = 400.0
 
 @export var does_wait_to_launch: bool = true
@@ -27,15 +27,12 @@ var is_secret_ingredient: bool = false
 @export var enemy_juice_color_node: Node2D
 @onready var juice_color = enemy_juice_color_node.self_modulate
 
-@export var dust_particles: GPUParticles2D
-
 @export var storage: EnemyStorage
 
 enum EnemyStates{
 	RAGDOLL,
 	REBALANCE,
 	STAND,
-	STANDPLATFORM,
 	GRABBED,
 	TRAPPED,
 }
@@ -44,8 +41,6 @@ var enemy_state = EnemyStates.RAGDOLL
 
 
 func _ready() -> void:
-	if dust_particles != null:
-		dust_particles.emitting = true
 	if turn_into_secret != null:
 		is_secret_ingredient = true
 

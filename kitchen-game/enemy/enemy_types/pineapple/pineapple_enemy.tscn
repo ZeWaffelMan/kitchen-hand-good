@@ -162,6 +162,9 @@ position = Vector2(-33, 38)
 [node name="EnemyFoot2" parent="Head/BodyHolder/BodySprites/FootHolder2" index="0"]
 modulate = Color(0.319783, 0.22735, 0.134822, 1)
 
+[node name="MouthAnimationPlayer" parent="Head/BodyHolder/BodySprites" index="6"]
+autoplay = "toungue_out"
+
 [node name="CollisionShape2D" parent="Head" index="8"]
 use_parent_material = true
 shape = SubResource("CircleShape2D_srxmi")

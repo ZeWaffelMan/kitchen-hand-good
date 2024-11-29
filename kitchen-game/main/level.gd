@@ -26,13 +26,13 @@ var level_state = LevelStates.WAIT
 @export var enemy_air_spawn_point_2: Node2D
 
 @export var enemy_spawners_to_spawn: Array[Resource]
-@export var max_next_spawner_time: float = 0.9
-@export var min_next_spawner_time: float = 0.9
+@export var max_next_spawner_time: float = 12.0
+@export var min_next_spawner_time: float = 12.0
 @onready var next_spawner_time = 0
 var spawners_created: Array[Node]
 var enemy_spawn_level: int = 0
 
-@export var max_destroy_spawners_timer: float = 2.0
+@export var max_destroy_spawners_timer: float = 20.0
 @onready var destroy_spawners_timer: float = max_destroy_spawners_timer
 
 @export_group("New Level")
@@ -74,6 +74,7 @@ func reset_level() -> void:
 	enemy_spawn_level = 0
 	level_state = LevelStates.WAIT
 	destroy_spawners_timer = max_destroy_spawners_timer
+	destroy_all_spawners()
 	
 	is_finished = false
 	is_active = true

@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4l0xw23lcmjd"]
+
+[ext_resource type="PackedScene" uid="uid://cp8u253qeyfka" path="res://enemy/enemy_spawner.tscn" id="1_43iqf"]
+[ext_resource type="PackedScene" uid="uid://cwfghs50ucry5" path="res://enemy/enemy_types/banana/banana_enemy.tscn" id="2_a07qd"]
+
+[node name="EnemySpawner" instance=ExtResource("1_43iqf")]
+enemy_to_spawn = ExtResource("2_a07qd")

@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://enemy/enemy_types/cherry_bomb/wait_to_jump.gd" id="3_fxh7k"]
 [ext_resource type="Script" path="res://enemy/enemy_types/cherry_bomb/jump_up.gd" id="3_rgmjw"]
 [ext_resource type="Script" path="res://player_detection.gd" id="5_hua3g"]
-[ext_resource type="PackedScene" uid="uid://c6yd3wdxsuud7" path="res://enemy/enemy_types/cherry_explosion.tscn" id="5_jdywv"]
+[ext_resource type="PackedScene" uid="uid://c6yd3wdxsuud7" path="res://enemy/enemy_types/cherry_bomb/cherry_explosion.tscn" id="5_jdywv"]
 [ext_resource type="Texture2D" uid="uid://b1f6i777mfpti" path="res://enemy/enemy_types/cherry_bomb/cherry.png" id="7_8yvdj"]
 [ext_resource type="Texture2D" uid="uid://bxp2ek7xbur6r" path="res://enemy/enemy_types/cherry_bomb/fuse0000.png" id="8_wia6g"]
 [ext_resource type="Texture2D" uid="uid://o10q5cfk3m5d" path="res://enemy/enemy_types/cherry_bomb/fuse0001.png" id="9_6ayqa"]

@@ -69,7 +69,7 @@ player_detection = NodePath("../../Head/PlayerDetection")
 squash_check = NodePath("../../Head/SquashCheck")
 
 [node name="EnemyJuiceColor" parent="." index="7"]
-self_modulate = Color(0.552941, 1, 0.54902, 1)
+self_modulate = Color(0.443137, 0.909804, 0.454902, 1)
 
 [node name="CollisionShape2D" parent="LookingForGround/GroundCheck" index="0"]
 position = Vector2(0, 105.5)

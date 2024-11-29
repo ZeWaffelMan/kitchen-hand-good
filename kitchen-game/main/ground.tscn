@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://ddede8hxi6p7g"]
+[gd_scene load_steps=4 format=3 uid="uid://ddede8hxi6p7g"]
 
 [ext_resource type="Script" path="res://main/ground.gd" id="1_6te3o"]
-[ext_resource type="Texture2D" uid="uid://c2uo5aw8kd330" path="res://environment/square.png" id="2_5infd"]
 [ext_resource type="Texture2D" uid="uid://bsj5ua6le431v" path="res://environment/circle.png" id="3_wkiba"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tikvx"]
@@ -15,12 +14,6 @@ collision_mask = 0
 script = ExtResource("1_6te3o")
 top_right_bounds_node = NodePath("EnemyBounds/TopRightBounds")
 bottom_left_bounds_node = NodePath("EnemyBounds/BottomLeftBounds")
-
-[node name="Sprite" type="Sprite2D" parent="."]
-modulate = Color(0.912289, 0.912289, 0.912288, 1)
-position = Vector2(321.5, -52.5)
-scale = Vector2(26.94, 3.13)
-texture = ExtResource("2_5infd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(316, -65.7919)

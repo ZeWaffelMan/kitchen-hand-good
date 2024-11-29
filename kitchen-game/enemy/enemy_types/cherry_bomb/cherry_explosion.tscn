@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://c6yd3wdxsuud7"]
 
-[ext_resource type="Script" path="res://effects/effect.gd" id="1_1xuc5"]
-[ext_resource type="PackedScene" uid="uid://dl74or3yeb5ly" path="res://main/hazard.tscn" id="1_ujvkr"]
-[ext_resource type="Texture2D" uid="uid://bsj5ua6le431v" path="res://environment/circle.png" id="3_50k2o"]
+[ext_resource type="Script" path="res://effects/effect.gd" id="1_08lhn"]
+[ext_resource type="PackedScene" uid="uid://dl74or3yeb5ly" path="res://main/hazard.tscn" id="2_cliyv"]
+[ext_resource type="Texture2D" uid="uid://bsj5ua6le431v" path="res://environment/circle.png" id="3_1qvui"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5f57c"]
 radius = 504.036
@@ -62,14 +62,14 @@ hue_variation_max = -2.23517e-08
 
 [node name="CherryExplosion" type="Node2D" node_paths=PackedStringArray("node_to_destroy", "particles")]
 z_index = 6
-script = ExtResource("1_1xuc5")
+script = ExtResource("1_08lhn")
 has_screen_shake = true
 screen_shake_amount = 0.4
 max_destroy_time = 0.4
 node_to_destroy = NodePath(".")
 particles = [NodePath("GPUParticles2D"), NodePath("GPUParticles2D2")]
 
-[node name="Hazard" parent="." instance=ExtResource("1_ujvkr")]
+[node name="Hazard" parent="." instance=ExtResource("2_cliyv")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hazard"]
 shape = SubResource("CircleShape2D_5f57c")
@@ -79,7 +79,7 @@ debug_color = Color(1, 0, 0.0166664, 0.0470588)
 emitting = false
 amount = 30
 process_material = SubResource("ParticleProcessMaterial_5yf8i")
-texture = ExtResource("3_50k2o")
+texture = ExtResource("3_1qvui")
 lifetime = 0.3
 one_shot = true
 explosiveness = 1.0
@@ -89,7 +89,7 @@ randomness = 0.36
 emitting = false
 amount = 30
 process_material = SubResource("ParticleProcessMaterial_1pn3y")
-texture = ExtResource("3_50k2o")
+texture = ExtResource("3_1qvui")
 lifetime = 0.3
 one_shot = true
 explosiveness = 1.0

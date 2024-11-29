@@ -220,8 +220,6 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 			if !has_standed:
 				linear_velocity.y = 0
 				has_standed = true
-		enemy.EnemyStates.STANDPLATFORM:
-			global_rotation = 0.0
 		enemy.EnemyStates.TRAPPED:
 			set_collision_mask_value(11, true)
 			set_collision_mask_value(1, false)

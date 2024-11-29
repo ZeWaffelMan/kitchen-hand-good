@@ -1,7 +1,82 @@
-[gd_scene load_steps=2 format=3 uid="uid://bcnborqwlixc"]
+[gd_scene load_steps=6 format=3 uid="uid://bcnborqwlixc"]
 
 [ext_resource type="PackedScene" uid="uid://dnt7e148s6dro" path="res://effects/hit_effect/hit_effect.tscn" id="1_bxkp5"]
+[ext_resource type="Texture2D" uid="uid://bsj5ua6le431v" path="res://environment/circle.png" id="2_n0y4q"]
+
+[sub_resource type="Animation" id="Animation_ib27g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DeathCircle:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.878431)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DeathCircle:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(3, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_x2tgc"]
+resource_name = "death_circle"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DeathCircle:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Color(1, 1, 1, 0.372549), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DeathCircle:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(2, 2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hphkn"]
+_data = {
+"RESET": SubResource("Animation_ib27g"),
+"death_circle": SubResource("Animation_x2tgc")
+}
 
 [node name="PlayerHurtEffect" instance=ExtResource("1_bxkp5")]
+z_index = 6
 frame = 2
 frame_progress = 0.0
+
+[node name="DeathCircle" type="Sprite2D" parent="." index="0"]
+modulate = Color(1, 1, 1, 0.878431)
+scale = Vector2(3, 3)
+texture = ExtResource("2_n0y4q")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_hphkn")
+}
+autoplay = "death_circle"

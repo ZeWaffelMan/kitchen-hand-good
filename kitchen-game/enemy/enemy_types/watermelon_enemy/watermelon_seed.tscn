@@ -25,7 +25,7 @@ hazard = NodePath("Hazard")
 shape = SubResource("CapsuleShape2D_mebex")
 
 [node name="Sprite2D" type="Sprite2D" parent="." node_paths=PackedStringArray("node_to_destroy")]
-scale = Vector2(1.2, 1.2)
+scale = Vector2(1.8, 1.8)
 texture = ExtResource("2_ekegb")
 script = ExtResource("4_y236v")
 has_destroy_time = true

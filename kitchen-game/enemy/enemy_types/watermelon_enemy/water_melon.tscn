@@ -122,6 +122,9 @@ position = Vector2(-50, 45)
 [node name="EnemyFoot2" parent="Head/BodyHolder/BodySprites/FootHolder2" index="0"]
 modulate = Color(0.168627, 0.168627, 0.168627, 1)
 
+[node name="MouthAnimationPlayer" parent="Head/BodyHolder/BodySprites" index="6"]
+autoplay = "long_neutral"
+
 [node name="CollisionShape2D" parent="Head" index="8"]
 position = Vector2(0, 13)
 rotation = -1.5708

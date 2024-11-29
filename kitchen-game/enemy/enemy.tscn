@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=3 uid="uid://ccewotvxo4pxr"]
+[gd_scene load_steps=91 format=3 uid="uid://ccewotvxo4pxr"]
 
 [ext_resource type="Script" path="res://enemy/main/enemy_health.gd" id="1_cw4vx"]
 [ext_resource type="Script" path="res://enemy/enemy.gd" id="1_gip5k"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://dnt7e148s6dro" path="res://effects/hit_effect/hit_effect.tscn" id="9_yme7h"]
 [ext_resource type="Script" path="res://enemy/enemy_states/enemy_rebalance.gd" id="10_rgprq"]
 [ext_resource type="Texture2D" uid="uid://d0q58fo8dl5g7" path="res://enemy/enemy_types/onion/onion.png" id="12_343ne"]
+[ext_resource type="PackedScene" uid="uid://dlyn0r4c500uk" path="res://enemy/effects/death_effect/death_effect.tscn" id="13_5es4p"]
 [ext_resource type="Texture2D" uid="uid://c2uo5aw8kd330" path="res://environment/square.png" id="13_7vs0d"]
 [ext_resource type="Texture2D" uid="uid://dxi08nrrqsc8n" path="res://enemy/faces/mouths/neutral.PNG" id="13_kgngs"]
 [ext_resource type="Texture2D" uid="uid://dr86iwntpxl3j" path="res://enemy/faces/eyes/open_eye.PNG" id="14_tjt2v"]
@@ -997,6 +998,7 @@ line = NodePath("Line2D")
 [node name="UnderWater" type="Node2D" parent="." node_paths=PackedStringArray("enemy", "head", "water_detection")]
 script = ExtResource("4_3gp8k")
 enemy = NodePath("..")
+does_float = true
 head = NodePath("../Head")
 water_detection = NodePath("../Head/WaterDetection")
 
@@ -1056,6 +1058,7 @@ head = NodePath("../Head")
 effect_animation_player = NodePath("../EffectAnimationPlayer")
 blood_effect = ExtResource("3_4mpgo")
 hit_effect = ExtResource("9_yme7h")
+death_effect = ExtResource("13_5es4p")
 
 [node name="LookingForGround" type="Node2D" parent="."]
 

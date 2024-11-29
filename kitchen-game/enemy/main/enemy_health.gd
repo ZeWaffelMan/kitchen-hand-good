@@ -38,6 +38,7 @@ var is_pushed: bool = false
 @export var squirt_effect: Resource
 @export var hit_effect: Resource
 @export var hit_effect_rotation_offset: float = 0.0
+@export var death_effect: Resource
 
 
 func _ready() -> void:
@@ -113,6 +114,10 @@ func kill() -> void:
 	enemy.visible = false
 	enemy.process_mode = Node.PROCESS_MODE_DISABLED
 	enemy.queue_free()
+	
+	EffectCreator.create_effect(death_effect, juice_color)
+	EffectCreator.set_effect_position(head.global_position)
+	EffectCreator.effect_instance.global_rotation = randf_range(0, 360)
 
 
 func blood() -> void:
