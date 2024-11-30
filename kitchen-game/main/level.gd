@@ -47,27 +47,27 @@ var enemy_spawn_level: int = 0
 
 func _process(delta):
 	if is_active:
-		match level_state:
-			LevelStates.WAIT:
-				#reset_level()
-				level_state = LevelStates.SPAWN
-			LevelStates.SPAWN:
-				if next_spawner_time > 0:
-					next_spawner_time -= delta
-				else:
-					if enemy_spawners_to_spawn != null and enemy_spawn_level < len(enemy_spawners_to_spawn):
-						spawn(enemy_spawners_to_spawn[enemy_spawn_level])
-						enemy_spawn_level += 1
-						next_spawner_time = randf_range(min_next_spawner_time, max_next_spawner_time)
+		if !is_lobby_level and !is_last_level:
+			match level_state:
+				LevelStates.WAIT:
+					level_state = LevelStates.SPAWN
+				LevelStates.SPAWN:
+					if next_spawner_time > 0:
+						next_spawner_time -= delta
 					else:
-						level_state = LevelStates.WAIT_TO_END
-			LevelStates.WAIT_TO_END:
-				if enemy_spawners_to_spawn != null and enemy_spawn_level >= len(enemy_spawners_to_spawn):
-					if destroy_spawners_timer > 0:
-						destroy_spawners_timer -= delta
-					else:
-						destroy_all_spawners()
-						is_finished = true
+						if enemy_spawners_to_spawn != null and enemy_spawn_level < len(enemy_spawners_to_spawn):
+							spawn(enemy_spawners_to_spawn[enemy_spawn_level])
+							enemy_spawn_level += 1
+							next_spawner_time = randf_range(min_next_spawner_time, max_next_spawner_time)
+						else:
+							level_state = LevelStates.WAIT_TO_END
+				LevelStates.WAIT_TO_END:
+					if enemy_spawners_to_spawn != null and enemy_spawn_level >= len(enemy_spawners_to_spawn):
+						if destroy_spawners_timer > 0:
+							destroy_spawners_timer -= delta
+						else:
+							destroy_all_spawners()
+							is_finished = true
 
 
 func reset_level() -> void:

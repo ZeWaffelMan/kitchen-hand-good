@@ -32,53 +32,44 @@ var secret_ingredient_instance: Enemy
 @export var transition: Transition
 
 var has_checked_to_start: bool = false
-var can_start_level: bool = true
 var has_switched_level: bool = false
 @onready var old_level: Level = current_level
 @export var point_to_travel_to: Node2D
 
 
+func _ready() -> void:
+	current_level.show()
+	current_level.is_active = true
+	current_level.process_mode = PROCESS_MODE_INHERIT
+
+
 func _process(delta):
-	if can_start_level:
-		current_level.show()
-		current_level.is_active = true
-		current_level.process_mode = PROCESS_MODE_INHERIT
-	
-	# check if there are players to start the level
-	if !has_checked_to_start:
-		if !check_if_player_dead():
-			current_level.is_active = true
-			level_state = LevelStates.WAIT
-			has_checked_to_start = true
-		else:
-			current_level.is_active = false
-	
-	match level_state:
-		LevelStates.WAIT:
-			#expose the secret if the level is finished
-			if current_level != null:
-				if current_level.is_finished:
-					level_state = LevelStates.EXPOSE_SECRET
-		LevelStates.EXPOSE_SECRET:
-			if check_if_dead():
-				spawn_secret_ingrediant()
-			
-			# collect the ingredient and switch to the map if is collected
-			if !secret_area.has_collected_ingredient:
-				if secret_ingredient_instance != null:
-					expose_secret_area(delta)
-			else:
-				secret_area.has_collected_ingredient = true
-				level_state = LevelStates.WAIT_FOR_MAP
-		LevelStates.WAIT_FOR_MAP:
-			if !has_switched_level:
-				switch_to_new_level(current_level.next_level, current_level, current_level.next_level_animation)
-				has_switched_level = true
-			if !transition.is_transitioning:
-				hide_secret_area(delta)
-				secret_area.has_collected_ingredient = false
-				level_state = LevelStates.WAIT
-				has_switched_level = false
+	if !current_level.is_lobby_level:
+		match level_state:
+			LevelStates.WAIT:
+				#expose the secret if the level is finished
+				if current_level != null:
+					if current_level.is_finished:
+						level_state = LevelStates.EXPOSE_SECRET
+			LevelStates.EXPOSE_SECRET:
+				if check_if_dead():
+					spawn_secret_ingrediant()
+				# collect the ingredient and switch to the map if is collected
+				if !secret_area.has_collected_ingredient:
+					if secret_ingredient_instance != null:
+						expose_secret_area(delta)
+				else:
+					secret_area.has_collected_ingredient = true
+					level_state = LevelStates.WAIT_FOR_MAP
+			LevelStates.WAIT_FOR_MAP:
+				if !has_switched_level:
+					switch_to_new_level(current_level.next_level, current_level, current_level.next_level_animation)
+					has_switched_level = true
+				if !transition.is_transitioning:
+					hide_secret_area(delta)
+					secret_area.has_collected_ingredient = false
+					level_state = LevelStates.WAIT
+					has_switched_level = false
 
 
 func check_if_dead() -> bool:

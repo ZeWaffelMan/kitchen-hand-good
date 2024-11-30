@@ -95,6 +95,10 @@ func set_levels() -> void:
 	level_manager.level_state = level_manager.LevelStates.WAIT
 	level_to_set.process_mode = PROCESS_MODE_INHERIT
 	level_to_set.show()
+	level_to_set.is_active = true
+	print(old_level)
+	print(level_to_set)
+	
 	new_level = level_to_set
 	level_manager.current_level.reset_level()
 	secret_box.global_position = secret_area_default_pos

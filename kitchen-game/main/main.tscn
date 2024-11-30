@@ -304,7 +304,7 @@ _data = {
 size = Vector2(400, 400)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lwlm7"]
-size = Vector2(28, 340)
+size = Vector2(30, 577)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1yp5y"]
 size = Vector2(2735.54, 356.74)
@@ -363,12 +363,13 @@ texture = ExtResource("1_avalh")
 [node name="PlayerManager" type="Node2D" parent="."]
 position = Vector2(961, 520)
 
-[node name="World" type="Node2D" parent="." node_paths=PackedStringArray("transition_animation_player", "players", "transition_controller", "lobby_level")]
+[node name="World" type="Node2D" parent="." node_paths=PackedStringArray("transition_animation_player", "transition_controller", "lobby_level", "next_level")]
 script = ExtResource("2_h2c5a")
 transition_animation_player = NodePath("Transition/TransitionAnimationPlayer")
-players = [NodePath("Player")]
+player = ExtResource("3_xc6ge")
 transition_controller = NodePath("Transition")
-lobby_level = NodePath("Level2")
+lobby_level = NodePath("LobbyLevel")
+next_level = NodePath("Level1")
 
 [node name="Background" type="Sprite2D" parent="World"]
 modulate = Color(0.947199, 0.947199, 0.947199, 1)
@@ -520,7 +521,7 @@ autoplay = "hand_idle"
 z_index = 2
 position = Vector2(-786, 747)
 world = NodePath("..")
-current_level = NodePath("../Level1")
+current_level = NodePath("../LobbyLevel")
 secret_area = NodePath("SecretAreaAnchor/SecretBox/SecretArea")
 secret_box = NodePath("SecretAreaAnchor/SecretBox")
 secret_area_new_offset = NodePath("NewSecretAreaPosition")
@@ -546,6 +547,7 @@ top_right_bounds_node = NodePath("../PositionBounds/TopRightBounds")
 bottom_left_bounds_node = NodePath("../PositionBounds/BottomLeftBounds")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/LevelManager/SecretAreaAnchor/SecretBox/SecretArea"]
+z_index = 2
 shape = SubResource("RectangleShape2D_xsd7k")
 
 [node name="Sprite2D" type="Sprite2D" parent="World/LevelManager/SecretAreaAnchor/SecretBox/SecretArea"]
@@ -559,32 +561,32 @@ visible = false
 [node name="TopRightBounds" type="Sprite2D" parent="World/LevelManager/SecretAreaAnchor/SecretBox/PositionBounds"]
 modulate = Color(0.176419, 0.176419, 0.176419, 1)
 z_index = 5
-position = Vector2(198, -211)
+position = Vector2(180, -180)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("10_8aeo6")
 
 [node name="BottomLeftBounds" type="Sprite2D" parent="World/LevelManager/SecretAreaAnchor/SecretBox/PositionBounds"]
 modulate = Color(0.176419, 0.176419, 0.176419, 1)
 z_index = 5
-position = Vector2(-226, 215)
+position = Vector2(-185, 184)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("10_8aeo6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/LevelManager/SecretAreaAnchor/SecretBox"]
-position = Vector2(160, 0)
+position = Vector2(220, -15.5)
 shape = SubResource("RectangleShape2D_lwlm7")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="World/LevelManager/SecretAreaAnchor/SecretBox"]
-position = Vector2(-160, 0)
+position = Vector2(-215, -2)
 shape = SubResource("RectangleShape2D_lwlm7")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="World/LevelManager/SecretAreaAnchor/SecretBox"]
-position = Vector2(0, 160)
+position = Vector2(-7, 200)
 rotation = -1.57079
 shape = SubResource("RectangleShape2D_lwlm7")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="World/LevelManager/SecretAreaAnchor/SecretBox"]
-position = Vector2(0, -160)
+position = Vector2(1, -215)
 rotation = -1.57079
 shape = SubResource("RectangleShape2D_lwlm7")
 
@@ -594,8 +596,44 @@ position = Vector2(1740, -1031)
 [node name="NewMapPosition" type="Node2D" parent="World/LevelManager"]
 position = Vector2(1742, -207)
 
+[node name="LobbyLevel" type="Node2D" parent="World" node_paths=PackedStringArray("enemy_spawn_points", "next_level")]
+process_mode = 4
+visible = false
+position = Vector2(581, -330)
+script = ExtResource("16_6h127")
+is_lobby_level = true
+is_active = false
+secret_ingredient_to_spawn = ExtResource("12_rkc0r")
+enemy_spawn_points = [null, null, null, null, null]
+enemy_spawners_to_spawn = Array[Resource]([ExtResource("12_cs1vm"), ExtResource("17_r3k14"), ExtResource("16_2cem5"), ExtResource("13_05g0p")])
+max_next_spawner_time = 0.0
+min_next_spawner_time = 0.0
+max_destroy_spawners_timer = 0.0
+next_level = NodePath("../Level1")
+next_level_animation = "counter_to_sink"
+
+[node name="Tiles" type="Node2D" parent="World/LobbyLevel"]
+modulate = Color(0.88, 0.88, 0.88, 0.117647)
+position = Vector2(549, 1158)
+
+[node name="BigTiles" type="Sprite2D" parent="World/LobbyLevel/Tiles"]
+position = Vector2(96.6389, -1065.59)
+scale = Vector2(1.22425, 1.22425)
+texture = ExtResource("24_51rrp")
+
+[node name="BigTiles2" type="Sprite2D" parent="World/LobbyLevel/Tiles"]
+position = Vector2(-199.361, -281.591)
+scale = Vector2(1.22425, 1.22425)
+texture = ExtResource("24_51rrp")
+
+[node name="BigTiles3" type="Sprite2D" parent="World/LobbyLevel/Tiles"]
+position = Vector2(93.6389, 525.409)
+scale = Vector2(1.22425, 1.22425)
+texture = ExtResource("24_51rrp")
+
 [node name="Level1" type="Node2D" parent="World" node_paths=PackedStringArray("secret_ingredient_spawn_area", "enemy_spawn_points", "enemy_air_spawn_point_1", "enemy_air_spawn_point_2", "next_level")]
 process_mode = 4
+visible = false
 position = Vector2(0, -10)
 script = ExtResource("16_6h127")
 is_active = false
@@ -1042,8 +1080,6 @@ damage_amount = 100.0
 position = Vector2(-7152, 749)
 shape = SubResource("RectangleShape2D_vjoqm")
 debug_color = Color(1, 0.03, 0.03, 0.0588235)
-
-[node name="Player" parent="World" instance=ExtResource("3_xc6ge")]
 
 [editable path="World/LevelManager"]
 [editable path="World/Level1/Area/Ground"]
