@@ -11,7 +11,7 @@
 radius = 32.0
 
 [node name="BananaChunks" type="Node2D" node_paths=PackedStringArray("bullets_to_spawn")]
-modulate = Color(0.886262, 0.886261, 0.886262, 1)
+modulate = Color(0.894922, 0.894922, 0.894922, 1)
 script = ExtResource("1_h44mp")
 bullets_to_spawn = [NodePath("Chunk"), NodePath("Chunk2"), NodePath("Chunk3"), NodePath("Chunk4"), NodePath("Chunk5")]
 
@@ -42,13 +42,11 @@ texture = ExtResource("3_r7i3u")
 [node name="BananaChunkBlade4" type="Sprite2D" parent="Chunk"]
 position = Vector2(-23, -18)
 rotation = -1.26944
-scale = Vector2(1, 1)
 texture = ExtResource("3_r7i3u")
 
 [node name="BananaChunkBlade5" type="Sprite2D" parent="Chunk"]
 position = Vector2(26, 19)
 rotation = 1.76731
-scale = Vector2(1, 1)
 texture = ExtResource("3_r7i3u")
 
 [node name="Sprite2D" type="Sprite2D" parent="Chunk"]

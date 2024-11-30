@@ -72,15 +72,18 @@ position = Vector2(0, -1)
 position = Vector2(0, -1)
 
 [node name="Eyelash" type="Sprite2D" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face/EyeHolder" index="1"]
+use_parent_material = true
 position = Vector2(31, -27)
 texture = ExtResource("7_ahxfd")
 
 [node name="Eyelash2" type="Sprite2D" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face/EyeHolder" index="2"]
+use_parent_material = true
 position = Vector2(35, -25)
 rotation = 0.523599
 texture = ExtResource("7_ahxfd")
 
 [node name="Eyelash3" type="Sprite2D" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face/EyeHolder" index="3"]
+use_parent_material = true
 position = Vector2(27, -24)
 rotation = -0.523599
 texture = ExtResource("7_ahxfd")
@@ -89,15 +92,18 @@ texture = ExtResource("7_ahxfd")
 position = Vector2(0, -1)
 
 [node name="Eyelash" type="Sprite2D" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face/EyeHolder2" index="1"]
+use_parent_material = true
 position = Vector2(-26.6519, -28.5)
 texture = ExtResource("7_ahxfd")
 
 [node name="Eyelash2" type="Sprite2D" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face/EyeHolder2" index="2"]
+use_parent_material = true
 position = Vector2(-22.6519, -26.5)
 rotation = 0.523599
 texture = ExtResource("7_ahxfd")
 
 [node name="Eyelash3" type="Sprite2D" parent="Head/BodyHolder/BodySprites/HeadHolder/Head/Face/EyeHolder2" index="3"]
+use_parent_material = true
 position = Vector2(-30.6519, -25.5)
 rotation = -0.523599
 texture = ExtResource("7_ahxfd")

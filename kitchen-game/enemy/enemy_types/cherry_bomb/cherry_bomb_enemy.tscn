@@ -1,6 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://1c1fmhdoydcc"]
+[gd_scene load_steps=16 format=3 uid="uid://1c1fmhdoydcc"]
 
 [ext_resource type="PackedScene" uid="uid://ccewotvxo4pxr" path="res://enemy/enemy.tscn" id="1_lx3qn"]
+[ext_resource type="Script" path="res://enemy/enemy_types/cherry_bomb/cherry.gd" id="2_2ge1w"]
 [ext_resource type="Script" path="res://enemy/enemy_types/cherry_bomb/run_around.gd" id="2_kuus1"]
 [ext_resource type="Shader" path="res://main/flash.gdshader" id="2_wxoo5"]
 [ext_resource type="Script" path="res://enemy/enemy_types/cherry_bomb/wait_to_jump.gd" id="3_fxh7k"]
@@ -41,7 +42,12 @@ size = Vector2(1822, 865)
 
 [node name="CherryBombEnemy" instance=ExtResource("1_lx3qn")]
 
-[node name="Movement" parent="." index="3"]
+[node name="Cherry" type="Node" parent="." index="0" node_paths=PackedStringArray("health", "jump_up_state")]
+script = ExtResource("2_2ge1w")
+health = NodePath("../EnemyHealth")
+jump_up_state = NodePath("../StateMachine/JumpUp")
+
+[node name="Movement" parent="." index="4"]
 randomize_direction_automatically = false
 acceleration = 180000.0
 
@@ -79,13 +85,13 @@ enemy_health = NodePath("../../EnemyHealth")
 boom = ExtResource("5_jdywv")
 squash_animation_player = NodePath("../../SquashAnimationPlayer")
 
-[node name="EnemyJuiceColor" parent="." index="6"]
+[node name="EnemyJuiceColor" parent="." index="7"]
 self_modulate = Color(1, 0.329412, 0.286275, 1)
 
 [node name="Shadow" parent="ShadowHolder" index="0"]
 position = Vector2(0, 59)
 
-[node name="Head" parent="." index="13"]
+[node name="Head" parent="." index="14"]
 material = SubResource("ShaderMaterial_vh2gj")
 
 [node name="Grabbed" parent="Head/HeadStateMachine" index="1"]

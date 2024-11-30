@@ -539,7 +539,6 @@ grab_detection = NodePath("../../Hand/GrabDetection")
 [node name="GrabThrow" type="Node" parent="HandStateMachine" node_paths=PackedStringArray("object_detection", "player_hand", "hand_animation_player", "player", "player_health")]
 script = ExtResource("4_gh7us")
 object_detection = NodePath("../../Hand/GrabDetection")
-hand_release_force = 2.25
 player_hand = NodePath("../../Hand")
 hand_animation_player = NodePath("../../HandStateAnimationPlayer")
 player = NodePath("../..")

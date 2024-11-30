@@ -1,4 +1,4 @@
-[gd_scene load_steps=91 format=3 uid="uid://ccewotvxo4pxr"]
+[gd_scene load_steps=90 format=3 uid="uid://ccewotvxo4pxr"]
 
 [ext_resource type="Script" path="res://enemy/main/enemy_health.gd" id="1_cw4vx"]
 [ext_resource type="Script" path="res://enemy/enemy.gd" id="1_gip5k"]
@@ -6,11 +6,10 @@
 [ext_resource type="Script" path="res://enemy/main/movement.gd" id="2_lv7to"]
 [ext_resource type="Script" path="res://enemy/main/enemy_body.gd" id="2_ndm74"]
 [ext_resource type="Script" path="res://main/state_machine.gd" id="2_o87sn"]
-[ext_resource type="Script" path="res://enemy/rope.gd" id="2_vhjsi"]
+[ext_resource type="PackedScene" uid="uid://8v30m7ijtgb1" path="res://level/rope.tscn" id="2_yixsx"]
 [ext_resource type="PackedScene" uid="uid://dmqpg03naiyd1" path="res://enemy/effects/blood.tscn" id="3_4mpgo"]
 [ext_resource type="Shader" path="res://main/flash.gdshader" id="3_737jj"]
 [ext_resource type="Script" path="res://enemy/enemy_wait_state.gd" id="3_koohp"]
-[ext_resource type="PackedScene" uid="uid://i2aorjwt2gev" path="res://main/verlet_node.tscn" id="3_tdv8b"]
 [ext_resource type="Script" path="res://enemy/under_water.gd" id="4_3gp8k"]
 [ext_resource type="PackedScene" uid="uid://dsq7jqka6wiof" path="res://components/object_detection.tscn" id="4_g3568"]
 [ext_resource type="Script" path="res://enemy/enemy_hurt_box.gd" id="5_bk282"]
@@ -49,7 +48,7 @@
 size = Vector2(156, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dkx3y"]
-size = Vector2(76, 167)
+size = Vector2(76, 157)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jp8s8"]
 size = Vector2(76, 65)
@@ -984,14 +983,9 @@ speed_hurt_box_collision = NodePath("Head/SpeedDamageHurtBox/CollisionShape2D")
 enemy_juice_color_node = NodePath("EnemyJuiceColor")
 storage = NodePath("EnemyStorage")
 
-[node name="Rope" type="Node2D" parent="." node_paths=PackedStringArray("object", "anchor", "line")]
-script = ExtResource("2_vhjsi")
+[node name="Rope" parent="." node_paths=PackedStringArray("object", "anchor") instance=ExtResource("2_yixsx")]
 object = NodePath("../Head")
-verlet_point = ExtResource("3_tdv8b")
 anchor = NodePath("../AnchorPoint")
-line = NodePath("Line2D")
-
-[node name="Line2D" type="Line2D" parent="Rope"]
 
 [node name="AnchorPoint" type="Node2D" parent="."]
 
@@ -1068,7 +1062,7 @@ check_for_bodies = false
 check_for_areas = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LookingForGround/GroundCheck"]
-position = Vector2(0, 122.5)
+position = Vector2(0, 127.5)
 shape = SubResource("RectangleShape2D_dkx3y")
 debug_color = Color(4.28364e-06, 0.637208, 0.395067, 0.42)
 

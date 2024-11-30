@@ -73,6 +73,9 @@ storage = NodePath("../../EnemyStorage")
 [node name="EnemyJuiceColor" parent="." index="7"]
 self_modulate = Color(1, 0.749836, 0.554323, 1)
 
+[node name="EnemyHealth" parent="." index="9"]
+max_health = 3.0
+
 [node name="GroundCheck" parent="LookingForGround" index="0"]
 position = Vector2(0, 20)
 

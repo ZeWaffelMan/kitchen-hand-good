@@ -16,7 +16,7 @@ class_name Rope
 @export_group("References")
 @export var points: Array[Node2D]
 @export var points_position: Array[Vector2]
-@export var object: PhysicsBody2D
+@export var object: Node2D
 @export var verlet_point: Resource
 
 @export var anchor: Node2D

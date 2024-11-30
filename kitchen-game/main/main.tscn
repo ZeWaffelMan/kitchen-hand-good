@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://b18jghfgdrfrf"]
+[gd_scene load_steps=88 format=3 uid="uid://b18jghfgdrfrf"]
 
 [ext_resource type="Texture2D" uid="uid://c2uo5aw8kd330" path="res://environment/square.png" id="1_avalh"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_emppk"]
@@ -30,11 +30,14 @@
 [ext_resource type="PackedScene" uid="uid://crqlvwv8eqnun" path="res://enemy/watermelon_spawner.tscn" id="16_2cem5"]
 [ext_resource type="Script" path="res://main/level.gd" id="16_6h127"]
 [ext_resource type="Texture2D" uid="uid://dmkia7omn1ssk" path="res://player/hands/visual_stats/one.PNG" id="16_wdeyb"]
-[ext_resource type="PackedScene" uid="uid://kg6h4tnt75ni" path="res://enemy/pineapple_spawner.tscn" id="17_r3k14"]
+[ext_resource type="PackedScene" uid="uid://kg6h4tnt75ni" path="res://enemy/enemy_types/pineapple/pineapple_spawner.tscn" id="17_r3k14"]
+[ext_resource type="PackedScene" uid="uid://b4l0xw23lcmjd" path="res://enemy/enemy_types/banana/banana_spawner.tscn" id="19_1seuh"]
 [ext_resource type="PackedScene" uid="uid://d1bynxqimc7hf" path="res://level/water.tscn" id="19_orn1x"]
 [ext_resource type="PackedScene" uid="uid://85c7kmh5sa64" path="res://main/bounds_wall.tscn" id="20_43wd5"]
+[ext_resource type="PackedScene" uid="uid://btwx3ajq3klfp" path="res://enemy/enemy_types/mama_peach/peach_spawner.tscn" id="20_knfnt"]
 [ext_resource type="Texture2D" uid="uid://dfak1nwgahpsg" path="res://level/counter_level_art/tiles/small_tile.PNG" id="20_u0uxt"]
 [ext_resource type="Texture2D" uid="uid://xb2ydq04fy4l" path="res://level/counter_level_art/cactus.png" id="20_wmk8p"]
+[ext_resource type="PackedScene" uid="uid://dae3ga8axdsjv" path="res://enemy/enemy_types/cherry_bomb_spawner.tscn" id="21_a0hi3"]
 [ext_resource type="Texture2D" uid="uid://da81qokc8318a" path="res://level/counter_level_art/tiles/small_tile Merged.PNG" id="24_51rrp"]
 [ext_resource type="PackedScene" uid="uid://dl74or3yeb5ly" path="res://main/hazard.tscn" id="26_cm7ic"]
 [ext_resource type="AudioStream" uid="uid://cwn6b5vs1o3c0" path="res://music/2024 GAMEOFF chill i think.ogg" id="27_7lcnk"]
@@ -42,6 +45,15 @@
 [ext_resource type="Texture2D" uid="uid://ci3xidbpdoev3" path="res://level/counter_level_art/beans.png" id="29_wobfd"]
 [ext_resource type="Texture2D" uid="uid://dke50toxqye0v" path="res://level/counter_level_art/sugar_jar.png" id="30_12x84"]
 [ext_resource type="AudioStream" uid="uid://b5w10efefjnc" path="res://music/GameOff2024 GROOVE_2 water level (fixed loop).ogg" id="37_mvt2a"]
+[ext_resource type="Texture2D" uid="uid://dpxruuyuokg3a" path="res://level/sink_level/Water.png" id="43_kaw8w"]
+[ext_resource type="Texture2D" uid="uid://ch2wfljc4v0rr" path="res://level/sink_level/sink_area.png" id="44_4akxb"]
+[ext_resource type="Texture2D" uid="uid://bst65b0r1ygoy" path="res://level/sink_level/sea_pickle.png" id="45_tdcbi"]
+[ext_resource type="Texture2D" uid="uid://djxui3qcvjxk3" path="res://level/sink_level/sea_pickle_tall.png" id="46_ynexd"]
+[ext_resource type="Texture2D" uid="uid://itaswkevxmtu" path="res://level/sink_level/duck.png" id="47_kvgtf"]
+[ext_resource type="Texture2D" uid="uid://c27pqfylcx866" path="res://level/sink_level/sink.png" id="48_7qkcu"]
+[ext_resource type="Texture2D" uid="uid://c16y1eb7x1v5l" path="res://level/sink_level/picture.png" id="49_qhaot"]
+[ext_resource type="Texture2D" uid="uid://d0cyqtc2bvwmy" path="res://level/sink_level/knives_board.png" id="50_2pcj0"]
+[ext_resource type="Texture2D" uid="uid://hwnw1mol7v4w" path="res://level/sink_level/knives.png" id="51_txneg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l3uul"]
 shader = ExtResource("4_q1tav")
@@ -313,7 +325,7 @@ size = Vector2(2735.54, 356.74)
 size = Vector2(4240.75, 93)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wi0ce"]
-size = Vector2(2540.04, 46.4789)
+size = Vector2(1047.28, 73.6419)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jmkri"]
 size = Vector2(182.897, 54.6248)
@@ -333,8 +345,20 @@ size = Vector2(143.662, 79.0742)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sfjl0"]
 size = Vector2(3830, 1666)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1whql"]
+size = Vector2(1740, 93)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bfojq"]
 size = Vector2(1730, 788.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mvldu"]
+size = Vector2(174, 158)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e4l4h"]
+size = Vector2(175, 245)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m367f"]
+size = Vector2(112, 704)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vjoqm"]
 size = Vector2(11783, 11109)
@@ -397,7 +421,7 @@ scale = Vector2(59.3251, 33.2674)
 texture = ExtResource("1_avalh")
 
 [node name="Paper" type="AnimatedSprite2D" parent="World/Transition/Map"]
-modulate = Color(1, 1, 1, 0.470588)
+modulate = Color(1, 1, 1, 0.235294)
 position = Vector2(-20, -123)
 scale = Vector2(1.47727, 1.47727)
 sprite_frames = SubResource("SpriteFrames_behnf")
@@ -520,7 +544,7 @@ autoplay = "hand_idle"
 z_index = 2
 position = Vector2(-786, 747)
 world = NodePath("..")
-current_level = NodePath("../LobbyLevel")
+current_level = NodePath("../Level2")
 secret_area = NodePath("SecretAreaAnchor/SecretBox/SecretArea")
 secret_box = NodePath("SecretAreaAnchor/SecretBox")
 secret_area_new_offset = NodePath("NewSecretAreaPosition")
@@ -882,18 +906,23 @@ position = Vector2(1114.84, 1640)
 scale = Vector2(42.4969, -8.08545)
 texture = ExtResource("1_avalh")
 
+[node name="Picture" type="Sprite2D" parent="World/Level1"]
+z_index = 1
+position = Vector2(2451, -269)
+texture = ExtResource("49_qhaot")
+
 [node name="Level2" type="Node2D" parent="World" node_paths=PackedStringArray("secret_ingredient_spawn_area", "enemy_spawn_points", "enemy_air_spawn_point_1", "enemy_air_spawn_point_2", "next_level", "music")]
 process_mode = 4
-visible = false
 position = Vector2(0, -6)
 script = ExtResource("16_6h127")
 keep_music_off = true
 is_active = false
 secret_ingredient_spawn_area = NodePath("SecretIngredientSpawn")
 secret_ingredient_to_spawn = ExtResource("10_kr3jm")
-enemy_spawn_points = [NodePath("SpawnPointPlatform"), NodePath("SpawnPointPlatform2"), NodePath("SpawnPointPlatform3"), NodePath("SpawnPointPlatform4"), NodePath("SpawnPointPlatform5")]
+enemy_spawn_points = [NodePath("SpawnPointPlatform"), NodePath("SpawnPointPlatform3"), NodePath("SpawnPointPlatform4"), NodePath("SpawnPointPlatform5")]
 enemy_air_spawn_point_1 = NodePath("RangeSpawnPoints/TopLeftSpawn")
 enemy_air_spawn_point_2 = NodePath("RangeSpawnPoints/TopRightSpawn")
+enemy_spawners_to_spawn = Array[Resource]([ExtResource("17_r3k14"), ExtResource("19_1seuh"), ExtResource("20_knfnt"), ExtResource("21_a0hi3")])
 next_level = NodePath("../LobbyLevel")
 next_level_animation = "to_lobby"
 music = NodePath("Music")
@@ -917,14 +946,11 @@ z_index = 1
 position = Vector2(590, -85)
 
 [node name="Ground" parent="World/Level2/Area" instance=ExtResource("6_aco2f")]
-position = Vector2(-3227, 1461)
+position = Vector2(-3222, 1450)
 
 [node name="CollisionShape2D" parent="World/Level2/Area/Ground" index="0"]
 position = Vector2(278.269, -87.8267)
 shape = SubResource("RectangleShape2D_1yp5y")
-
-[node name="EnemyBounds" parent="World/Level2/Area/Ground" index="1"]
-visible = true
 
 [node name="TopRightBounds" parent="World/Level2/Area/Ground/EnemyBounds" index="0"]
 position = Vector2(1645.47, -264.989)
@@ -932,8 +958,13 @@ position = Vector2(1645.47, -264.989)
 [node name="BottomLeftBounds" parent="World/Level2/Area/Ground/EnemyBounds" index="1"]
 position = Vector2(-998.388, 83.9032)
 
+[node name="Sprite2D" type="Sprite2D" parent="World/Level2/Area/Ground"]
+position = Vector2(1226.86, -54.3259)
+scale = Vector2(8.38429, 4.26156)
+texture = ExtResource("1_avalh")
+
 [node name="UpperArea" type="Area2D" parent="World/Level2/Area/Ground"]
-position = Vector2(481.086, -310.261)
+position = Vector2(375.281, -310.261)
 scale = Vector2(0.603621, 0.603621)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Level2/Area/Ground/UpperArea"]
@@ -941,14 +972,11 @@ position = Vector2(-12.2489, 0)
 shape = SubResource("RectangleShape2D_fiw01")
 
 [node name="Ground5" parent="World/Level2/Area" instance=ExtResource("6_aco2f")]
-position = Vector2(3046, 1517)
+position = Vector2(3046, 1521)
 
 [node name="CollisionShape2D" parent="World/Level2/Area/Ground5" index="0"]
 position = Vector2(278.269, -126.76)
 shape = SubResource("RectangleShape2D_1yp5y")
-
-[node name="EnemyBounds" parent="World/Level2/Area/Ground5" index="1"]
-visible = true
 
 [node name="TopRightBounds" parent="World/Level2/Area/Ground5/EnemyBounds" index="0"]
 position = Vector2(1642.45, -302.414)
@@ -956,8 +984,13 @@ position = Vector2(1642.45, -302.414)
 [node name="BottomLeftBounds" parent="World/Level2/Area/Ground5/EnemyBounds" index="1"]
 position = Vector2(-1090.74, 59.1548)
 
+[node name="Sprite2D2" type="Sprite2D" parent="World/Level2/Area/Ground5"]
+position = Vector2(-638.178, -86.7705)
+scale = Vector2(8.96075, 4.41548)
+texture = ExtResource("1_avalh")
+
 [node name="UpperArea" type="Area2D" parent="World/Level2/Area/Ground5"]
-position = Vector2(91.1467, -352.514)
+position = Vector2(196.057, -348.929)
 scale = Vector2(0.603621, 0.603621)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Level2/Area/Ground5/UpperArea"]
@@ -965,24 +998,25 @@ position = Vector2(-12.2489, 0)
 shape = SubResource("RectangleShape2D_fiw01")
 
 [node name="Ground2" parent="World/Level2/Area" instance=ExtResource("6_aco2f")]
-position = Vector2(-22, 1873)
+position = Vector2(-24, 1881)
 
 [node name="CollisionShape2D" parent="World/Level2/Area/Ground2" index="0"]
-position = Vector2(377.866, -143.36)
+position = Vector2(237.525, -137.625)
 shape = SubResource("RectangleShape2D_wi0ce")
 
 [node name="TopRightBounds" parent="World/Level2/Area/Ground2/EnemyBounds" index="0"]
-position = Vector2(1641.85, -185.311)
+position = Vector2(762.373, -175.654)
 
 [node name="BottomLeftBounds" parent="World/Level2/Area/Ground2/EnemyBounds" index="1"]
-position = Vector2(867.403, -97.7865)
+position = Vector2(-286.116, -79.0743)
 
 [node name="UpperArea2" type="Area2D" parent="World/Level2/Area/Ground2"]
 position = Vector2(482.293, -222.736)
 scale = Vector2(0.603621, 0.603621)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Level2/Area/Ground2/UpperArea2"]
-shape = SubResource("RectangleShape2D_fiw01")
+position = Vector2(-403, 0)
+shape = SubResource("RectangleShape2D_1whql")
 
 [node name="BoundsWall" parent="World/Level2/Area" instance=ExtResource("20_43wd5")]
 position = Vector2(-1803, 350)
@@ -996,7 +1030,7 @@ position = Vector2(347, -696)
 rotation = 1.57079
 
 [node name="BoundsWall4" parent="World/Level2/Area" instance=ExtResource("20_43wd5")]
-position = Vector2(254, 1910)
+position = Vector2(254, 1965)
 rotation = -1.57079
 
 [node name="RangeSpawnPoints" type="Node2D" parent="World/Level2"]
@@ -1008,19 +1042,16 @@ position = Vector2(-657, -828)
 position = Vector2(2515, -844)
 
 [node name="SpawnPointPlatform" type="Node2D" parent="World/Level2"]
-position = Vector2(-1089, 1281)
-
-[node name="SpawnPointPlatform2" type="Node2D" parent="World/Level2"]
-position = Vector2(-1102, 390)
+position = Vector2(-1089, 1138)
 
 [node name="SpawnPointPlatform3" type="Node2D" parent="World/Level2"]
-position = Vector2(3002, 1267)
+position = Vector2(3002, 1124)
 
 [node name="SpawnPointPlatform4" type="Node2D" parent="World/Level2"]
-position = Vector2(3005, 1491)
+position = Vector2(3005, 1348)
 
 [node name="SpawnPointPlatform5" type="Node2D" parent="World/Level2"]
-position = Vector2(-1087, 1495)
+position = Vector2(-1087, 1352)
 
 [node name="Arena" type="Area2D" parent="World/Level2"]
 collision_layer = 16384
@@ -1032,12 +1063,88 @@ shape = SubResource("RectangleShape2D_sfjl0")
 debug_color = Color(0.3698, 0.52503, 0.86, 0.0705882)
 
 [node name="Water" parent="World/Level2" instance=ExtResource("19_orn1x")]
+modulate = Color(1, 1, 1, 0.501961)
 position = Vector2(911, 1372)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Level2/Water"]
 position = Vector2(50, 0)
 shape = SubResource("RectangleShape2D_bfojq")
 debug_color = Color(0.39, 0.6955, 0.78, 0.254902)
+
+[node name="Water2" type="Sprite2D" parent="World/Level2/Water"]
+z_index = 12
+position = Vector2(52.9999, -73)
+scale = Vector2(0.950216, 1)
+texture = ExtResource("43_kaw8w")
+
+[node name="Ground" type="Sprite2D" parent="World/Level2/Water"]
+position = Vector2(62.4999, 486.875)
+scale = Vector2(17.63, 7.0775)
+texture = ExtResource("1_avalh")
+
+[node name="Pickle" type="StaticBody2D" parent="World/Level2"]
+position = Vector2(395, 1525)
+
+[node name="SeaPickle" type="Sprite2D" parent="World/Level2/Pickle"]
+texture = ExtResource("45_tdcbi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Level2/Pickle"]
+position = Vector2(1, 37)
+shape = SubResource("RectangleShape2D_mvldu")
+
+[node name="Pickle2" type="StaticBody2D" parent="World/Level2"]
+position = Vector2(194, 1495)
+
+[node name="SeaPickleTall" type="Sprite2D" parent="World/Level2/Pickle2"]
+texture = ExtResource("46_ynexd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Level2/Pickle2"]
+position = Vector2(1.5, 33.5)
+shape = SubResource("RectangleShape2D_e4l4h")
+
+[node name="SinkArea" type="Sprite2D" parent="World/Level2"]
+visible = false
+modulate = Color(1, 1, 1, 0.32549)
+position = Vector2(957, 559)
+texture = ExtResource("44_4akxb")
+
+[node name="LeftSinkWall" type="StaticBody2D" parent="World/Level2"]
+position = Vector2(39, 1234)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Level2/LeftSinkWall"]
+z_index = 4
+position = Vector2(0, 41)
+shape = SubResource("RectangleShape2D_m367f")
+
+[node name="LeftSinkWall2" type="StaticBody2D" parent="World/Level2"]
+position = Vector2(1843, 1230)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Level2/LeftSinkWall2"]
+z_index = 4
+position = Vector2(46, 49)
+shape = SubResource("RectangleShape2D_m367f")
+
+[node name="Duck" type="Sprite2D" parent="World/Level2"]
+z_index = 1
+position = Vector2(1118, 5)
+texture = ExtResource("47_kvgtf")
+
+[node name="Sink" type="Sprite2D" parent="World/Level2"]
+z_index = 1
+position = Vector2(979, 567)
+texture = ExtResource("48_7qkcu")
+
+[node name="KnivesBoard" type="Sprite2D" parent="World/Level2"]
+z_index = 1
+position = Vector2(-462, 99)
+texture = ExtResource("50_2pcj0")
+
+[node name="Knives" type="Sprite2D" parent="World/Level2"]
+modulate = Color(0.982343, 0.982342, 0.982342, 1)
+z_index = 1
+position = Vector2(-418, 330)
+rotation = -3.14159
+texture = ExtResource("51_txneg")
 
 [node name="CameraHolder" type="Node2D" parent="World"]
 z_index = 3

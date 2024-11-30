@@ -1,4 +1,5 @@
 extends State
+class_name CherryJumpUp
 
 
 @export var run_around_state: CherryRunAround

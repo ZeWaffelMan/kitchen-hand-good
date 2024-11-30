@@ -6,10 +6,10 @@ extends Node2D
 @export var does_float: bool = false
 @export var head: EnemyHead
 
-@export var new_gravity: float = -1.0
+@export var new_gravity: float = 4.0
 @onready var default_gravity = head.gravity_scale
 
-@export var new_damp: float = 1.4
+@export var new_damp: float = 1.0
 @onready var default_damp: float = head.linear_damp
 
 @export var water_detection: ObjectDetection

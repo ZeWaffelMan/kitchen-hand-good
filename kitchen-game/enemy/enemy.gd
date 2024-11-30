@@ -11,7 +11,7 @@ class_name Enemy
 @export var face_animation_player: AnimationPlayer
 @export var eyes_animation_player: AnimationPlayer
 
-var speed_damage_threshold: float = 3200.0
+var speed_damage_threshold: float = 2700.0
 var ragdoll_magnitude_threshold: float = 400.0
 
 @export var does_wait_to_launch: bool = true
