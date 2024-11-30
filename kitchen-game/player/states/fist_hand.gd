@@ -8,9 +8,9 @@ class_name FistHand
 
 @export var hand_collision: CollisionShape2D
 @export var hand_sprite: Sprite2D
-@export var magnitude_damage_threshold: float = 4500.0
+@export var magnitude_damage_threshold: float = 4800.0
 @export var hit_detection: ObjectDetection
-@export var hit_impulse_amount: float = 1
+@export var hit_impulse_amount: float = 8000.0
 @export var damage_amount: float = 1.0
 @export var hand_hit_impulse_amount: float = 7000.0
 @export var hand_animation_player: AnimationPlayer

@@ -9,7 +9,7 @@ var is_holding: bool = false
 var grabbed_body: EnemyHead
 
 @export_group("Throw")
-@export var hand_release_force: float = 2.5
+@export var hand_release_force: float = 2.3
 
 @export var player_hand: PlayerHand
 @export var hand_animation_player: AnimationPlayer

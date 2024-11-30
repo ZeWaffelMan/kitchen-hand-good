@@ -551,7 +551,6 @@ player_health = NodePath("../../PlayerHealth")
 hand_collision = NodePath("../../Hand/CollisionShape2D")
 hand_sprite = NodePath("../../Hand/HandSprites/Fill")
 hit_detection = NodePath("../../Hand/HitDetection")
-hit_impulse_amount = 10000.0
 hand_animation_player = NodePath("../../HandStateAnimationPlayer")
 
 [node name="Hurt" type="Node" parent="HandStateMachine" node_paths=PackedStringArray("player", "player_health", "hand_animation_player", "hand")]

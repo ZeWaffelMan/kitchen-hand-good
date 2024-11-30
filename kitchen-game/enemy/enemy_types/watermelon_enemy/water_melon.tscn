@@ -63,8 +63,8 @@ script = ExtResource("4_tjxyr")
 self_modulate = Color(1, 0.329412, 0.286275, 1)
 
 [node name="Shadow" parent="ShadowHolder" index="0"]
-position = Vector2(0, 60)
-scale = Vector2(1.78, 1.1)
+position = Vector2(1, 48)
+scale = Vector2(1.475, 1.1)
 
 [node name="Head" parent="." index="14"]
 material = SubResource("ShaderMaterial_p6lv8")

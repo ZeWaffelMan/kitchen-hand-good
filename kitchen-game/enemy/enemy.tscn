@@ -28,13 +28,13 @@
 [ext_resource type="Texture2D" uid="uid://dr86iwntpxl3j" path="res://enemy/faces/eyes/open_eye.PNG" id="14_tjt2v"]
 [ext_resource type="Texture2D" uid="uid://yfn0bpdtelax" path="res://enemy/body_parts/enemy_hand.png" id="15_5rehg"]
 [ext_resource type="Script" path="res://enemy/enemy_states/trapped.gd" id="15_gxq37"]
+[ext_resource type="Texture2D" uid="uid://bmwac3263fxjn" path="res://enemy/shadow.png" id="16_8vgvh"]
 [ext_resource type="Texture2D" uid="uid://dyuqeo0w8ep35" path="res://enemy/faces/eyes/blink_eye.PNG" id="16_466g7"]
 [ext_resource type="Script" path="res://enemy/enemy_push.gd" id="16_x6dhl"]
 [ext_resource type="PackedScene" uid="uid://btxiylg0mia14" path="res://player_detection.tscn" id="17_c0kkh"]
 [ext_resource type="Script" path="res://enemy/face_controller.gd" id="17_l6qtf"]
 [ext_resource type="Script" path="res://components/object_detection.gd" id="18_e750g"]
 [ext_resource type="PackedScene" uid="uid://cbytpf4s7ejrl" path="res://components/move_towards_velocity.tscn" id="18_gpevm"]
-[ext_resource type="Texture2D" uid="uid://ba871mj25b2jv" path="res://shadow.png" id="22_4qbt1"]
 [ext_resource type="Texture2D" uid="uid://lnsqdosasdo0" path="res://enemy/faces/mouths/smooch.PNG" id="26_ojr1v"]
 [ext_resource type="Texture2D" uid="uid://bb7vckrjmwf4g" path="res://enemy/faces/eyes/sqrunched.PNG" id="27_cc8lb"]
 [ext_resource type="Texture2D" uid="uid://bfv80arbcff38" path="res://enemy/faces/mouths/happy.PNG" id="28_356v6"]
@@ -49,7 +49,7 @@
 size = Vector2(156, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dkx3y"]
-size = Vector2(76, 231)
+size = Vector2(76, 167)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jp8s8"]
 size = Vector2(76, 65)
@@ -1068,7 +1068,7 @@ check_for_bodies = false
 check_for_areas = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LookingForGround/GroundCheck"]
-position = Vector2(0, 90.5)
+position = Vector2(0, 122.5)
 shape = SubResource("RectangleShape2D_dkx3y")
 debug_color = Color(4.28364e-06, 0.637208, 0.395067, 0.42)
 
@@ -1112,10 +1112,10 @@ texture = ExtResource("13_7vs0d")
 [node name="ShadowHolder" type="Node2D" parent="."]
 
 [node name="Shadow" type="Sprite2D" parent="ShadowHolder"]
-modulate = Color(1, 1, 1, 0.509804)
-position = Vector2(0, 52)
-scale = Vector2(1.1, 1.1)
-texture = ExtResource("22_4qbt1")
+modulate = Color(1, 1, 1, 0.0627451)
+position = Vector2(-1, 46)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("16_8vgvh")
 
 [node name="EnemyPush" type="Node" parent="." node_paths=PackedStringArray("head", "enemy_push_check", "enemy_exception")]
 script = ExtResource("16_x6dhl")
