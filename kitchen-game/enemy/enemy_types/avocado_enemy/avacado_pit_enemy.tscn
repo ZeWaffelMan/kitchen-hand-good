@@ -49,6 +49,9 @@ node_to_destroy = NodePath("../..")
 [node name="Rest" parent="StateMachine" index="4"]
 mouth_animation_to_play = "toungue_out"
 
+[node name="EnemyJuiceColor" parent="." index="6"]
+self_modulate = Color(0.678431, 0.462745, 0.25098, 1)
+
 [node name="CollisionShape2D" parent="Platform" index="0"]
 disabled = true
 

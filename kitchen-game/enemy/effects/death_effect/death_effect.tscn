@@ -60,8 +60,8 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_x2tgc"]
 resource_name = "death_circle"
-length = 0.1
-step = 0.05
+length = 0.2
+step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -69,10 +69,10 @@ tracks/0/path = NodePath("DeathCircle:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
+"times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(-2, -2),
 "update": 0,
-"values": [Color(1, 1, 1, 0.372549), Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 0.784314), Color(1, 1, 1, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -81,7 +81,7 @@ tracks/1/path = NodePath("DeathCircle:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
+"times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(-2, -2),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(2, 2)]

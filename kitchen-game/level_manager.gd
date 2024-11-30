@@ -35,6 +35,7 @@ var has_checked_to_start: bool = false
 var can_start_level: bool = true
 var has_switched_level: bool = false
 @onready var old_level: Level = current_level
+@export var point_to_travel_to: Node2D
 
 
 func _process(delta):

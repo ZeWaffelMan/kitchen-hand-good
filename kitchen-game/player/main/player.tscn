@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://dylsvc744lm0y"]
+[gd_scene load_steps=62 format=3 uid="uid://dylsvc744lm0y"]
 
 [ext_resource type="Script" path="res://player/main/player.gd" id="1_ar7mc"]
 [ext_resource type="Script" path="res://player/main/cursor.gd" id="1_i03mm"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://player/player_hurt_box.gd" id="7_6rysf"]
 [ext_resource type="Script" path="res://player/main/shock_wave.gd" id="7_wpmc4"]
 [ext_resource type="Texture2D" uid="uid://chi14l1vtxnnd" path="res://player/hands/visual_stats/gradiant.PNG" id="8_k3ge8"]
+[ext_resource type="Texture2D" uid="uid://cpydk5efmp66p" path="res://area_gradient.png" id="9_s5v4b"]
 [ext_resource type="PackedScene" uid="uid://bcnborqwlixc" path="res://effects/hit_effect/player_hurt_effect.tscn" id="10_3pqj3"]
 [ext_resource type="Script" path="res://player/main/player_find_box.gd" id="10_ojlqm"]
 [ext_resource type="Texture2D" uid="uid://cbr7aqspgo6oq" path="res://player/hands/visual_stats/life.PNG" id="10_snd0n"]
@@ -634,6 +635,12 @@ texture = ExtResource("10_snd0n")
 [node name="Life" type="Sprite2D" parent="Hand/HandSprites/HandStats/Gradiant/HandMarks"]
 position = Vector2(11, 94)
 texture = ExtResource("10_snd0n")
+
+[node name="AreaGradient" type="Sprite2D" parent="Hand/HandSprites/HandStats/Gradiant"]
+visible = false
+modulate = Color(1, 1, 1, 0.156863)
+position = Vector2(1, 2)
+texture = ExtResource("9_s5v4b")
 
 [node name="Outline" type="Sprite2D" parent="Hand/HandSprites"]
 modulate = Color(0, 0, 0, 1)

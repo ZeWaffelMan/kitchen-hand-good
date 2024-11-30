@@ -33,6 +33,6 @@ func _process(delta: float) -> void:
 				break
 		
 		if all_players_dead and !has_restarted:
-			level_manager.switch_to_new_level(lobby_level, level_manager.old_level, "")
+			level_manager.switch_to_new_level(lobby_level, level_manager.old_level, "to_lobby")
 			all_players_dead = false
 			has_restarted = true

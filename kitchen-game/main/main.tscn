@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://b18jghfgdrfrf"]
+[gd_scene load_steps=72 format=3 uid="uid://b18jghfgdrfrf"]
 
 [ext_resource type="Texture2D" uid="uid://c2uo5aw8kd330" path="res://environment/square.png" id="1_avalh"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_emppk"]
@@ -10,12 +10,23 @@
 [ext_resource type="Shader" path="res://level/blur.gdshader" id="4_q1tav"]
 [ext_resource type="Script" path="res://main/transition.gd" id="5_o23br"]
 [ext_resource type="PackedScene" uid="uid://ddede8hxi6p7g" path="res://main/ground.tscn" id="6_aco2f"]
+[ext_resource type="Texture2D" uid="uid://ctwwxixv2pyo" path="res://level/map/Paper Background.jpg" id="6_i3abw"]
+[ext_resource type="Texture2D" uid="uid://ol5td6kntolh" path="res://player/hands/point_hand/point_outline_white.png" id="7_3fjf4"]
+[ext_resource type="Texture2D" uid="uid://yl6id841dtgb" path="res://level/map/Paper Background_2.jpg" id="7_c4wi2"]
+[ext_resource type="Texture2D" uid="uid://dktlfv0ljjhsi" path="res://level/map/knife_area.PNG" id="7_ktae4"]
 [ext_resource type="Script" path="res://main/secret_area.gd" id="8_ey3if"]
+[ext_resource type="Texture2D" uid="uid://dkvc7p8spg36b" path="res://level/box.png" id="8_jvjgw"]
+[ext_resource type="Texture2D" uid="uid://cvcl6fiosi4t" path="res://level/map/hand_ball.PNG" id="8_qbggd"]
+[ext_resource type="Texture2D" uid="uid://ds7m2rnfmobxt" path="res://level/map/lobby.PNG" id="9_atn6n"]
 [ext_resource type="PackedScene" uid="uid://3hxttdc8tr4g" path="res://level_manager.tscn" id="10_6wgdk"]
 [ext_resource type="Texture2D" uid="uid://dnakalufrck0v" path="res://environment/cross_hair.png" id="10_8aeo6"]
 [ext_resource type="PackedScene" uid="uid://dribmaugxay67" path="res://enemy/milk_secret_ingredient.tscn" id="10_kr3jm"]
+[ext_resource type="Texture2D" uid="uid://dhdyx27pivfxs" path="res://player/hands/point_hand/point_fill.PNG" id="11_6icbf"]
+[ext_resource type="Texture2D" uid="uid://dc0dhhjl17iq" path="res://level/map/path_point.PNG" id="11_xxppt"]
 [ext_resource type="PackedScene" uid="uid://dlq4loyy712rr" path="res://enemy/onion_spawner.tscn" id="12_cs1vm"]
+[ext_resource type="Texture2D" uid="uid://cx0m73pkvia4x" path="res://level/map/sink_area.PNG" id="12_qk1nh"]
 [ext_resource type="PackedScene" uid="uid://b8luv6527ht6u" path="res://secret_ingredient_pepper.tscn" id="12_rkc0r"]
+[ext_resource type="Texture2D" uid="uid://cpydk5efmp66p" path="res://area_gradient.png" id="13_2rn4l"]
 [ext_resource type="PackedScene" uid="uid://3ww5a3heppml" path="res://enemy/avocado_spawner.tscn" id="13_05g0p"]
 [ext_resource type="PackedScene" uid="uid://crqlvwv8eqnun" path="res://enemy/watermelon_spawner.tscn" id="16_2cem5"]
 [ext_resource type="Script" path="res://main/level.gd" id="16_6h127"]
@@ -25,108 +36,90 @@
 [ext_resource type="PackedScene" uid="uid://85c7kmh5sa64" path="res://main/bounds_wall.tscn" id="20_43wd5"]
 [ext_resource type="PackedScene" uid="uid://btwx3ajq3klfp" path="res://enemy/enemy_types/mama_peach/peach_spawner.tscn" id="20_knfnt"]
 [ext_resource type="Texture2D" uid="uid://dfak1nwgahpsg" path="res://level/counter_level_art/tiles/small_tile.PNG" id="20_u0uxt"]
-[ext_resource type="Texture2D" uid="uid://c1hx2u5e10clv" path="res://level/counter_level_art/cactus.png" id="20_wmk8p"]
+[ext_resource type="Texture2D" uid="uid://xb2ydq04fy4l" path="res://level/counter_level_art/cactus.png" id="20_wmk8p"]
 [ext_resource type="PackedScene" uid="uid://dae3ga8axdsjv" path="res://enemy/enemy_types/cherry_bomb_spawner.tscn" id="21_a0hi3"]
+[ext_resource type="Texture2D" uid="uid://da81qokc8318a" path="res://level/counter_level_art/tiles/small_tile Merged.PNG" id="24_51rrp"]
 [ext_resource type="PackedScene" uid="uid://dl74or3yeb5ly" path="res://main/hazard.tscn" id="26_cm7ic"]
-[ext_resource type="Texture2D" uid="uid://bkrunxdtroebn" path="res://level/counter_level_art/beans_container.png" id="29_hsi8d"]
+[ext_resource type="Texture2D" uid="uid://ci3xidbpdoev3" path="res://level/counter_level_art/beans.png" id="29_wobfd"]
 [ext_resource type="Texture2D" uid="uid://dke50toxqye0v" path="res://level/counter_level_art/sugar_jar.png" id="30_12x84"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l3uul"]
 shader = ExtResource("4_q1tav")
 shader_parameter/amount = 0.8
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_behnf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_i3abw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_c4wi2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
 [sub_resource type="Animation" id="Animation_66svl"]
-length = 0.001
+length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("TransitionSquare:position")
+tracks/0/path = NodePath(".:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(949, -1176)]
+"update": 1,
+"values": [true]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:visible")
+tracks/1/path = NodePath("Map:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("TransitionSquare:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Vector2(970, 3772)]
 }
 
 [sub_resource type="Animation" id="Animation_uq3rs"]
 resource_name = "transition_close"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TransitionSquare:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TransitionSquare:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(-2, -2),
-"update": 0,
-"values": [Vector2(930, -230), Vector2(894, -3651)]
-}
-
-[sub_resource type="Animation" id="Animation_sv5wl"]
-resource_name = "transition_open"
+length = 0.5
 step = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("TransitionSquare:position")
+tracks/0/path = NodePath("Map:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(-2, -2),
 "update": 0,
-"values": [Vector2(849, 4199), Vector2(1152, 881)]
+"values": [Vector2(970, 611), Vector2(970, -2454)]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TransitionSquare:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+
+[sub_resource type="Animation" id="Animation_sv5wl"]
+resource_name = "transition_open"
+length = 0.5
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Map:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(970, 3674), Vector2(970, 611)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qkx15"]
@@ -134,6 +127,177 @@ _data = {
 "RESET": SubResource("Animation_66svl"),
 "transition_close": SubResource("Animation_uq3rs"),
 "transition_open": SubResource("Animation_sv5wl")
+}
+
+[sub_resource type="Animation" id="Animation_lb060"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Map/HandHolder:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1184, -380)]
+}
+
+[sub_resource type="Animation" id="Animation_h2pr5"]
+resource_name = "counter_to_sink"
+length = 2.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Map/HandHolder:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(-204, -380), Vector2(883.23, -380)]
+}
+
+[sub_resource type="Animation" id="Animation_hyhjv"]
+resource_name = "lobby_to_arena"
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Map/HandHolder:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(-1186, -380), Vector2(-1186, 291)]
+}
+
+[sub_resource type="Animation" id="Animation_xa7wt"]
+resource_name = "lobby_to_counter"
+length = 2.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Map/HandHolder:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(-1186, -380), Vector2(-204, -380)]
+}
+
+[sub_resource type="Animation" id="Animation_ikrip"]
+resource_name = "to_lobby"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Map/HandHolder:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1186, -380)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0n2cg"]
+_data = {
+"RESET": SubResource("Animation_lb060"),
+"counter_to_sink": SubResource("Animation_h2pr5"),
+"lobby_to_arena": SubResource("Animation_hyhjv"),
+"lobby_to_counter": SubResource("Animation_xa7wt"),
+"to_lobby": SubResource("Animation_ikrip")
+}
+
+[sub_resource type="Animation" id="Animation_t1rm8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Map/HandHolder/MapHand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Map/HandHolder/MapHand:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_3iuce"]
+resource_name = "hand_idle"
+length = 2.0
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Map/HandHolder/MapHand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -22), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_d1q6t"]
+resource_name = "hand_move"
+length = 0.4
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Map/HandHolder/MapHand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -45), Vector2(0, 0), Vector2(0, -45), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Map/HandHolder/MapHand:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2),
+"update": 0,
+"values": [0.0, 0.10472, 0.0, -0.10472, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_poxc5"]
+_data = {
+"RESET": SubResource("Animation_t1rm8"),
+"hand_idle": SubResource("Animation_3iuce"),
+"hand_move": SubResource("Animation_d1q6t")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xsd7k"]
@@ -212,24 +376,145 @@ position = Vector2(959.5, 519.5)
 scale = Vector2(45.2757, 26.5017)
 texture = ExtResource("1_avalh")
 
-[node name="Transition" type="Node2D" parent="World" node_paths=PackedStringArray("world", "transition_animation_player", "level_manager", "secret_box")]
+[node name="Transition" type="Node2D" parent="World" node_paths=PackedStringArray("world", "transition_animation_player", "level_manager", "secret_box", "jiggle_animation_player", "move_to_animation_player")]
 z_index = 30
 script = ExtResource("5_o23br")
 world = NodePath("..")
 transition_animation_player = NodePath("TransitionAnimationPlayer")
 level_manager = NodePath("../LevelManager")
 secret_box = NodePath("../LevelManager/SecretAreaAnchor/SecretBox")
+jiggle_animation_player = NodePath("HandMove")
+move_to_animation_player = NodePath("TravelMapAnimationPlayer")
 
-[node name="TransitionSquare" type="Sprite2D" parent="World/Transition"]
-visible = false
-position = Vector2(949, -1176)
-scale = Vector2(100, 50)
+[node name="Map" type="Node2D" parent="World/Transition"]
+position = Vector2(970, 3772)
+
+[node name="BG" type="Sprite2D" parent="World/Transition/Map"]
+position = Vector2(-19.9353, -123.043)
+rotation = -3.14159
+scale = Vector2(59.3251, 33.2674)
 texture = ExtResource("1_avalh")
+
+[node name="Paper" type="AnimatedSprite2D" parent="World/Transition/Map"]
+modulate = Color(1, 1, 1, 0.470588)
+position = Vector2(-20, -123)
+scale = Vector2(1.47727, 1.47727)
+sprite_frames = SubResource("SpriteFrames_behnf")
+autoplay = "default"
+frame_progress = 0.254952
+
+[node name="KnifeArea" type="Sprite2D" parent="World/Transition/Map"]
+position = Vector2(-38.5, -472)
+texture = ExtResource("7_ktae4")
+
+[node name="HandBall" type="Sprite2D" parent="World/Transition/Map"]
+position = Vector2(-1174.5, 582)
+texture = ExtResource("8_qbggd")
+
+[node name="Lobby" type="Sprite2D" parent="World/Transition/Map"]
+position = Vector2(-1176.5, -192)
+texture = ExtResource("9_atn6n")
+
+[node name="PathToKnife" type="Node2D" parent="World/Transition/Map"]
+position = Vector2(-52.5, -38)
+
+[node name="PathPoint" type="Sprite2D" parent="World/Transition/Map/PathToKnife"]
+position = Vector2(-907, -151)
+texture = ExtResource("11_xxppt")
+
+[node name="PathPoint2" type="Sprite2D" parent="World/Transition/Map/PathToKnife"]
+position = Vector2(-664, -151)
+rotation = -3.09956
+texture = ExtResource("11_xxppt")
+
+[node name="PathPoint3" type="Sprite2D" parent="World/Transition/Map/PathToKnife"]
+position = Vector2(-418, -152)
+rotation = -3.09956
+texture = ExtResource("11_xxppt")
+
+[node name="PathPoint4" type="Sprite2D" parent="World/Transition/Map/PathToKnife"]
+position = Vector2(-146, -153)
+rotation = -3.09956
+texture = ExtResource("11_xxppt")
+
+[node name="PathToSink" type="Node2D" parent="World/Transition/Map"]
+position = Vector2(-52.5, -38)
+
+[node name="PathPoint5" type="Sprite2D" parent="World/Transition/Map/PathToSink"]
+position = Vector2(181.5, -153.398)
+texture = ExtResource("11_xxppt")
+
+[node name="PathPoint6" type="Sprite2D" parent="World/Transition/Map/PathToSink"]
+position = Vector2(424.5, -153.398)
+rotation = -3.09956
+texture = ExtResource("11_xxppt")
+
+[node name="PathPoint7" type="Sprite2D" parent="World/Transition/Map/PathToSink"]
+position = Vector2(670.5, -154.398)
+rotation = -3.09956
+texture = ExtResource("11_xxppt")
+
+[node name="PathPoint8" type="Sprite2D" parent="World/Transition/Map/PathToSink"]
+position = Vector2(942.5, -155.398)
+rotation = -3.09956
+texture = ExtResource("11_xxppt")
+
+[node name="PathToSwitch" type="Node2D" parent="World/Transition/Map"]
+position = Vector2(-52.5, -38)
+
+[node name="PathPoint9" type="Sprite2D" parent="World/Transition/Map/PathToSwitch"]
+position = Vector2(-1125, 19.5001)
+rotation = -1.57079
+texture = ExtResource("11_xxppt")
+
+[node name="PathPoint10" type="Sprite2D" parent="World/Transition/Map/PathToSwitch"]
+position = Vector2(-1122, 217.5)
+rotation = -1.57079
+texture = ExtResource("11_xxppt")
+
+[node name="PathPoint11" type="Sprite2D" parent="World/Transition/Map/PathToSwitch"]
+position = Vector2(-1125, 409.5)
+rotation = -1.57079
+texture = ExtResource("11_xxppt")
+
+[node name="SinkArea" type="Sprite2D" parent="World/Transition/Map"]
+position = Vector2(1257.5, -354)
+texture = ExtResource("12_qk1nh")
+
+[node name="HandHolder" type="Node2D" parent="World/Transition/Map"]
+position = Vector2(-1184, -380)
+
+[node name="MapHand" type="Sprite2D" parent="World/Transition/Map/HandHolder"]
+self_modulate = Color(0, 0.54902, 1, 1)
+z_index = 1
+texture = ExtResource("7_3fjf4")
+
+[node name="Gradient" type="Sprite2D" parent="World/Transition/Map/HandHolder/MapHand"]
+modulate = Color(0, 0.55, 1, 0.117647)
+z_index = -1
+position = Vector2(5, 13)
+texture = ExtResource("13_2rn4l")
+
+[node name="HandFill" type="Sprite2D" parent="World/Transition/Map/HandHolder/MapHand"]
+z_index = -1
+texture = ExtResource("11_6icbf")
 
 [node name="TransitionAnimationPlayer" type="AnimationPlayer" parent="World/Transition"]
 libraries = {
 "": SubResource("AnimationLibrary_qkx15")
 }
+autoplay = "RESET"
+
+[node name="TravelMapAnimationPlayer" type="AnimationPlayer" parent="World/Transition"]
+libraries = {
+"": SubResource("AnimationLibrary_0n2cg")
+}
+
+[node name="HandMove" type="AnimationPlayer" parent="World/Transition"]
+libraries = {
+"": SubResource("AnimationLibrary_poxc5")
+}
+autoplay = "hand_idle"
 
 [node name="LevelManager" parent="World" node_paths=PackedStringArray("world", "current_level", "secret_area", "secret_box", "secret_area_new_offset", "transition") instance=ExtResource("10_6wgdk")]
 z_index = 2
@@ -248,7 +533,7 @@ position = Vector2(1753, 478)
 position = Vector2(1740, -1475)
 
 [node name="SecretBox" type="StaticBody2D" parent="World/LevelManager/SecretAreaAnchor"]
-position = Vector2(0, -9.73)
+position = Vector2(11, -66)
 collision_layer = 1024
 collision_mask = 0
 
@@ -264,24 +549,24 @@ bottom_left_bounds_node = NodePath("../PositionBounds/BottomLeftBounds")
 shape = SubResource("RectangleShape2D_xsd7k")
 
 [node name="Sprite2D" type="Sprite2D" parent="World/LevelManager/SecretAreaAnchor/SecretBox/SecretArea"]
-modulate = Color(1, 0.37, 0.58, 0.584314)
 z_index = 1
 scale = Vector2(2.90121, 2.90121)
-texture = ExtResource("1_avalh")
+texture = ExtResource("8_jvjgw")
 
 [node name="PositionBounds" type="Node2D" parent="World/LevelManager/SecretAreaAnchor/SecretBox"]
+visible = false
 
 [node name="TopRightBounds" type="Sprite2D" parent="World/LevelManager/SecretAreaAnchor/SecretBox/PositionBounds"]
 modulate = Color(0.176419, 0.176419, 0.176419, 1)
 z_index = 5
-position = Vector2(152, -152)
+position = Vector2(198, -211)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("10_8aeo6")
 
 [node name="BottomLeftBounds" type="Sprite2D" parent="World/LevelManager/SecretAreaAnchor/SecretBox/PositionBounds"]
 modulate = Color(0.176419, 0.176419, 0.176419, 1)
 z_index = 5
-position = Vector2(-152, 152)
+position = Vector2(-226, 215)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("10_8aeo6")
 
@@ -320,7 +605,11 @@ enemy_spawn_points = [NodePath("SpawnPointPlatform"), NodePath("SpawnPointPlatfo
 enemy_air_spawn_point_1 = NodePath("RangeSpawnPoints/TopLeftSpawn")
 enemy_air_spawn_point_2 = NodePath("RangeSpawnPoints/TopRightSpawn")
 enemy_spawners_to_spawn = Array[Resource]([ExtResource("12_cs1vm"), ExtResource("17_r3k14"), ExtResource("16_2cem5"), ExtResource("13_05g0p")])
+max_next_spawner_time = 0.0
+min_next_spawner_time = 0.0
+max_destroy_spawners_timer = 0.0
 next_level = NodePath(".")
+next_level_animation = "counter_to_sink"
 
 [node name="SecretIngredientSpawn" type="Node2D" parent="World/Level1"]
 position = Vector2(-371, -688)
@@ -432,7 +721,7 @@ position = Vector2(-286.896, -147.459)
 [node name="BeansContainer" type="Sprite2D" parent="World/Level1/Area/Beans"]
 position = Vector2(-199.195, -128.571)
 scale = Vector2(0.603621, 0.603621)
-texture = ExtResource("29_hsi8d")
+texture = ExtResource("29_wobfd")
 
 [node name="UpperArea" type="Area2D" parent="World/Level1/Area/Beans"]
 position = Vector2(488.423, -255.331)
@@ -501,19 +790,43 @@ shape = SubResource("RectangleShape2D_sfjl0")
 debug_color = Color(0.3698, 0.52503, 0.86, 0.0705882)
 
 [node name="Tiles" type="Node2D" parent="World/Level1"]
-modulate = Color(0.881937, 0.881937, 0.881937, 0.156863)
+modulate = Color(0.88, 0.88, 0.88, 0.117647)
 position = Vector2(549, 1158)
 
 [node name="SmallTile" type="Sprite2D" parent="World/Level1/Tiles"]
-texture = ExtResource("20_u0uxt")
-
-[node name="SmallTile3" type="Sprite2D" parent="World/Level1/Tiles"]
-position = Vector2(264, -1528)
+visible = false
+position = Vector2(6, 320)
 texture = ExtResource("20_u0uxt")
 
 [node name="SmallTile2" type="Sprite2D" parent="World/Level1/Tiles"]
-position = Vector2(261, -762)
+visible = false
+position = Vector2(267, -442)
 texture = ExtResource("20_u0uxt")
+
+[node name="SmallTile3" type="Sprite2D" parent="World/Level1/Tiles"]
+visible = false
+position = Vector2(547, -1199)
+texture = ExtResource("20_u0uxt")
+
+[node name="SmallTile4" type="Sprite2D" parent="World/Level1/Tiles"]
+visible = false
+position = Vector2(545, -1958)
+texture = ExtResource("20_u0uxt")
+
+[node name="BigTiles" type="Sprite2D" parent="World/Level1/Tiles"]
+position = Vector2(274, -1244)
+scale = Vector2(1.22425, 1.22425)
+texture = ExtResource("24_51rrp")
+
+[node name="BigTiles2" type="Sprite2D" parent="World/Level1/Tiles"]
+position = Vector2(-29, -524)
+scale = Vector2(1.22425, 1.22425)
+texture = ExtResource("24_51rrp")
+
+[node name="BigTiles3" type="Sprite2D" parent="World/Level1/Tiles"]
+position = Vector2(259, 285)
+scale = Vector2(1.22425, 1.22425)
+texture = ExtResource("24_51rrp")
 
 [node name="Ground" type="Sprite2D" parent="World/Level1"]
 position = Vector2(1114.84, 1640)
