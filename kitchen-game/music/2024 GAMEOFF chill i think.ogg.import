@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cwn6b5vs1o3c0"
+path="res://.godot/imported/2024 GAMEOFF chill i think.ogg-240b4d2f8b1aedb51855d44b9df944db.oggvorbisstr"
+
+[deps]
+
+source_file="res://music/2024 GAMEOFF chill i think.ogg"
+dest_files=["res://.godot/imported/2024 GAMEOFF chill i think.ogg-240b4d2f8b1aedb51855d44b9df944db.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

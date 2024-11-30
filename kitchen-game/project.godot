@@ -54,6 +54,7 @@ folder_colors={
 "res://environment/": "teal",
 "res://level/": "pink",
 "res://main/": "orange",
+"res://music/": "purple",
 "res://player/": "blue"
 }
 

@@ -2,6 +2,8 @@ extends Node2D
 class_name Level
 
 
+@export var keep_music_off: bool = false
+
 @export var is_lobby_level: bool = false
 @export var is_last_level: bool = false
 
@@ -39,13 +41,12 @@ var enemy_spawn_level: int = 0
 @export var next_level: Level
 @export var next_level_animation: String = ""
 
-@export var has_spawned_box: bool = false
-@export var box: Resource
-
-@export var box_spawn_point: Node2D
+@export var music: AudioStreamPlayer
 
 
 func _process(delta):
+	if keep_music_off:
+		music.volume_db = -80
 	if is_active:
 		if !is_lobby_level and !is_last_level:
 			match level_state:

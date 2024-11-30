@@ -55,6 +55,9 @@ self_modulate = Color(0.678431, 0.462745, 0.25098, 1)
 [node name="CollisionShape2D" parent="Platform" index="0"]
 disabled = true
 
+[node name="EnemyHealth" parent="." index="8"]
+max_health = 1.0
+
 [node name="GroundCheck" parent="LookingForGround" index="0"]
 monitoring = false
 

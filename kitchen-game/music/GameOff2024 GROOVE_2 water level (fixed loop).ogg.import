@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b5w10efefjnc"
+path="res://.godot/imported/GameOff2024 GROOVE_2 water level (fixed loop).ogg-0e743c2d61d1217b238305406868574a.oggvorbisstr"
+
+[deps]
+
+source_file="res://music/GameOff2024 GROOVE_2 water level (fixed loop).ogg"
+dest_files=["res://.godot/imported/GameOff2024 GROOVE_2 water level (fixed loop).ogg-0e743c2d61d1217b238305406868574a.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

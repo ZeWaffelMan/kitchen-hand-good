@@ -2,6 +2,8 @@ extends RigidBody2D
 class_name EnemyHead
 
 
+@export var max_speed: float = 20000.0
+
 @export var big_player_detection: PlayerDetection
 @export var launch_into_arena: bool = true
 @export var launch_force: float = 6000.0
@@ -49,7 +51,6 @@ var player: PlayerHand
 @export var movement: EnemyMovement
 
 @export_group("Movement")
-@export var max_speed: float = 15000.0
 var velocity: Vector2 = Vector2.ZERO
 @onready var last_position: Vector2 = global_position
 @export var rebalance_state: RebalanceEnemy

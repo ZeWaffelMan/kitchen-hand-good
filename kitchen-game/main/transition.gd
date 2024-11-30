@@ -40,11 +40,18 @@ var has_started_traveling: bool = false
 var has_opened_map = false
 
 
+func _ready() -> void:
+	if !level_manager.current_level.keep_music_off:
+		level_manager.current_level.music.volume_db = 0.0
+	level_manager.current_level.music.play()
+
+
 func _process(delta: float) -> void:
 	match transition_state:
 		TransitionStates.WAIT:
 			switch_time = max_time_to_pull_up
 		TransitionStates.PULL_UP:
+			old_level.music.volume_db = lerpf(old_level.music.volume_db, -80, 1 * delta)
 			if switch_time > 0:
 				has_opened_map = false
 				switch_time -= delta
@@ -73,8 +80,10 @@ func _process(delta: float) -> void:
 				else:
 					has_started_traveling = false
 					transition_state = TransitionStates.PUT_AWAY
-				
 		TransitionStates.PUT_AWAY:
+			level_to_set.is_active = true
+			level_to_set.music.play()
+			level_to_set.music.volume_db = 0.0
 			transition_animation_player.play("transition_close")
 			world.has_restarted = false
 			is_transitioning = false
@@ -87,7 +96,8 @@ func set_levels() -> void:
 	for enemy in enemies:
 		enemy.queue_free()
 	
-	# disable the old level
+	# disable the old level      
+	old_level.reset_level() 
 	old_level.hide()
 	old_level.process_mode = PROCESS_MODE_DISABLED
 	
@@ -95,7 +105,6 @@ func set_levels() -> void:
 	level_manager.level_state = level_manager.LevelStates.WAIT
 	level_to_set.process_mode = PROCESS_MODE_INHERIT
 	level_to_set.show()
-	level_to_set.is_active = true
 	print(old_level)
 	print(level_to_set)
 	

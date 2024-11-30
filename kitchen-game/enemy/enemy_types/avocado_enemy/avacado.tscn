@@ -71,6 +71,9 @@ squash_check = NodePath("../../Head/SquashCheck")
 [node name="EnemyJuiceColor" parent="." index="7"]
 self_modulate = Color(0.443137, 0.909804, 0.454902, 1)
 
+[node name="EnemyHealth" parent="." index="9"]
+max_health = 2.0
+
 [node name="CollisionShape2D" parent="LookingForGround/GroundCheck" index="0"]
 position = Vector2(0, 105.5)
 

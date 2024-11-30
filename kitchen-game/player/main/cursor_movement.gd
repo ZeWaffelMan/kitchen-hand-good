@@ -81,7 +81,8 @@ func _process(delta) -> void:
 		echo_effect_time -= delta
 	else:
 		if hand.velocity.length() > hand_echo_magnitude_threshold:
-			create_echo_effect()
+			if !player.is_dead:
+				create_echo_effect()
 	
 	if Engine.time_scale > 0.1:
 		if player.using_mouse:

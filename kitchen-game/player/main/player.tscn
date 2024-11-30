@@ -539,6 +539,7 @@ grab_detection = NodePath("../../Hand/GrabDetection")
 [node name="GrabThrow" type="Node" parent="HandStateMachine" node_paths=PackedStringArray("object_detection", "player_hand", "hand_animation_player", "player", "player_health")]
 script = ExtResource("4_gh7us")
 object_detection = NodePath("../../Hand/GrabDetection")
+hand_release_force = 2.25
 player_hand = NodePath("../../Hand")
 hand_animation_player = NodePath("../../HandStateAnimationPlayer")
 player = NodePath("../..")
@@ -574,7 +575,7 @@ gradient = NodePath("../../Hand/HandSprites/HandStats/Gradiant")
 [node name="PlayerHealth" type="Node" parent="." node_paths=PackedStringArray("player", "life_sprites", "effect_animation_player", "hand", "hand_gradient", "hand_sprites")]
 script = ExtResource("6_gd46d")
 player = NodePath("..")
-life_sprites = [NodePath("../Hand/HandSprites/HandStats/Gradiant/HandMarks/Life"), NodePath("../Hand/HandSprites/HandStats/Gradiant/HandMarks/Life2"), NodePath("../Hand/HandSprites/HandStats/Gradiant/HandMarks/Life3")]
+life_sprites = [NodePath("../Hand/HandSprites/HandStats/Gradiant/HandMarks/LastLife"), NodePath("../Hand/HandSprites/HandStats/Gradiant/HandMarks/Life2"), NodePath("../Hand/HandSprites/HandStats/Gradiant/HandMarks/Life3")]
 effect_animation_player = NodePath("../EffectAnimationPlayer")
 hand = NodePath("../Hand")
 hand_gradient = NodePath("../Hand/HandSprites/HandStats/Gradiant")
@@ -621,19 +622,19 @@ texture = ExtResource("8_k3ge8")
 
 [node name="PlayerNumber" type="Sprite2D" parent="Hand/HandSprites/HandStats/Gradiant/HandMarks"]
 z_index = 1
-position = Vector2(7, 44)
+position = Vector2(9, 43)
 texture = ExtResource("13_bxevt")
 
 [node name="Life2" type="Sprite2D" parent="Hand/HandSprites/HandStats/Gradiant/HandMarks"]
-position = Vector2(25, 94)
+position = Vector2(27.5, 95)
 texture = ExtResource("10_snd0n")
 
 [node name="Life3" type="Sprite2D" parent="Hand/HandSprites/HandStats/Gradiant/HandMarks"]
-position = Vector2(-3, 94)
+position = Vector2(-0.5, 95)
 texture = ExtResource("10_snd0n")
 
-[node name="Life" type="Sprite2D" parent="Hand/HandSprites/HandStats/Gradiant/HandMarks"]
-position = Vector2(11, 94)
+[node name="LastLife" type="Sprite2D" parent="Hand/HandSprites/HandStats/Gradiant/HandMarks"]
+position = Vector2(13.5, 95)
 texture = ExtResource("10_snd0n")
 
 [node name="AreaGradient" type="Sprite2D" parent="Hand/HandSprites/HandStats/Gradiant"]
