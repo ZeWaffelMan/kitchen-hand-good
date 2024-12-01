@@ -2,6 +2,8 @@ extends State
 class_name HandShockWave
 
 
+@export var shock_wave_sound: AudioStreamPlayer
+
 @export var player: Player
 
 @export var player_health: PlayerHealth
@@ -18,6 +20,9 @@ class_name HandShockWave
 
 
 func enter_state() -> void:
+	shock_wave_sound.play()
+	shock_wave_sound.pitch_scale = Sound.random_pitch(0.9, 1.1)
+	
 	shockwave(shock_wave_force)
 	EffectCreator.create_effect(shock_wave_effect, gradient.modulate)
 	EffectCreator.set_effect_position(gradient.global_position)

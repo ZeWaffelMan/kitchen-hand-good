@@ -2,6 +2,8 @@ extends State
 class_name FistHand
 
 
+@export var slap_sound: AudioStreamPlayer
+
 @export var player: Player
 @export var hand: PlayerHand
 @export var player_health: PlayerHealth
@@ -33,6 +35,8 @@ func physics_update_state(delta: float) -> void:
 			for body in bodies:
 				if body is EnemyHead:
 					if player.can_slap:
+						slap_sound.play()
+						slap_sound.pitch_scale = Sound.random_pitch(0.9, 1.1)
 						if !body.enemy_hurt_box.health.is_invincible:
 							body.enemy_hurt_box.damage(damage_amount, hand, false)
 							if body is RigidBody2D:

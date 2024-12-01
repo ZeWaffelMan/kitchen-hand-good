@@ -2,6 +2,8 @@ extends Node
 class_name PlayerHealth
 
 
+@export var hurt_sound: AudioStreamPlayer
+
 @export var player: Player
 @export var life_sprites: Array[Node2D]
 
@@ -62,12 +64,14 @@ func kill() -> void:
 		EffectCreator.create_effect(echo_effect, hand_gradient.modulate)
 		EffectCreator.set_effect_position(hand_sprites.global_position)
 		i += 1
-		player.is_dead = true
+	player.is_dead = true
 
 
 func damage(amount: int, area: Node2D) -> void:
 	# damage the player if it isn't invinsible
 	if !is_invincible and player.can_be_damaged:
+		hurt_sound.play()
+		hurt_sound.pitch_scale = Sound.random_pitch(0.9, 1.1)
 		var axis = hand.global_position - area.global_position
 		var direction = axis.normalized()
 		hand.apply_impulse(hurt_impulse * direction)

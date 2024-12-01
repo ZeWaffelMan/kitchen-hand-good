@@ -1,6 +1,8 @@
 extends State
 
 
+@export var shoot_sound: AudioStreamPlayer
+
 @export var seed_bullet: Resource
 @export var hurt_box: EnemyHurtBox
 @export var fire_point: Node2D
@@ -41,6 +43,8 @@ func physics_update_state(delta) -> void:
 			time_between_shots -= delta
 		else:
 			shoot()
+			shoot_sound.play()
+			shoot_sound.pitch_scale = Sound.random_pitch(0.9, 2.1)
 			CameraShake.add_trama(0.15)
 			enemy_movement.squash_animation_player.play("squash")
 			time_between_shots = max_time_between_shots

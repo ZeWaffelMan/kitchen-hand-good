@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bcnborqwlixc"]
 
-[ext_resource type="PackedScene" uid="uid://dnt7e148s6dro" path="res://effects/hit_effect/hit_effect.tscn" id="1_bxkp5"]
+[ext_resource type="PackedScene" uid="uid://dnt7e148s6dro" path="res://effects/hit_effect/enemy_hit_effect.tscn" id="1_bxkp5"]
 [ext_resource type="Texture2D" uid="uid://bsj5ua6le431v" path="res://environment/circle.png" id="2_n0y4q"]
 
 [sub_resource type="Animation" id="Animation_ib27g"]

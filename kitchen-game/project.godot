@@ -23,6 +23,7 @@ boot_splash/show_image=false
 
 CameraShake="*res://main/camera_shake.gd"
 EffectCreator="*res://effects/effect_creator.gd"
+Sound="*res://main/sound_changer.gd"
 
 [debug]
 
@@ -55,7 +56,8 @@ folder_colors={
 "res://level/": "pink",
 "res://main/": "orange",
 "res://music/": "purple",
-"res://player/": "blue"
+"res://player/": "blue",
+"res://sound_effects/": "green"
 }
 
 [input]
@@ -132,4 +134,4 @@ join_button={
 2d_physics/layer_13="Water"
 2d_physics/layer_14="Keep Bounds Wall"
 2d_physics/layer_15="Arena"
-2d_physics/layer_16="Layer 16"
+2d_physics/layer_16="Object Bounds"

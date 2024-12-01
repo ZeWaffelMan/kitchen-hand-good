@@ -2,6 +2,8 @@ extends State
 class_name GrabHand
 
 
+@export var grab_sound: AudioStreamPlayer
+
 @export_group("Picking Up")
 @export var object_detection: ObjectDetection
 var is_holding: bool = false
@@ -22,6 +24,8 @@ func enter_state() -> void:
 	# grab the body if it isn't grabbed already
 	if player_hand.grabbable_body != null:
 		if !player_hand.grabbable_body.is_grabbed and player_hand.grabbable_body.enemy.can_be_grabbed:
+			grab_sound.play()
+			grab_sound.pitch_scale = Sound.random_pitch(0.8, 1.2)
 			hand_animation_player.play("grab")
 			player.hand_state = player.HandStates.GRAB
 			grabbed_body = player_hand.grabbable_body

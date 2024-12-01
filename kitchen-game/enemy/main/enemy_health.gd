@@ -2,6 +2,7 @@ extends Node
 class_name EnemyHealth
 
 
+@export var impact_sound: AudioStreamPlayer
 @export var effect_to_spawn: Resource
 
 @export_group("References")
@@ -39,6 +40,8 @@ var is_pushed: bool = false
 @export var hit_effect: Resource
 @export var hit_effect_rotation_offset: float = 0.0
 @export var death_effect: Resource
+
+var has_created_death_effect: bool = false
 
 
 func _ready() -> void:
@@ -88,6 +91,10 @@ func damage(amount: float, area: Node2D, applies_hit_force: bool) -> void:
 		
 		is_invincible = true
 		health -= amount
+		
+		impact_sound.play()
+		impact_sound.pitch_scale = Sound.random_pitch(0.9, 1.1)
+		
 		current_flash_time = flash_time
 		effect_animation_player.play("damage_flash")
 
@@ -100,24 +107,27 @@ func spawn_hit_effect(impact_position: Vector2) -> void:
 
 
 func kill() -> void:
-	CameraShake.add_trama(0.5)
-	blood()
-	if death_hazard != null:
-		EffectCreator.create_effect(death_hazard, "ffffff")
+	if !has_created_death_effect:
+		if death_hazard != null:
+			EffectCreator.create_effect(death_hazard, "ffffff")
+			EffectCreator.set_effect_position(head.global_position)
+		
+		if effect_to_spawn != null:
+			var effect_instance = effect_to_spawn.instantiate()
+			get_tree().current_scene.add_child(effect_instance)
+			effect_instance.global_position = head.global_position
+		
+		CameraShake.add_trama(0.5)
+		blood()
+		EffectCreator.create_effect(death_effect, juice_color)
 		EffectCreator.set_effect_position(head.global_position)
-	
-	if effect_to_spawn != null:
-		var effect_instance = effect_to_spawn.instantiate()
-		get_tree().current_scene.add_child(effect_instance)
-		effect_instance.global_position = head.global_position
+		EffectCreator.effect_instance.global_rotation = randf_range(0, 360)
+		has_created_death_effect = true
 	
 	enemy.visible = false
-	enemy.process_mode = Node.PROCESS_MODE_DISABLED
-	enemy.queue_free()
-	
-	EffectCreator.create_effect(death_effect, juice_color)
-	EffectCreator.set_effect_position(head.global_position)
-	EffectCreator.effect_instance.global_rotation = randf_range(0, 360)
+	if !impact_sound.playing:
+		enemy.process_mode = Node.PROCESS_MODE_DISABLED
+		enemy.queue_free()
 
 
 func blood() -> void:

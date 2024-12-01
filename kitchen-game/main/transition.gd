@@ -2,6 +2,8 @@ extends Node2D
 class_name Transition
 
 
+@export var music_target_volume: float = -10.0
+
 @export var world: World
 @export var transition_animation_player: AnimationPlayer
 @export var level_manager: LevelManager
@@ -42,7 +44,7 @@ var has_opened_map = false
 
 func _ready() -> void:
 	if !level_manager.current_level.keep_music_off:
-		level_manager.current_level.music.volume_db = 0.0
+		level_manager.current_level.music.volume_db = music_target_volume
 	level_manager.current_level.music.play()
 
 
@@ -83,7 +85,7 @@ func _process(delta: float) -> void:
 		TransitionStates.PUT_AWAY:
 			level_to_set.is_active = true
 			level_to_set.music.play()
-			level_to_set.music.volume_db = 0.0
+			level_to_set.music.volume_db = music_target_volume
 			transition_animation_player.play("transition_close")
 			world.has_restarted = false
 			is_transitioning = false
@@ -105,8 +107,6 @@ func set_levels() -> void:
 	level_manager.level_state = level_manager.LevelStates.WAIT
 	level_to_set.process_mode = PROCESS_MODE_INHERIT
 	level_to_set.show()
-	print(old_level)
-	print(level_to_set)
 	
 	new_level = level_to_set
 	level_manager.current_level.reset_level()

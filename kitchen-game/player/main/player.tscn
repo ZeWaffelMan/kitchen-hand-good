@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://dylsvc744lm0y"]
+[gd_scene load_steps=66 format=3 uid="uid://dylsvc744lm0y"]
 
 [ext_resource type="Script" path="res://player/main/player.gd" id="1_ar7mc"]
 [ext_resource type="Script" path="res://player/main/cursor.gd" id="1_i03mm"]
@@ -36,6 +36,10 @@
 [ext_resource type="Texture2D" uid="uid://bcjxqhrqdoyue" path="res://player/hands/rock_on/rock_on_outline.png" id="31_55gox"]
 [ext_resource type="Texture2D" uid="uid://djdibspo7h0j" path="res://player/hands/visual_stats/three.PNG" id="31_y6cd5"]
 [ext_resource type="Texture2D" uid="uid://ctsptleq3thwr" path="res://player/hands/visual_stats/four.PNG" id="32_fvjkv"]
+[ext_resource type="AudioStream" uid="uid://ddg1p2s4l1sye" path="res://sound_effects/Hand_Hurt_01.wav" id="37_7vxpv"]
+[ext_resource type="AudioStream" uid="uid://fs1jddlxu7f0" path="res://sound_effects/Hand_Pick_Up_01.wav" id="38_uqohk"]
+[ext_resource type="AudioStream" uid="uid://2twlm28bnvd2" path="res://sound_effects/Hand_Slap_01.wav" id="39_n7bdf"]
+[ext_resource type="AudioStream" uid="uid://dv20ykjajmucx" path="res://sound_effects/Hand_Wave_Attack_01.wav" id="40_ojinh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5f216"]
 size = Vector2(127, 157)
@@ -536,16 +540,18 @@ player_health = NodePath("../../PlayerHealth")
 hand_animation_player = NodePath("../../HandStateAnimationPlayer")
 grab_detection = NodePath("../../Hand/GrabDetection")
 
-[node name="GrabThrow" type="Node" parent="HandStateMachine" node_paths=PackedStringArray("object_detection", "player_hand", "hand_animation_player", "player", "player_health")]
+[node name="GrabThrow" type="Node" parent="HandStateMachine" node_paths=PackedStringArray("grab_sound", "object_detection", "player_hand", "hand_animation_player", "player", "player_health")]
 script = ExtResource("4_gh7us")
+grab_sound = NodePath("../../Sounds/Grab")
 object_detection = NodePath("../../Hand/GrabDetection")
 player_hand = NodePath("../../Hand")
 hand_animation_player = NodePath("../../HandStateAnimationPlayer")
 player = NodePath("../..")
 player_health = NodePath("../../PlayerHealth")
 
-[node name="Slap" type="Node" parent="HandStateMachine" node_paths=PackedStringArray("player", "hand", "player_health", "hand_collision", "hand_sprite", "hit_detection", "hand_animation_player")]
+[node name="Slap" type="Node" parent="HandStateMachine" node_paths=PackedStringArray("slap_sound", "player", "hand", "player_health", "hand_collision", "hand_sprite", "hit_detection", "hand_animation_player")]
 script = ExtResource("5_tqavi")
+slap_sound = NodePath("../../Sounds/Slap")
 player = NodePath("../..")
 hand = NodePath("../../Hand")
 player_health = NodePath("../../PlayerHealth")
@@ -561,8 +567,9 @@ player_health = NodePath("../../PlayerHealth")
 hand_animation_player = NodePath("../../HandStateAnimationPlayer")
 hand = NodePath("../../Hand")
 
-[node name="ShockWave" type="Node" parent="HandStateMachine" node_paths=PackedStringArray("player", "player_health", "impulse_area", "hand_animation_player", "this_player_box", "gradient")]
+[node name="ShockWave" type="Node" parent="HandStateMachine" node_paths=PackedStringArray("shock_wave_sound", "player", "player_health", "impulse_area", "hand_animation_player", "this_player_box", "gradient")]
 script = ExtResource("7_wpmc4")
+shock_wave_sound = NodePath("../../Sounds/ShockWave")
 player = NodePath("../..")
 player_health = NodePath("../../PlayerHealth")
 impulse_area = NodePath("../../Hand/ShockWaveArea")
@@ -571,8 +578,9 @@ this_player_box = NodePath("../../Hand/PlayerFindBox")
 shock_wave_effect = ExtResource("18_awneo")
 gradient = NodePath("../../Hand/HandSprites/HandStats/Gradiant")
 
-[node name="PlayerHealth" type="Node" parent="." node_paths=PackedStringArray("player", "life_sprites", "effect_animation_player", "hand", "hand_gradient", "hand_sprites")]
+[node name="PlayerHealth" type="Node" parent="." node_paths=PackedStringArray("hurt_sound", "player", "life_sprites", "effect_animation_player", "hand", "hand_gradient", "hand_sprites")]
 script = ExtResource("6_gd46d")
+hurt_sound = NodePath("../Sounds/Hurt")
 player = NodePath("..")
 life_sprites = [NodePath("../Hand/HandSprites/HandStats/Gradiant/HandMarks/LastLife"), NodePath("../Hand/HandSprites/HandStats/Gradiant/HandMarks/Life2"), NodePath("../Hand/HandSprites/HandStats/Gradiant/HandMarks/Life3")]
 effect_animation_player = NodePath("../EffectAnimationPlayer")
@@ -741,3 +749,19 @@ position = Vector2(1850, -1000)
 
 [node name="BottomHandBounds" type="Node2D" parent="."]
 position = Vector2(-1850, 1000)
+
+[node name="Sounds" type="Node2D" parent="."]
+process_mode = 1
+
+[node name="Hurt" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("37_7vxpv")
+
+[node name="Grab" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("38_uqohk")
+
+[node name="Slap" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("39_n7bdf")
+
+[node name="ShockWave" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("40_ojinh")
+volume_db = 3.0

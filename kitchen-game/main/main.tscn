@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=3 uid="uid://b18jghfgdrfrf"]
+[gd_scene load_steps=97 format=3 uid="uid://b18jghfgdrfrf"]
 
 [ext_resource type="Texture2D" uid="uid://c2uo5aw8kd330" path="res://environment/square.png" id="1_avalh"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_emppk"]
@@ -26,7 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://dlq4loyy712rr" path="res://enemy/onion_spawner.tscn" id="12_cs1vm"]
 [ext_resource type="Texture2D" uid="uid://cx0m73pkvia4x" path="res://level/map/sink_area.PNG" id="12_qk1nh"]
 [ext_resource type="PackedScene" uid="uid://b8luv6527ht6u" path="res://secret_ingredient_pepper.tscn" id="12_rkc0r"]
-[ext_resource type="PackedScene" uid="uid://3ww5a3heppml" path="res://enemy/avocado_spawner.tscn" id="13_05g0p"]
+[ext_resource type="PackedScene" uid="uid://3ww5a3heppml" path="res://enemy/enemy_types/avocado_enemy/avocado_spawner.tscn" id="13_05g0p"]
 [ext_resource type="PackedScene" uid="uid://crqlvwv8eqnun" path="res://enemy/watermelon_spawner.tscn" id="16_2cem5"]
 [ext_resource type="Script" path="res://main/level.gd" id="16_6h127"]
 [ext_resource type="Texture2D" uid="uid://dmkia7omn1ssk" path="res://player/hands/visual_stats/one.PNG" id="16_wdeyb"]
@@ -50,10 +50,14 @@
 [ext_resource type="Texture2D" uid="uid://bst65b0r1ygoy" path="res://level/sink_level/sea_pickle.png" id="45_tdcbi"]
 [ext_resource type="Texture2D" uid="uid://djxui3qcvjxk3" path="res://level/sink_level/sea_pickle_tall.png" id="46_ynexd"]
 [ext_resource type="Texture2D" uid="uid://itaswkevxmtu" path="res://level/sink_level/duck.png" id="47_kvgtf"]
-[ext_resource type="Texture2D" uid="uid://c27pqfylcx866" path="res://level/sink_level/sink.png" id="48_7qkcu"]
+[ext_resource type="Texture2D" uid="uid://bb3gtba5mmfm7" path="res://level/sink_level/sink.png" id="48_7qkcu"]
 [ext_resource type="Texture2D" uid="uid://c16y1eb7x1v5l" path="res://level/sink_level/picture.png" id="49_qhaot"]
 [ext_resource type="Texture2D" uid="uid://d0cyqtc2bvwmy" path="res://level/sink_level/knives_board.png" id="50_2pcj0"]
 [ext_resource type="Texture2D" uid="uid://hwnw1mol7v4w" path="res://level/sink_level/knives.png" id="51_txneg"]
+[ext_resource type="PackedScene" uid="uid://dsq7jqka6wiof" path="res://components/object_detection.tscn" id="52_1m7p8"]
+[ext_resource type="Texture2D" uid="uid://ri2dxrixcdvy" path="res://level/sink_level/duck_shelf.png" id="52_bpcrg"]
+[ext_resource type="Script" path="res://enemy/under_water.gd" id="53_26al7"]
+[ext_resource type="Texture2D" uid="uid://5g6s764jskmc" path="res://level/background_tiles/circle_tiles.PNG" id="53_tkhpv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l3uul"]
 shader = ExtResource("4_q1tav")
@@ -360,6 +364,21 @@ size = Vector2(175, 245)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m367f"]
 size = Vector2(112, 704)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_dx3lt"]
+radius = 130.138
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sfifm"]
+radius = 116.619
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kc437"]
+size = Vector2(744.868, 93.5612)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g8p6x"]
+size = Vector2(1236, 93)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ewyt"]
+size = Vector2(107, 1804)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vjoqm"]
 size = Vector2(11783, 11109)
 
@@ -397,6 +416,7 @@ next_level = NodePath("Level1")
 
 [node name="Background" type="Sprite2D" parent="World"]
 modulate = Color(0.947199, 0.947199, 0.947199, 1)
+z_index = -2
 position = Vector2(959.5, 519.5)
 scale = Vector2(45.2757, 26.5017)
 texture = ExtResource("1_avalh")
@@ -544,7 +564,7 @@ autoplay = "hand_idle"
 z_index = 2
 position = Vector2(-786, 747)
 world = NodePath("..")
-current_level = NodePath("../Level2")
+current_level = NodePath("../Level1")
 secret_area = NodePath("SecretAreaAnchor/SecretBox/SecretArea")
 secret_box = NodePath("SecretAreaAnchor/SecretBox")
 secret_area_new_offset = NodePath("NewSecretAreaPosition")
@@ -624,7 +644,6 @@ process_mode = 4
 visible = false
 position = Vector2(581, -330)
 script = ExtResource("16_6h127")
-keep_music_off = true
 is_lobby_level = true
 is_active = false
 secret_ingredient_to_spawn = ExtResource("12_rkc0r")
@@ -662,17 +681,15 @@ texture = ExtResource("24_51rrp")
 
 [node name="Level1" type="Node2D" parent="World" node_paths=PackedStringArray("secret_ingredient_spawn_area", "enemy_spawn_points", "enemy_air_spawn_point_1", "enemy_air_spawn_point_2", "next_level", "music")]
 process_mode = 4
-visible = false
 position = Vector2(0, -10)
 script = ExtResource("16_6h127")
-keep_music_off = true
 is_active = false
 secret_ingredient_spawn_area = NodePath("SecretIngredientSpawn")
 secret_ingredient_to_spawn = ExtResource("12_rkc0r")
 enemy_spawn_points = [NodePath("SpawnPointPlatform"), NodePath("SpawnPointPlatform2"), NodePath("SpawnPointPlatform3"), NodePath("SpawnPointPlatform4"), NodePath("SpawnPointPlatform5")]
 enemy_air_spawn_point_1 = NodePath("RangeSpawnPoints/TopLeftSpawn")
 enemy_air_spawn_point_2 = NodePath("RangeSpawnPoints/TopRightSpawn")
-enemy_spawners_to_spawn = Array[Resource]([ExtResource("12_cs1vm"), ExtResource("17_r3k14"), ExtResource("16_2cem5"), ExtResource("13_05g0p")])
+enemy_spawners_to_spawn = Array[Resource]([ExtResource("16_2cem5"), ExtResource("12_cs1vm"), ExtResource("17_r3k14"), ExtResource("13_05g0p")])
 max_next_spawner_time = 16.0
 min_next_spawner_time = 16.0
 max_destroy_spawners_timer = 16.0
@@ -729,7 +746,7 @@ position = Vector2(1641.85, -185.311)
 position = Vector2(-892.151, -132.193)
 
 [node name="Cactus" type="Sprite2D" parent="World/Level1/Area/Shelf"]
-position = Vector2(-446.076, -247.183)
+position = Vector2(1080.48, -253.521)
 scale = Vector2(0.603621, 0.603621)
 texture = ExtResource("20_wmk8p")
 
@@ -911,18 +928,31 @@ z_index = 1
 position = Vector2(2451, -269)
 texture = ExtResource("49_qhaot")
 
+[node name="Knives" type="Node2D" parent="World/Level1"]
+position = Vector2(-526, -523)
+
+[node name="KnivesBoard" type="Sprite2D" parent="World/Level1/Knives"]
+z_index = 1
+texture = ExtResource("50_2pcj0")
+
+[node name="Knives" type="Sprite2D" parent="World/Level1/Knives"]
+z_index = 1
+position = Vector2(44, 231)
+rotation = -3.14159
+texture = ExtResource("51_txneg")
+
 [node name="Level2" type="Node2D" parent="World" node_paths=PackedStringArray("secret_ingredient_spawn_area", "enemy_spawn_points", "enemy_air_spawn_point_1", "enemy_air_spawn_point_2", "next_level", "music")]
 process_mode = 4
+visible = false
 position = Vector2(0, -6)
 script = ExtResource("16_6h127")
-keep_music_off = true
 is_active = false
 secret_ingredient_spawn_area = NodePath("SecretIngredientSpawn")
 secret_ingredient_to_spawn = ExtResource("10_kr3jm")
 enemy_spawn_points = [NodePath("SpawnPointPlatform"), NodePath("SpawnPointPlatform3"), NodePath("SpawnPointPlatform4"), NodePath("SpawnPointPlatform5")]
 enemy_air_spawn_point_1 = NodePath("RangeSpawnPoints/TopLeftSpawn")
 enemy_air_spawn_point_2 = NodePath("RangeSpawnPoints/TopRightSpawn")
-enemy_spawners_to_spawn = Array[Resource]([ExtResource("17_r3k14"), ExtResource("19_1seuh"), ExtResource("20_knfnt"), ExtResource("21_a0hi3")])
+enemy_spawners_to_spawn = Array[Resource]([ExtResource("19_1seuh"), ExtResource("20_knfnt"), ExtResource("21_a0hi3"), ExtResource("19_1seuh"), ExtResource("21_a0hi3")])
 next_level = NodePath("../LobbyLevel")
 next_level_animation = "to_lobby"
 music = NodePath("Music")
@@ -932,12 +962,12 @@ stream = ExtResource("37_mvt2a")
 volume_db = -80.0
 
 [node name="SecretIngredientSpawn" type="Node2D" parent="World/Level2"]
-position = Vector2(220, -660)
+position = Vector2(235, -474.45)
 
 [node name="Paperthing" type="Sprite2D" parent="World/Level2"]
 modulate = Color(1, 1, 1, 0.188235)
 z_index = 1
-position = Vector2(971, 375)
+position = Vector2(986, 560.55)
 scale = Vector2(2.18907, 1.28155)
 texture = ExtResource("3_x2ukn")
 
@@ -946,7 +976,7 @@ z_index = 1
 position = Vector2(590, -85)
 
 [node name="Ground" parent="World/Level2/Area" instance=ExtResource("6_aco2f")]
-position = Vector2(-3222, 1450)
+position = Vector2(-3207, 1635.55)
 
 [node name="CollisionShape2D" parent="World/Level2/Area/Ground" index="0"]
 position = Vector2(278.269, -87.8267)
@@ -972,7 +1002,7 @@ position = Vector2(-12.2489, 0)
 shape = SubResource("RectangleShape2D_fiw01")
 
 [node name="Ground5" parent="World/Level2/Area" instance=ExtResource("6_aco2f")]
-position = Vector2(3046, 1521)
+position = Vector2(3061, 1706.55)
 
 [node name="CollisionShape2D" parent="World/Level2/Area/Ground5" index="0"]
 position = Vector2(278.269, -126.76)
@@ -997,27 +1027,6 @@ scale = Vector2(0.603621, 0.603621)
 position = Vector2(-12.2489, 0)
 shape = SubResource("RectangleShape2D_fiw01")
 
-[node name="Ground2" parent="World/Level2/Area" instance=ExtResource("6_aco2f")]
-position = Vector2(-24, 1881)
-
-[node name="CollisionShape2D" parent="World/Level2/Area/Ground2" index="0"]
-position = Vector2(237.525, -137.625)
-shape = SubResource("RectangleShape2D_wi0ce")
-
-[node name="TopRightBounds" parent="World/Level2/Area/Ground2/EnemyBounds" index="0"]
-position = Vector2(762.373, -175.654)
-
-[node name="BottomLeftBounds" parent="World/Level2/Area/Ground2/EnemyBounds" index="1"]
-position = Vector2(-286.116, -79.0743)
-
-[node name="UpperArea2" type="Area2D" parent="World/Level2/Area/Ground2"]
-position = Vector2(482.293, -222.736)
-scale = Vector2(0.603621, 0.603621)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Level2/Area/Ground2/UpperArea2"]
-position = Vector2(-403, 0)
-shape = SubResource("RectangleShape2D_1whql")
-
 [node name="BoundsWall" parent="World/Level2/Area" instance=ExtResource("20_43wd5")]
 position = Vector2(-1803, 350)
 
@@ -1034,6 +1043,7 @@ position = Vector2(254, 1965)
 rotation = -1.57079
 
 [node name="RangeSpawnPoints" type="Node2D" parent="World/Level2"]
+position = Vector2(15, 185.55)
 
 [node name="TopLeftSpawn" type="Node2D" parent="World/Level2/RangeSpawnPoints"]
 position = Vector2(-657, -828)
@@ -1042,18 +1052,19 @@ position = Vector2(-657, -828)
 position = Vector2(2515, -844)
 
 [node name="SpawnPointPlatform" type="Node2D" parent="World/Level2"]
-position = Vector2(-1089, 1138)
+position = Vector2(-1074, 1323.55)
 
 [node name="SpawnPointPlatform3" type="Node2D" parent="World/Level2"]
-position = Vector2(3002, 1124)
+position = Vector2(3017, 1309.55)
 
 [node name="SpawnPointPlatform4" type="Node2D" parent="World/Level2"]
-position = Vector2(3005, 1348)
+position = Vector2(3020, 1533.55)
 
 [node name="SpawnPointPlatform5" type="Node2D" parent="World/Level2"]
-position = Vector2(-1087, 1352)
+position = Vector2(-1072, 1537.55)
 
 [node name="Arena" type="Area2D" parent="World/Level2"]
+position = Vector2(15, 185.55)
 collision_layer = 16384
 collision_mask = 0
 
@@ -1064,26 +1075,48 @@ debug_color = Color(0.3698, 0.52503, 0.86, 0.0705882)
 
 [node name="Water" parent="World/Level2" instance=ExtResource("19_orn1x")]
 modulate = Color(1, 1, 1, 0.501961)
-position = Vector2(911, 1372)
+position = Vector2(926, 1557.55)
+
+[node name="Water2" type="Sprite2D" parent="World/Level2/Water"]
+z_index = 14
+position = Vector2(52.9999, -73)
+scale = Vector2(0.950216, 1)
+texture = ExtResource("43_kaw8w")
+
+[node name="WaterGround" parent="World/Level2/Water" instance=ExtResource("6_aco2f")]
+position = Vector2(-338, 286.45)
+
+[node name="CollisionShape2D" parent="World/Level2/Water/WaterGround" index="0"]
+position = Vector2(237.525, -137.625)
+shape = SubResource("RectangleShape2D_wi0ce")
+
+[node name="TopRightBounds" parent="World/Level2/Water/WaterGround/EnemyBounds" index="0"]
+position = Vector2(762.373, -175.654)
+
+[node name="BottomLeftBounds" parent="World/Level2/Water/WaterGround/EnemyBounds" index="1"]
+position = Vector2(-286.116, -79.0743)
+
+[node name="Ground" type="Sprite2D" parent="World/Level2/Water/WaterGround"]
+modulate = Color(0.838897, 0.838897, 0.838897, 1)
+position = Vector2(240.845, 39.2353)
+scale = Vector2(10.6418, 4.27212)
+texture = ExtResource("1_avalh")
+
+[node name="UpperArea2" type="Area2D" parent="World/Level2/Water/WaterGround"]
+position = Vector2(482.293, -222.736)
+scale = Vector2(0.603621, 0.603621)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Level2/Water/WaterGround/UpperArea2"]
+position = Vector2(-403, 0)
+shape = SubResource("RectangleShape2D_1whql")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Level2/Water"]
 position = Vector2(50, 0)
 shape = SubResource("RectangleShape2D_bfojq")
 debug_color = Color(0.39, 0.6955, 0.78, 0.254902)
 
-[node name="Water2" type="Sprite2D" parent="World/Level2/Water"]
-z_index = 12
-position = Vector2(52.9999, -73)
-scale = Vector2(0.950216, 1)
-texture = ExtResource("43_kaw8w")
-
-[node name="Ground" type="Sprite2D" parent="World/Level2/Water"]
-position = Vector2(62.4999, 486.875)
-scale = Vector2(17.63, 7.0775)
-texture = ExtResource("1_avalh")
-
 [node name="Pickle" type="StaticBody2D" parent="World/Level2"]
-position = Vector2(395, 1525)
+position = Vector2(421, 1521)
 
 [node name="SeaPickle" type="Sprite2D" parent="World/Level2/Pickle"]
 texture = ExtResource("45_tdcbi")
@@ -1093,7 +1126,7 @@ position = Vector2(1, 37)
 shape = SubResource("RectangleShape2D_mvldu")
 
 [node name="Pickle2" type="StaticBody2D" parent="World/Level2"]
-position = Vector2(194, 1495)
+position = Vector2(220, 1491)
 
 [node name="SeaPickleTall" type="Sprite2D" parent="World/Level2/Pickle2"]
 texture = ExtResource("46_ynexd")
@@ -1109,7 +1142,7 @@ position = Vector2(957, 559)
 texture = ExtResource("44_4akxb")
 
 [node name="LeftSinkWall" type="StaticBody2D" parent="World/Level2"]
-position = Vector2(39, 1234)
+position = Vector2(54, 1419.55)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Level2/LeftSinkWall"]
 z_index = 4
@@ -1117,34 +1150,140 @@ position = Vector2(0, 41)
 shape = SubResource("RectangleShape2D_m367f")
 
 [node name="LeftSinkWall2" type="StaticBody2D" parent="World/Level2"]
-position = Vector2(1843, 1230)
+position = Vector2(1858, 1415.55)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Level2/LeftSinkWall2"]
 z_index = 4
 position = Vector2(46, 49)
 shape = SubResource("RectangleShape2D_m367f")
 
-[node name="Duck" type="Sprite2D" parent="World/Level2"]
-z_index = 1
-position = Vector2(1118, 5)
-texture = ExtResource("47_kvgtf")
-
 [node name="Sink" type="Sprite2D" parent="World/Level2"]
 z_index = 1
-position = Vector2(979, 567)
+position = Vector2(994, 752.55)
 texture = ExtResource("48_7qkcu")
 
-[node name="KnivesBoard" type="Sprite2D" parent="World/Level2"]
-z_index = 1
-position = Vector2(-462, 99)
-texture = ExtResource("50_2pcj0")
+[node name="Ducky" type="RigidBody2D" parent="World/Level2"]
+position = Vector2(1320, 1020)
+collision_mask = 32773
+mass = 3.0
 
-[node name="Knives" type="Sprite2D" parent="World/Level2"]
-modulate = Color(0.982343, 0.982342, 0.982342, 1)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Level2/Ducky"]
+z_index = 2
+shape = SubResource("CircleShape2D_dx3lt")
+
+[node name="Duck" type="Sprite2D" parent="World/Level2/Ducky"]
 z_index = 1
-position = Vector2(-418, 330)
-rotation = -3.14159
-texture = ExtResource("51_txneg")
+texture = ExtResource("47_kvgtf")
+
+[node name="WaterDetection" parent="World/Level2/Ducky" instance=ExtResource("52_1m7p8")]
+collision_mask = 4096
+check_for_bodies = false
+check_for_areas = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Level2/Ducky/WaterDetection"]
+shape = SubResource("CircleShape2D_sfifm")
+debug_color = Color(0.3555, 0.674133, 0.79, 0.313726)
+
+[node name="UnderWater" type="Node2D" parent="World/Level2/Ducky" node_paths=PackedStringArray("body", "water_detection")]
+script = ExtResource("53_26al7")
+does_float = true
+body = NodePath("..")
+new_gravity = -0.5
+new_damp = 0.0
+water_detection = NodePath("../WaterDetection")
+
+[node name="Shelf" parent="World/Level2" instance=ExtResource("6_aco2f")]
+position = Vector2(2463, 632)
+
+[node name="CollisionShape2D" parent="World/Level2/Shelf" index="0"]
+position = Vector2(-163.581, -223.641)
+shape = SubResource("RectangleShape2D_kc437")
+
+[node name="TopRightBounds" parent="World/Level2/Shelf/EnemyBounds" index="0"]
+position = Vector2(1645.47, -264.989)
+
+[node name="BottomLeftBounds" parent="World/Level2/Shelf/EnemyBounds" index="1"]
+position = Vector2(-998.388, 83.9032)
+
+[node name="ShelfSprite" type="Sprite2D" parent="World/Level2/Shelf"]
+position = Vector2(15.0905, -141.851)
+scale = Vector2(0.603621, 0.603621)
+texture = ExtResource("52_bpcrg")
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Level2/Shelf"]
+position = Vector2(1226.86, -54.3259)
+scale = Vector2(8.38429, 4.26156)
+texture = ExtResource("1_avalh")
+
+[node name="UpperArea" type="Area2D" parent="World/Level2/Shelf"]
+position = Vector2(375.281, -310.261)
+scale = Vector2(0.603621, 0.603621)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Level2/Shelf/UpperArea"]
+position = Vector2(-893.715, 0)
+shape = SubResource("RectangleShape2D_g8p6x")
+
+[node name="Tiles" type="Node2D" parent="World/Level2"]
+
+[node name="CircleTiles" type="Sprite2D" parent="World/Level2/Tiles"]
+modulate = Color(0.920995, 0.920995, 0.920995, 1)
+z_index = -1
+position = Vector2(-569, -120)
+scale = Vector2(1.08036, 1.08036)
+texture = ExtResource("53_tkhpv")
+
+[node name="CircleTiles2" type="Sprite2D" parent="World/Level2/Tiles"]
+modulate = Color(0.920995, 0.920995, 0.920995, 1)
+z_index = -1
+position = Vector2(12.9999, 687)
+scale = Vector2(1.08036, 1.08036)
+texture = ExtResource("53_tkhpv")
+
+[node name="CircleTiles3" type="Sprite2D" parent="World/Level2/Tiles"]
+modulate = Color(0.920995, 0.920995, 0.920995, 1)
+z_index = -1
+position = Vector2(726, 270)
+scale = Vector2(1.08036, 1.08036)
+texture = ExtResource("53_tkhpv")
+
+[node name="CircleTiles4" type="Sprite2D" parent="World/Level2/Tiles"]
+modulate = Color(0.920995, 0.920995, 0.920995, 1)
+z_index = -1
+position = Vector2(1439, -251)
+scale = Vector2(1.08036, 1.08036)
+texture = ExtResource("53_tkhpv")
+
+[node name="CircleTiles6" type="Sprite2D" parent="World/Level2/Tiles"]
+modulate = Color(0.920995, 0.920995, 0.920995, 1)
+z_index = -1
+position = Vector2(1873, 704)
+scale = Vector2(1.08036, 1.08036)
+texture = ExtResource("53_tkhpv")
+
+[node name="CircleTiles7" type="Sprite2D" parent="World/Level2/Tiles"]
+modulate = Color(0.920995, 0.920995, 0.920995, 1)
+z_index = -1
+position = Vector2(2445, 243)
+scale = Vector2(1.08036, 1.08036)
+texture = ExtResource("53_tkhpv")
+
+[node name="DuckBounds" type="StaticBody2D" parent="World/Level2"]
+position = Vector2(1900, 225)
+collision_layer = 32768
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Level2/DuckBounds"]
+shape = SubResource("RectangleShape2D_8ewyt")
+debug_color = Color(1, 0.89, 0.45, 0.172549)
+
+[node name="DuckBounds2" type="StaticBody2D" parent="World/Level2"]
+position = Vector2(48, 204)
+collision_layer = 32768
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Level2/DuckBounds2"]
+shape = SubResource("RectangleShape2D_8ewyt")
+debug_color = Color(1, 0.89, 0.45, 0.172549)
 
 [node name="CameraHolder" type="Node2D" parent="World"]
 z_index = 3
@@ -1212,4 +1351,5 @@ debug_color = Color(1, 0.03, 0.03, 0.0588235)
 [editable path="World/Level1/Area/Beans"]
 [editable path="World/Level2/Area/Ground"]
 [editable path="World/Level2/Area/Ground5"]
-[editable path="World/Level2/Area/Ground2"]
+[editable path="World/Level2/Water/WaterGround"]
+[editable path="World/Level2/Shelf"]

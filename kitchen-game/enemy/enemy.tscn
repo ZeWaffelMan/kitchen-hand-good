@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=3 uid="uid://ccewotvxo4pxr"]
+[gd_scene load_steps=92 format=3 uid="uid://ccewotvxo4pxr"]
 
 [ext_resource type="Script" path="res://enemy/main/enemy_health.gd" id="1_cw4vx"]
 [ext_resource type="Script" path="res://enemy/enemy.gd" id="1_gip5k"]
@@ -18,7 +18,7 @@
 [ext_resource type="Script" path="res://enemy/main/enemy_rest.gd" id="6_h5dgg"]
 [ext_resource type="Script" path="res://enemy/enemy_states/ragdoll.gd" id="7_vi2fd"]
 [ext_resource type="Script" path="res://enemy/enemy_states/stand.gd" id="8_wj0xj"]
-[ext_resource type="PackedScene" uid="uid://dnt7e148s6dro" path="res://effects/hit_effect/hit_effect.tscn" id="9_yme7h"]
+[ext_resource type="PackedScene" uid="uid://dnt7e148s6dro" path="res://effects/hit_effect/enemy_hit_effect.tscn" id="9_yme7h"]
 [ext_resource type="Script" path="res://enemy/enemy_states/enemy_rebalance.gd" id="10_rgprq"]
 [ext_resource type="Texture2D" uid="uid://d0q58fo8dl5g7" path="res://enemy/enemy_types/onion/onion.png" id="12_343ne"]
 [ext_resource type="PackedScene" uid="uid://dlyn0r4c500uk" path="res://enemy/effects/death_effect/death_effect.tscn" id="13_5es4p"]
@@ -43,6 +43,8 @@
 [ext_resource type="Texture2D" uid="uid://bcuh5nxxweiqb" path="res://enemy/faces/mouths/sad.PNG" id="33_p1pkn"]
 [ext_resource type="Texture2D" uid="uid://bf1ed8pe8uca" path="res://enemy/faces/mouths/ooh.png" id="34_ihiqb"]
 [ext_resource type="Texture2D" uid="uid://biby6mwlwqdbu" path="res://enemy/faces/mouths/long_neutral.PNG" id="35_ero87"]
+[ext_resource type="AudioStream" uid="uid://dylyb6vbo3lg0" path="res://sound_effects/Enemy_Impact_01.wav" id="44_cwb2o"]
+[ext_resource type="AudioStream" uid="uid://gnrmf3g2vomi" path="res://sound_effects/Enemy_Struggle_LP_01.wav" id="45_6ni63"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g720q"]
 size = Vector2(156, 20)
@@ -989,11 +991,11 @@ anchor = NodePath("../AnchorPoint")
 
 [node name="AnchorPoint" type="Node2D" parent="."]
 
-[node name="UnderWater" type="Node2D" parent="." node_paths=PackedStringArray("enemy", "head", "water_detection")]
+[node name="UnderWater" type="Node2D" parent="." node_paths=PackedStringArray("enemy", "body", "water_detection")]
 script = ExtResource("4_3gp8k")
 enemy = NodePath("..")
 does_float = true
-head = NodePath("../Head")
+body = NodePath("../Head")
 water_detection = NodePath("../Head/WaterDetection")
 
 [node name="Movement" type="Node2D" parent="." node_paths=PackedStringArray("top_wall_detection", "bottom_wall_detection", "right_wall_detection", "left_wall_detection", "head", "movement_animation_player", "squash_animation_player", "storage")]
@@ -1044,8 +1046,9 @@ collision_mask = 0
 position = Vector2(0, 10)
 shape = SubResource("RectangleShape2D_g720q")
 
-[node name="EnemyHealth" type="Node" parent="." node_paths=PackedStringArray("juice_color_node", "enemy", "head", "effect_animation_player")]
+[node name="EnemyHealth" type="Node" parent="." node_paths=PackedStringArray("impact_sound", "juice_color_node", "enemy", "head", "effect_animation_player")]
 script = ExtResource("1_cw4vx")
+impact_sound = NodePath("../ImpactSound")
 juice_color_node = NodePath("../EnemyJuiceColor")
 enemy = NodePath("..")
 head = NodePath("../Head")
@@ -1201,8 +1204,9 @@ stand_ground_check = NodePath("../../../LookingForGround/StandGroundCheck")
 platform = NodePath("../../../Platform")
 speed_damage_hurt_box = NodePath("../../SpeedDamageHurtBox")
 
-[node name="Grabbed" type="Node" parent="Head/HeadStateMachine" node_paths=PackedStringArray("enemy", "head_collision", "head", "ground_check", "bounce_point", "mouth_animation_player", "movement_animation_player", "shadow")]
+[node name="Grabbed" type="Node" parent="Head/HeadStateMachine" node_paths=PackedStringArray("struggle_sound", "enemy", "head_collision", "head", "ground_check", "bounce_point", "mouth_animation_player", "movement_animation_player", "shadow")]
 script = ExtResource("6_1gq2t")
+struggle_sound = NodePath("../../../StriggleSound")
 enemy = NodePath("../../..")
 head_collision = NodePath("../../CollisionShape2D")
 head = NodePath("../..")
@@ -1413,5 +1417,13 @@ libraries = {
 libraries = {
 "": SubResource("AnimationLibrary_b6hpi")
 }
+
+[node name="ImpactSound" type="AudioStreamPlayer" parent="."]
+process_mode = 1
+stream = ExtResource("44_cwb2o")
+
+[node name="StriggleSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("45_6ni63")
+volume_db = -7.0
 
 [connection signal="animation_finished" from="Head/BodyHolder/BodySprites/BlinkAnimationPlayer" to="Head/BodyHolder/BodySprites/FaceController" method="_on_blink_animation_player_animation_finished"]

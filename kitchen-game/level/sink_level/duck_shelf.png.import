@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bb3gtba5mmfm7"
-path="res://.godot/imported/sink.png-f7ea884b464cce614d12f31d92aa89fa.ctex"
+uid="uid://ri2dxrixcdvy"
+path="res://.godot/imported/duck_shelf.png-8ae37723f31b185425d82baba1d1d237.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://level/sink_level/sink.png"
-dest_files=["res://.godot/imported/sink.png-f7ea884b464cce614d12f31d92aa89fa.ctex"]
+source_file="res://level/sink_level/duck_shelf.png"
+dest_files=["res://.godot/imported/duck_shelf.png-8ae37723f31b185425d82baba1d1d237.ctex"]
 
 [params]
 

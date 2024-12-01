@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://enemy/enemy_types/watermelon_enemy/watermelon_behavior.gd" id="2_40oqt"]
 [ext_resource type="Script" path="res://enemy/enemy_types/watermelon_enemy/watermelon_walk.gd" id="2_dtm5x"]
 [ext_resource type="Shader" path="res://main/flash.gdshader" id="2_nmtun"]
-[ext_resource type="Script" path="res://enemy/enemy_types/watermelon_enemy/watermelon_shoot.gd" id="4_tjxyr"]
+[ext_resource type="AudioStream" uid="uid://b445vodhr7h3q" path="res://sound_effects/Enemy_Watermelon_Seeds_01.wav" id="3_ng5hm"]
 [ext_resource type="PackedScene" uid="uid://bgea3qtj6ed4a" path="res://enemy/enemy_types/watermelon_enemy/watermelon_seed.tscn" id="5_uad8s"]
 [ext_resource type="PackedScene" uid="uid://btxiylg0mia14" path="res://player_detection.tscn" id="7_b7q6e"]
 [ext_resource type="Texture2D" uid="uid://dwo2hhaubv6u3" path="res://enemy/enemy_types/watermelon_enemy/watermelon.png" id="7_vlddm"]
@@ -25,11 +25,14 @@ height = 120.0
 
 [node name="Watermelon" instance=ExtResource("1_bmi7l")]
 
-[node name="WatermelonBehavior" type="Node" parent="." index="1" node_paths=PackedStringArray("enemy_rest_state")]
+[node name="WatermelonBehavior" type="Node" parent="." index="0" node_paths=PackedStringArray("enemy_rest_state")]
 script = ExtResource("2_40oqt")
 enemy_rest_state = NodePath("../StateMachine/Rest")
 
-[node name="Movement" parent="." index="4"]
+[node name="ShootSound" type="AudioStreamPlayer" parent="." index="1"]
+stream = ExtResource("3_ng5hm")
+
+[node name="Movement" parent="." index="5"]
 direction_cannot_be_zero = true
 acceleration = 800000.0
 friction = 0.8
@@ -44,8 +47,9 @@ movement_animation_to_play = "shake"
 mouth_animation_to_play = "long_neutral"
 eyes_animation_to_play = "blink"
 
-[node name="Walk" type="Node" parent="StateMachine" index="2" node_paths=PackedStringArray("hurt_box", "fire_point", "watermelon", "enemy", "player_detection", "storage", "head", "enemy_movement")]
+[node name="Walk" type="Node" parent="StateMachine" index="2" node_paths=PackedStringArray("shoot_sound", "hurt_box", "fire_point", "watermelon", "enemy", "player_detection", "storage", "head", "enemy_movement")]
 script = ExtResource("2_dtm5x")
+shoot_sound = NodePath("../../ShootSound")
 seed_bullet = ExtResource("5_uad8s")
 hurt_box = NodePath("../../Head/EnemyHurtBox")
 fire_point = NodePath("../../Head")
@@ -56,20 +60,17 @@ storage = NodePath("../../EnemyStorage")
 head = NodePath("../../Head")
 enemy_movement = NodePath("../../Movement")
 
-[node name="Shoot" type="Node" parent="StateMachine" index="3"]
-script = ExtResource("4_tjxyr")
-
-[node name="EnemyJuiceColor" parent="." index="7"]
+[node name="EnemyJuiceColor" parent="." index="8"]
 self_modulate = Color(1, 0.329412, 0.286275, 1)
 
-[node name="EnemyHealth" parent="." index="9"]
+[node name="EnemyHealth" parent="." index="10"]
 max_health = 3.0
 
 [node name="Shadow" parent="ShadowHolder" index="0"]
 position = Vector2(1, 48)
 scale = Vector2(1.475, 1.1)
 
-[node name="Head" parent="." index="14"]
+[node name="Head" parent="." index="15"]
 material = SubResource("ShaderMaterial_p6lv8")
 mass = 5.0
 

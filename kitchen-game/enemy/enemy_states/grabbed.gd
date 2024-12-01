@@ -2,6 +2,8 @@ extends State
 class_name EnemyGrabbed
 
 
+@export var struggle_sound: AudioStreamPlayer
+
 @export var enemy: Enemy
 @export var head_collision: CollisionShape2D
 @export var head: EnemyHead
@@ -22,6 +24,8 @@ class_name EnemyGrabbed
 func enter_state() -> void:
 	enemy.enemy_state = enemy.EnemyStates.GRABBED
 	enemy.movement_animation_player.play("RESET")
+	struggle_sound.play()
+	struggle_sound.pitch_scale = Sound.random_pitch(0.95, 1.05)
 	mouth_animation_player.play(animation_to_play)
 	
 	head_collision.disabled = true
@@ -29,6 +33,7 @@ func enter_state() -> void:
 
 func exit_state() -> void:
 	movement_animation_player.play("RESET")
+	struggle_sound.stop()
 	mouth_animation_player.play(leave_animation_to_play)
 	head_collision.disabled = false
 
