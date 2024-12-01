@@ -2,6 +2,8 @@ extends Node
 class_name EnemyHealth
 
 
+@export var can_be_damaged: bool = true
+
 @export var impact_sound: AudioStreamPlayer
 @export var effect_to_spawn: Resource
 
@@ -80,7 +82,7 @@ func end_invincibility() -> void:
 
 
 func damage(amount: float, area: Node2D, applies_hit_force: bool) -> void:
-	if !has_died:
+	if !has_died and can_be_damaged:
 		if !is_invincible and !enemy.is_secret_ingredient:
 			if area != head:
 				spawn_hit_effect(area.global_position)

@@ -3,11 +3,14 @@
 [ext_resource type="Script" path="res://enemy/rope.gd" id="1_2p0n0"]
 [ext_resource type="PackedScene" uid="uid://i2aorjwt2gev" path="res://main/verlet_node.tscn" id="2_cehrk"]
 
-[node name="Rope" type="Node2D" node_paths=PackedStringArray("object", "anchor", "line")]
+[node name="Rope" type="Node2D" node_paths=PackedStringArray("line")]
 script = ExtResource("1_2p0n0")
-object = NodePath("")
+target_distance = 18.0
+stiffness = 40.0
+object_target_distance = 700.0
+amount_of_points = 10
 verlet_point = ExtResource("2_cehrk")
-anchor = NodePath("")
 line = NodePath("Line2D")
 
 [node name="Line2D" type="Line2D" parent="."]
+width = 20.0

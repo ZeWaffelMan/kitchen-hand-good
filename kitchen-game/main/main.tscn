@@ -50,7 +50,7 @@
 [ext_resource type="Texture2D" uid="uid://cslpxpru70egf" path="res://player/images.png" id="32_sp2sx"]
 [ext_resource type="Texture2D" uid="uid://cheup78ohh08j" path="res://level/background_tiles/square_tile.PNG" id="33_1ncha"]
 [ext_resource type="Script" path="res://main/battle.gd" id="35_7q7xj"]
-[ext_resource type="PackedScene" uid="uid://d1in47d52ltau" path="res://level/enemy_ball.tscn" id="36_x30wx"]
+[ext_resource type="PackedScene" uid="uid://ca2x4po5huimy" path="res://enemy/enemy_ball.tscn" id="36_nwnrl"]
 [ext_resource type="AudioStream" uid="uid://b5w10efefjnc" path="res://music/GameOff2024 GROOVE_2 water level (fixed loop).ogg" id="37_mvt2a"]
 [ext_resource type="Texture2D" uid="uid://dpxruuyuokg3a" path="res://level/sink_level/Water.png" id="43_kaw8w"]
 [ext_resource type="Texture2D" uid="uid://ch2wfljc4v0rr" path="res://level/sink_level/sink_area.png" id="44_4akxb"]
@@ -790,10 +790,11 @@ next_level = NodePath("../Level1")
 next_level_animation = "counter_to_sink"
 music = NodePath("Music")
 
-[node name="Battle" type="Node2D" parent="World/BattleLevel" node_paths=PackedStringArray("world")]
+[node name="Battle" type="Node2D" parent="World/BattleLevel" node_paths=PackedStringArray("world", "spawn_points")]
 script = ExtResource("35_7q7xj")
 world = NodePath("../..")
-ball = ExtResource("36_x30wx")
+ball = ExtResource("36_nwnrl")
+spawn_points = [NodePath("../BlueSide/BallSpawnBlue"), NodePath("../RedSide/BallSpawnRed")]
 
 [node name="Music" type="AudioStreamPlayer" parent="World/BattleLevel"]
 stream = ExtResource("27_7lcnk")
@@ -820,6 +821,10 @@ position = Vector2(93.6389, 525.409)
 scale = Vector2(1.22425, 1.22425)
 texture = ExtResource("24_51rrp")
 
+[node name="BoundsWall3" parent="World/BattleLevel" instance=ExtResource("20_43wd5")]
+position = Vector2(382, -460)
+rotation = -4.71238
+
 [node name="Images" type="Sprite2D" parent="World/BattleLevel"]
 visible = false
 modulate = Color(1, 1, 1, 0.415686)
@@ -829,6 +834,12 @@ texture = ExtResource("32_sp2sx")
 
 [node name="BlueSide" type="Node2D" parent="World/BattleLevel"]
 modulate = Color(0, 0.54902, 1, 0.588235)
+
+[node name="BoundsWall" parent="World/BattleLevel/BlueSide" instance=ExtResource("20_43wd5")]
+position = Vector2(-1795, 1367)
+
+[node name="BallSpawnBlue" type="Node2D" parent="World/BattleLevel/BlueSide"]
+position = Vector2(-579, -157)
 
 [node name="BlueSide" type="Sprite2D" parent="World/BattleLevel/BlueSide"]
 position = Vector2(-1497, 801)
@@ -851,6 +862,15 @@ texture = ExtResource("1_avalh")
 modulate = Color(1, 0.145098, 0.203922, 0.588235)
 position = Vector2(744, 0)
 scale = Vector2(-1, 1)
+
+[node name="BoundsWall2" parent="World/BattleLevel/RedSide" instance=ExtResource("20_43wd5")]
+position = Vector2(-1804.77, 1367)
+scale = Vector2(1, -1)
+
+[node name="BallSpawnRed" type="Node2D" parent="World/BattleLevel/RedSide"]
+position = Vector2(-671, -174)
+rotation = 3.14159
+scale = Vector2(1, -1)
 
 [node name="BlueSide4" type="Sprite2D" parent="World/BattleLevel/RedSide"]
 position = Vector2(-1497, 801)

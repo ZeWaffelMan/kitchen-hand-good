@@ -21,7 +21,6 @@ var ragdoll_magnitude_threshold: float = 400.0
 @export var is_in_box: bool = false
 @export var can_be_grabbed: bool = true
 
-@export var turn_into_secret: TurnIntoSecret
 @export var is_secret_ingredient: bool = false
 
 @export var enemy_juice_color_node: Node2D

@@ -8,6 +8,8 @@ extends Node2D
 var ball_instance: Enemy
 var is_first_serve: bool = false
 
+@export var spawn_points: Array[Node2D]
+
 enum BattleStates{
 	START,
 	IN_GAME,
@@ -17,24 +19,28 @@ enum BattleStates{
 var battle_state = BattleStates.START
 
 
+func _ready() -> void:
+	randomize()
+
+
 func _process(delta: float) -> void:
 	match battle_state:
 		BattleStates.START:
 			var has_spawned_ball: bool = false
 			if len(world.players) != 0:
 				has_spawned_ball = true
-				var random_player: Player = players.pick_random()
+				var random_spawn: Node2D = spawn_points.pick_random()
 				if is_first_serve:
-					spawn_ball(random_player)
+					spawn_ball(random_spawn)
 				else:
-					spawn_ball(random_player)
+					spawn_ball(random_spawn)
 			if has_spawned_ball:
 				battle_state = BattleStates.IN_GAME
 		BattleStates.IN_GAME:
 			print("were going now")
 
 
-func spawn_ball(player_to_give: Player) -> void:
+func spawn_ball(spawn_point: Node2D) -> void:
 	ball_instance = ball.instantiate()
 	get_tree().current_scene.add_child(ball_instance)
-	ball_instance.global_position = player_to_give.global_position
+	ball_instance.global_position = spawn_point.global_position

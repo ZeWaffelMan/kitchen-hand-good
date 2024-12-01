@@ -987,9 +987,7 @@ storage = NodePath("EnemyStorage")
 
 [node name="Rope" parent="." node_paths=PackedStringArray("object", "anchor") instance=ExtResource("2_yixsx")]
 object = NodePath("../Head")
-anchor = NodePath("../AnchorPoint")
-
-[node name="AnchorPoint" type="Node2D" parent="."]
+anchor = NodePath("..")
 
 [node name="UnderWater" type="Node2D" parent="." node_paths=PackedStringArray("enemy", "body", "water_detection")]
 script = ExtResource("4_3gp8k")
@@ -1133,7 +1131,7 @@ angular_damp = 0.7
 script = ExtResource("2_ndm74")
 big_player_detection = NodePath("BigPlayerDetection")
 rope = NodePath("../Rope")
-anchor_point = NodePath("../AnchorPoint")
+anchor_point = NodePath("..")
 body_sprites_holder = NodePath("BodyHolder/BodySprites")
 enemy_hurt_box = NodePath("EnemyHurtBox")
 speed_hurt_box = NodePath("SpeedDamageHurtBox")
