@@ -1,6 +1,8 @@
 extends State
 
 
+@export var release_spikes_sound: AudioStreamPlayer
+
 @export var enemy: Enemy
 @export var player_detection: PlayerDetection
 @export var storage: EnemyStorage
@@ -19,6 +21,8 @@ var has_seen_player: bool = false
 @export var max_walk_time: float = 5.0
 @onready var walk_time: float = max_walk_time
 @export var mouth_animation_controller: AnimationPlayer
+
+var has_played_spikes_sound: bool = false
 
 var player: PlayerHand
 
@@ -53,6 +57,11 @@ func physics_update_state(delta) -> void:
 		transitioned.emit(self, "Rest")
 	
 	if has_seen_player:
+		if !has_played_spikes_sound:
+			release_spikes_sound.play()
+			release_spikes_sound.pitch_scale = Sound.random_pitch(0.9, 1.1)
+			has_played_spikes_sound = true
+		
 		enemy.movement_animation_player.play("RESET")
 		eyes_animation_player.play("sqrunched")
 		mouth_animation_controller.play("uneasy")
@@ -62,6 +71,6 @@ func physics_update_state(delta) -> void:
 			time_until_switch -= delta
 		else:
 			transitioned.emit(self, "SpikeAttack")
-	
-	if !has_seen_player:
+	else:
+		has_played_spikes_sound = false
 		head.apply_force(Vector2(movement.move_direction) * movement.acceleration * delta)

@@ -91,4 +91,5 @@ randomness = 0.36
 
 [node name="FumesSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_ikimy")
+volume_db = -7.0
 autoplay = true

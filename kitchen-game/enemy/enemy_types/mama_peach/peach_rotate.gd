@@ -11,7 +11,7 @@ var player: PlayerHand
 @export var angle_offset: float = -90.0
 @export var rotation_speed: float = 5.0
 
-@export var max_switch_time: float = 2.0
+@export var max_switch_time: float = 1.0
 @onready var switch_time: float = max_switch_time
 
 @export var face_animation_player: AnimationPlayer

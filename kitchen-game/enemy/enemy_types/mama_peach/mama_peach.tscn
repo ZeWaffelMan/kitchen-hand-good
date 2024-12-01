@@ -18,7 +18,7 @@ shader_parameter/alpha = 1.0
 shader_parameter/active = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dl618"]
-radius = 1295.6
+radius = 1551.63
 
 [node name="MamaPeach" instance=ExtResource("1_xw8wk")]
 z_index = 5
@@ -44,7 +44,6 @@ shoot_sound = NodePath("../../EnemySounds/PeachShoot")
 storage = NodePath("../../EnemyStorage")
 baby_peach_enemy = ExtResource("4_ismkp")
 head = NodePath("../../Head")
-max_shoot_time = 1.5
 fire_point = NodePath("../../Head")
 face_animation_player = NodePath("../../Head/BodyHolder/BodySprites/MouthAnimationPlayer")
 squash_animation_player = NodePath("../../SquashAnimationPlayer")

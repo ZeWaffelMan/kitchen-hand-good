@@ -24,7 +24,6 @@ func enter_state() -> void:
 
 
 func update_state(delta) -> void:
-	print(hand.velocity.length())
 	if player_health.has_gotten_hurt:
 		transitioned.emit(self, "Hurt")
 

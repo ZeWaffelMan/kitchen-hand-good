@@ -43,10 +43,10 @@ next_state = "none"
 [node name="Rest" parent="StateMachine" index="1"]
 next_state = "none"
 
-[node name="EnemyJuiceColor" parent="." index="8"]
+[node name="EnemyJuiceColor" parent="." index="7"]
 self_modulate = Color(1, 0.592157, 0.435294, 1)
 
-[node name="Head" parent="." index="15"]
+[node name="Head" parent="." index="14"]
 material = SubResource("ShaderMaterial_33ix3")
 is_only_ragdoll = true
 

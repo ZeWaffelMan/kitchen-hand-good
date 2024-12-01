@@ -1,7 +1,6 @@
 extends State
 
 
-@export var release_spikes_sound: AudioStreamPlayer
 @export var remove_spikes_sound: AudioStreamPlayer
 
 @export var enemy: Enemy
@@ -20,9 +19,6 @@ extends State
 
 
 func enter_state() -> void:
-	release_spikes_sound.play()
-	release_spikes_sound.pitch_scale = Sound.random_pitch(0.9, 1.1)
-	
 	face_controller.can_blink = true
 	enemy.squash_animation_player.play("squash")
 	storage.movement_animation_player.play("idle")

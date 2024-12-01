@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c2uo5aw8kd330" path="res://environment/square.png" id="1_avalh"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_emppk"]
 [ext_resource type="Script" path="res://main/world.gd" id="2_h2c5a"]
+[ext_resource type="Script" path="res://main/pause_menu.gd" id="2_kqssf"]
 [ext_resource type="Script" path="res://main/camera_shake.gd" id="2_pwhpu"]
 [ext_resource type="Texture2D" uid="uid://ibk45r4fbbkv" path="res://main/mii_channel.png" id="3_6ic67"]
 [ext_resource type="Texture2D" uid="uid://dr3lavliggxym" path="res://main/paperthing.png" id="3_x2ukn"]
@@ -17,12 +18,10 @@
 [ext_resource type="Script" path="res://main/secret_area.gd" id="8_ey3if"]
 [ext_resource type="Texture2D" uid="uid://dkvc7p8spg36b" path="res://level/box.png" id="8_jvjgw"]
 [ext_resource type="Texture2D" uid="uid://cvcl6fiosi4t" path="res://level/map/hand_ball.PNG" id="8_qbggd"]
-[ext_resource type="Texture2D" uid="uid://ds7m2rnfmobxt" path="res://level/map/lobby.PNG" id="9_atn6n"]
 [ext_resource type="PackedScene" uid="uid://3hxttdc8tr4g" path="res://level_manager.tscn" id="10_6wgdk"]
 [ext_resource type="Texture2D" uid="uid://dnakalufrck0v" path="res://environment/cross_hair.png" id="10_8aeo6"]
 [ext_resource type="PackedScene" uid="uid://dribmaugxay67" path="res://enemy/milk_secret_ingredient.tscn" id="10_kr3jm"]
 [ext_resource type="Texture2D" uid="uid://dhdyx27pivfxs" path="res://player/hands/point_hand/point_fill.PNG" id="11_6icbf"]
-[ext_resource type="Texture2D" uid="uid://dc0dhhjl17iq" path="res://level/map/path_point.PNG" id="11_xxppt"]
 [ext_resource type="PackedScene" uid="uid://dlq4loyy712rr" path="res://enemy/onion_spawner.tscn" id="12_cs1vm"]
 [ext_resource type="Texture2D" uid="uid://cx0m73pkvia4x" path="res://level/map/sink_area.PNG" id="12_qk1nh"]
 [ext_resource type="PackedScene" uid="uid://b8luv6527ht6u" path="res://secret_ingredient_pepper.tscn" id="12_rkc0r"]
@@ -73,6 +72,9 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l3uul"]
 shader = ExtResource("4_q1tav")
 shader_parameter/amount = 0.8
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j45rb"]
+size = Vector2(136, 148)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_behnf"]
 animations = [{
@@ -185,7 +187,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(-2, -2),
 "update": 0,
-"values": [Vector2(-204, -380), Vector2(883.23, -380)]
+"values": [Vector2(-50, -380), Vector2(1250, -380)]
 }
 
 [sub_resource type="Animation" id="Animation_hyhjv"]
@@ -218,7 +220,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(-2, -2),
 "update": 0,
-"values": [Vector2(-1186, -380), Vector2(-204, -380)]
+"values": [Vector2(-1186, -380), Vector2(-50, -380)]
 }
 
 [sub_resource type="Animation" id="Animation_ikrip"]
@@ -410,10 +412,22 @@ script = ExtResource("1_emppk")
 transition_animation_player = NodePath("World/Transition/TransitionAnimationPlayer")
 
 [node name="PauseMenu" type="Node2D" parent="."]
-visible = false
+process_mode = 2
+z_index = 7
+script = ExtResource("2_kqssf")
+
+[node name="PauseLabel" type="Label" parent="PauseMenu"]
+z_index = 1
+offset_left = -5.0
+offset_top = -563.0
+offset_right = 1924.0
+offset_bottom = 75.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("38_amp3n")
+theme_override_font_sizes/font_size = 526
+text = "PAUSED"
 
 [node name="Blur" type="Sprite2D" parent="PauseMenu"]
-z_index = 8
 material = SubResource("ShaderMaterial_l3uul")
 position = Vector2(1151, 357)
 scale = Vector2(68.0334, 30.7283)
@@ -421,10 +435,48 @@ texture = ExtResource("1_avalh")
 
 [node name="Backdrop" type="Sprite2D" parent="PauseMenu"]
 modulate = Color(0, 0, 0, 0.243137)
-z_index = 7
 position = Vector2(1151, 357)
 scale = Vector2(68.0334, 30.7283)
 texture = ExtResource("1_avalh")
+
+[node name="Audio" type="Node2D" parent="PauseMenu"]
+
+[node name="SoundToggle" parent="PauseMenu/Audio" instance=ExtResource("29_7xmr7")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PauseMenu/Audio/SoundToggle"]
+position = Vector2(58, 64)
+shape = SubResource("RectangleShape2D_j45rb")
+
+[node name="MusicToggle" parent="PauseMenu/Audio" instance=ExtResource("29_7xmr7")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PauseMenu/Audio/MusicToggle"]
+position = Vector2(58, 64)
+shape = SubResource("RectangleShape2D_j45rb")
+
+[node name="Sensitivity" type="Node2D" parent="PauseMenu"]
+
+[node name="SensitivityUp" parent="PauseMenu/Sensitivity" instance=ExtResource("29_7xmr7")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PauseMenu/Sensitivity/SensitivityUp"]
+position = Vector2(58, 64)
+shape = SubResource("RectangleShape2D_j45rb")
+
+[node name="SensitivityLabel" type="Label" parent="PauseMenu/Sensitivity"]
+z_index = 1
+offset_left = -5.0
+offset_top = -563.0
+offset_right = 1924.0
+offset_bottom = 75.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("38_amp3n")
+theme_override_font_sizes/font_size = 526
+text = "PAUSED"
+
+[node name="SensitivityDown" parent="PauseMenu/Sensitivity" instance=ExtResource("29_7xmr7")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PauseMenu/Sensitivity/SensitivityDown"]
+position = Vector2(58, 64)
+shape = SubResource("RectangleShape2D_j45rb")
 
 [node name="PlayerManager" type="Node2D" parent="."]
 position = Vector2(961, 520)
@@ -436,7 +488,7 @@ player = ExtResource("3_xc6ge")
 transition_controller = NodePath("Transition")
 lobby_level = NodePath("LobbyLevel")
 battle_level = NodePath("BattleLevel")
-next_level = NodePath("Level2")
+next_level = NodePath("Level1")
 
 [node name="Background" type="Sprite2D" parent="World"]
 modulate = Color(0.947199, 0.947199, 0.947199, 1)
@@ -475,83 +527,125 @@ sprite_frames = SubResource("SpriteFrames_behnf")
 autoplay = "default"
 frame_progress = 0.254952
 
-[node name="KnifeArea" type="Sprite2D" parent="World/Transition/Map"]
+[node name="Lobby" type="Node2D" parent="World/Transition/Map"]
+position = Vector2(0.999908, -121)
+
+[node name="Lobby" type="Sprite2D" parent="World/Transition/Map/Lobby"]
+modulate = Color(0, 0.55, 1, 0.32549)
+position = Vector2(-1176, -221.605)
+scale = Vector2(0.563693, 0.563693)
+texture = ExtResource("53_tkhpv")
+
+[node name="Lobby2" type="Sprite2D" parent="World/Transition/Map/Lobby"]
+modulate = Color(0, 0.55, 1, 0.392157)
+position = Vector2(-1176, -221.605)
+scale = Vector2(0.714826, 0.714826)
+texture = ExtResource("53_tkhpv")
+
+[node name="Knife" type="Node2D" parent="World/Transition/Map"]
+position = Vector2(0.999908, -121)
+
+[node name="KnifeBackDrop" type="Sprite2D" parent="World/Transition/Map/Knife"]
+modulate = Color(0.94, 0.7426, 0.5452, 0.588235)
+position = Vector2(-48, -240)
+scale = Vector2(0.714826, 0.714826)
+texture = ExtResource("53_tkhpv")
+
+[node name="KnifeArea" type="Sprite2D" parent="World/Transition/Map/Knife"]
 position = Vector2(-38.5, -472)
 texture = ExtResource("7_ktae4")
 
-[node name="HandBall" type="Sprite2D" parent="World/Transition/Map"]
-position = Vector2(-1174.5, 582)
-texture = ExtResource("8_qbggd")
+[node name="Sink" type="Node2D" parent="World/Transition/Map"]
+position = Vector2(0.999908, -121)
 
-[node name="Lobby" type="Sprite2D" parent="World/Transition/Map"]
-position = Vector2(-1176.5, -192)
-texture = ExtResource("9_atn6n")
+[node name="SinkBackDrop" type="Sprite2D" parent="World/Transition/Map/Sink"]
+modulate = Color(0.14, 0.670333, 1, 0.588235)
+position = Vector2(1252, -260)
+scale = Vector2(0.714826, 0.714826)
+texture = ExtResource("53_tkhpv")
 
-[node name="PathToKnife" type="Node2D" parent="World/Transition/Map"]
-position = Vector2(-52.5, -38)
-
-[node name="PathPoint" type="Sprite2D" parent="World/Transition/Map/PathToKnife"]
-position = Vector2(-907, -151)
-texture = ExtResource("11_xxppt")
-
-[node name="PathPoint2" type="Sprite2D" parent="World/Transition/Map/PathToKnife"]
-position = Vector2(-664, -151)
-rotation = -3.09956
-texture = ExtResource("11_xxppt")
-
-[node name="PathPoint3" type="Sprite2D" parent="World/Transition/Map/PathToKnife"]
-position = Vector2(-418, -152)
-rotation = -3.09956
-texture = ExtResource("11_xxppt")
-
-[node name="PathPoint4" type="Sprite2D" parent="World/Transition/Map/PathToKnife"]
-position = Vector2(-146, -153)
-rotation = -3.09956
-texture = ExtResource("11_xxppt")
-
-[node name="PathToSink" type="Node2D" parent="World/Transition/Map"]
-position = Vector2(-52.5, -38)
-
-[node name="PathPoint5" type="Sprite2D" parent="World/Transition/Map/PathToSink"]
-position = Vector2(181.5, -153.398)
-texture = ExtResource("11_xxppt")
-
-[node name="PathPoint6" type="Sprite2D" parent="World/Transition/Map/PathToSink"]
-position = Vector2(424.5, -153.398)
-rotation = -3.09956
-texture = ExtResource("11_xxppt")
-
-[node name="PathPoint7" type="Sprite2D" parent="World/Transition/Map/PathToSink"]
-position = Vector2(670.5, -154.398)
-rotation = -3.09956
-texture = ExtResource("11_xxppt")
-
-[node name="PathPoint8" type="Sprite2D" parent="World/Transition/Map/PathToSink"]
-position = Vector2(942.5, -155.398)
-rotation = -3.09956
-texture = ExtResource("11_xxppt")
-
-[node name="PathToSwitch" type="Node2D" parent="World/Transition/Map"]
-position = Vector2(-52.5, -38)
-
-[node name="PathPoint9" type="Sprite2D" parent="World/Transition/Map/PathToSwitch"]
-position = Vector2(-1125, 19.5001)
-rotation = -1.57079
-texture = ExtResource("11_xxppt")
-
-[node name="PathPoint10" type="Sprite2D" parent="World/Transition/Map/PathToSwitch"]
-position = Vector2(-1122, 217.5)
-rotation = -1.57079
-texture = ExtResource("11_xxppt")
-
-[node name="PathPoint11" type="Sprite2D" parent="World/Transition/Map/PathToSwitch"]
-position = Vector2(-1125, 409.5)
-rotation = -1.57079
-texture = ExtResource("11_xxppt")
-
-[node name="SinkArea" type="Sprite2D" parent="World/Transition/Map"]
+[node name="SinkArea" type="Sprite2D" parent="World/Transition/Map/Sink"]
 position = Vector2(1257.5, -354)
 texture = ExtResource("12_qk1nh")
+
+[node name="HandBallBackdrop" type="Sprite2D" parent="World/Transition/Map"]
+modulate = Color(1, 0.202, 0.16, 0.196078)
+position = Vector2(-1173.8, 679.427)
+scale = Vector2(1.24469, 1.24469)
+texture = ExtResource("53_tkhpv")
+
+[node name="Paths" type="Node2D" parent="World/Transition/Map"]
+position = Vector2(0.999908, -121)
+
+[node name="PathToKnife" type="Node2D" parent="World/Transition/Map/Paths"]
+modulate = Color(0.941176, 0.745098, 0.54902, 1)
+position = Vector2(-17, -56)
+
+[node name="PathPoint" type="Sprite2D" parent="World/Transition/Map/Paths/PathToKnife"]
+position = Vector2(-910, -150)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("53_tkhpv")
+
+[node name="PathPoint2" type="Sprite2D" parent="World/Transition/Map/Paths/PathToKnife"]
+position = Vector2(-720, -150)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("53_tkhpv")
+
+[node name="PathPoint3" type="Sprite2D" parent="World/Transition/Map/Paths/PathToKnife"]
+position = Vector2(-510, -150)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("53_tkhpv")
+
+[node name="PathPoint4" type="Sprite2D" parent="World/Transition/Map/Paths/PathToKnife"]
+position = Vector2(-300, -150)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("53_tkhpv")
+
+[node name="PathToSink" type="Node2D" parent="World/Transition/Map/Paths"]
+modulate = Color(0.141176, 0.67451, 1, 1)
+position = Vector2(-52.5, -38)
+
+[node name="PathPoint5" type="Sprite2D" parent="World/Transition/Map/Paths/PathToSink"]
+position = Vector2(270, -178.7)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("53_tkhpv")
+
+[node name="PathPoint6" type="Sprite2D" parent="World/Transition/Map/Paths/PathToSink"]
+position = Vector2(480, -178.7)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("53_tkhpv")
+
+[node name="PathPoint7" type="Sprite2D" parent="World/Transition/Map/Paths/PathToSink"]
+position = Vector2(690, -178.7)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("53_tkhpv")
+
+[node name="PathPoint8" type="Sprite2D" parent="World/Transition/Map/Paths/PathToSink"]
+position = Vector2(900, -178.7)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("53_tkhpv")
+
+[node name="PathToSwitch" type="Node2D" parent="World/Transition/Map/Paths"]
+modulate = Color(1, 0.311582, 0.254416, 1)
+position = Vector2(-52.5, -38)
+
+[node name="PathPoint9" type="Sprite2D" parent="World/Transition/Map/Paths/PathToSwitch"]
+position = Vector2(-1125, 50)
+rotation = -1.57079
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("53_tkhpv")
+
+[node name="PathPoint10" type="Sprite2D" parent="World/Transition/Map/Paths/PathToSwitch"]
+position = Vector2(-1122, 260)
+rotation = -1.57079
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("53_tkhpv")
+
+[node name="PathPoint11" type="Sprite2D" parent="World/Transition/Map/Paths/PathToSwitch"]
+position = Vector2(-1125, 470)
+rotation = -1.57079
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("53_tkhpv")
 
 [node name="HandHolder" type="Node2D" parent="World/Transition/Map"]
 position = Vector2(-1184, -380)
@@ -569,6 +663,18 @@ texture = ExtResource("11_6icbf")
 modulate = Color(0, 0.54902, 1, 1)
 position = Vector2(7, 44)
 texture = ExtResource("16_wdeyb")
+
+[node name="HandBall" type="Node2D" parent="World/Transition/Map"]
+
+[node name="HandBallBackdrop2" type="Sprite2D" parent="World/Transition/Map/HandBall"]
+modulate = Color(1, 0.202, 0.16, 0.196078)
+position = Vector2(-1173.8, 679.427)
+scale = Vector2(1.45743, 1.45743)
+texture = ExtResource("53_tkhpv")
+
+[node name="HandBall" type="Sprite2D" parent="World/Transition/Map/HandBall"]
+position = Vector2(-1170.3, 673.427)
+texture = ExtResource("8_qbggd")
 
 [node name="TransitionAnimationPlayer" type="AnimationPlayer" parent="World/Transition"]
 libraries = {
@@ -616,7 +722,7 @@ position = Vector2(1753, 478)
 position = Vector2(1740, -1475)
 
 [node name="SecretBox" type="StaticBody2D" parent="World/LevelManager/SecretAreaAnchor"]
-position = Vector2(11, -66)
+position = Vector2(11, -117)
 collision_layer = 1024
 collision_mask = 0
 
@@ -680,8 +786,6 @@ position = Vector2(1742, -207)
 
 [node name="LobbyLevel" type="Node2D" parent="World" node_paths=PackedStringArray("enemy_spawn_points", "next_level", "music")]
 process_mode = 4
-visible = false
-position = Vector2(581, -330)
 script = ExtResource("16_6h127")
 is_lobby_level = true
 is_active = false
@@ -710,7 +814,7 @@ parameters/looping = true
 
 [node name="Tiles" type="Node2D" parent="World/LobbyLevel"]
 modulate = Color(0.88, 0.88, 0.88, 0.117647)
-position = Vector2(549, 1158)
+position = Vector2(1089, 821)
 
 [node name="BigTiles" type="Sprite2D" parent="World/LobbyLevel/Tiles"]
 position = Vector2(96.6389, -1065.59)
@@ -728,7 +832,7 @@ scale = Vector2(1.22425, 1.22425)
 texture = ExtResource("24_51rrp")
 
 [node name="StoryModeDetection" parent="World/LobbyLevel" instance=ExtResource("29_7xmr7")]
-position = Vector2(1642, 884)
+position = Vector2(2182, 547)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/LobbyLevel/StoryModeDetection"]
 shape = SubResource("CircleShape2D_3mwgl")
@@ -750,7 +854,7 @@ position = Vector2(1, -4)
 texture = ExtResource("31_5lexo")
 
 [node name="BattleModeDetection" parent="World/LobbyLevel" instance=ExtResource("29_7xmr7")]
-position = Vector2(-874, 885)
+position = Vector2(-334, 548)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/LobbyLevel/BattleModeDetection"]
 position = Vector2(75, 3.5)
@@ -987,7 +1091,6 @@ texture = ExtResource("1_avalh")
 [node name="Level1" type="Node2D" parent="World" node_paths=PackedStringArray("secret_ingredient_spawn_area", "enemy_spawn_points", "enemy_air_spawn_point_1", "enemy_air_spawn_point_2", "next_level", "music")]
 process_mode = 4
 visible = false
-position = Vector2(0, -10)
 script = ExtResource("16_6h127")
 is_active = false
 secret_ingredient_spawn_area = NodePath("SecretIngredientSpawn")
@@ -1249,7 +1352,6 @@ texture = ExtResource("51_txneg")
 [node name="Level2" type="Node2D" parent="World" node_paths=PackedStringArray("secret_ingredient_spawn_area", "enemy_spawn_points", "enemy_air_spawn_point_1", "enemy_air_spawn_point_2", "next_level", "music")]
 process_mode = 4
 visible = false
-position = Vector2(0, -6)
 script = ExtResource("16_6h127")
 is_active = false
 secret_ingredient_spawn_area = NodePath("SecretIngredientSpawn")

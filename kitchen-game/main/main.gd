@@ -17,12 +17,8 @@ func set_settings() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if is_paused:
-		if Input.is_action_just_pressed("pause"):
-			unpause()
-	else:
-		if Input.is_action_just_pressed("pause"):
-			pause()
+	if Input.is_action_just_pressed("pause"):
+		pause()
 	if Input.is_action_just_pressed("tab"):
 		epic_fullscreen()
 	
@@ -34,18 +30,12 @@ func _physics_process(delta: float) -> void:
 
 
 func pause() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	pause_menu.show()
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	is_paused = true
 	get_tree().paused = true
 
 
 func unpause() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	pause_menu.hide()
-	is_paused = false
-	Engine.time_scale = 0
 	get_tree().paused = false
 
 

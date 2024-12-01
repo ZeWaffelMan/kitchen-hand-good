@@ -49,8 +49,9 @@ mouth_animation_to_play = "toungue_out"
 does_switch_if_player = true
 player_detection = NodePath("../../Head/PlayerDetection")
 
-[node name="Walk" type="Node" parent="StateMachine" index="2" node_paths=PackedStringArray("enemy", "player_detection", "storage", "head", "movement", "face_controller", "eyes_animation_player", "mouth_animation_controller")]
+[node name="Walk" type="Node" parent="StateMachine" index="2" node_paths=PackedStringArray("release_spikes_sound", "enemy", "player_detection", "storage", "head", "movement", "face_controller", "eyes_animation_player", "mouth_animation_controller")]
 script = ExtResource("2_fdx7v")
+release_spikes_sound = NodePath("../../EnemySounds/ReleaseSpikes")
 enemy = NodePath("../..")
 player_detection = NodePath("../../Head/PlayerDetection")
 storage = NodePath("../../EnemyStorage")
@@ -61,9 +62,8 @@ face_controller = NodePath("../../Head/BodyHolder/BodySprites/FaceController")
 eyes_animation_player = NodePath("../../Head/BodyHolder/BodySprites/BlinkAnimationPlayer")
 mouth_animation_controller = NodePath("../../Head/BodyHolder/BodySprites/MouthAnimationPlayer")
 
-[node name="SpikeAttack" type="Node" parent="StateMachine" index="3" node_paths=PackedStringArray("release_spikes_sound", "remove_spikes_sound", "enemy", "hazard", "player_detection", "face_controller", "eyes_animation_player", "mouth_animation_player", "spikes", "storage")]
+[node name="SpikeAttack" type="Node" parent="StateMachine" index="3" node_paths=PackedStringArray("remove_spikes_sound", "enemy", "hazard", "player_detection", "face_controller", "eyes_animation_player", "mouth_animation_player", "spikes", "storage")]
 script = ExtResource("3_qwl7d")
-release_spikes_sound = NodePath("../../EnemySounds/ReleaseSpikes")
 remove_spikes_sound = NodePath("../../EnemySounds/RemoveSpikes")
 enemy = NodePath("../..")
 hazard = NodePath("../../Head/Hazard")
@@ -187,8 +187,10 @@ position = Vector2(0, 96)
 
 [node name="ReleaseSpikes" type="AudioStreamPlayer" parent="EnemySounds" index="5"]
 stream = ExtResource("11_uxwmb")
+volume_db = -5.0
 
 [node name="RemoveSpikes" type="AudioStreamPlayer" parent="EnemySounds" index="6"]
 stream = ExtResource("12_esj7j")
+volume_db = -5.0
 
 [editable path="Head/Hazard"]

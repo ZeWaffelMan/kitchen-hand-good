@@ -8,7 +8,7 @@ extends State
 @export var head: EnemyHead
 @export var recoil_force: float = 4000.0
 
-@export var max_shoot_time: float = 2.0
+@export var max_shoot_time: float = 1.0
 @onready var shoot_time: float = max_shoot_time
 
 @export var baby_shoot_force: float = 2000.0

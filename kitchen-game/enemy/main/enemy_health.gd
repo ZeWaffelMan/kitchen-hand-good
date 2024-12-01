@@ -2,6 +2,9 @@ extends Node
 class_name EnemyHealth
 
 
+@export var max_time_before_destroy: float = 2.0
+@onready var time_before_destroy: float = max_time_before_destroy
+
 @export var can_be_damaged: bool = true
 @export var unkillable: bool = false
 
@@ -69,6 +72,12 @@ func _process(delta) -> void:
 	
 	if health <= 0:
 		kill()
+	if health <= 0 or has_died:
+		if time_before_destroy > 0:
+			time_before_destroy -= delta
+		else:
+			enemy.queue_free()
+			print("destroyed")
 	
 	if current_flash_time > 0:
 		current_flash_time -= delta
@@ -139,9 +148,6 @@ func kill() -> void:
 	
 	enemy.visible = false
 	enemy.process_mode = Node.PROCESS_MODE_DISABLED
-	if !impact_sound.playing:
-		enemy.queue_free()
-		print("destory")
 
 
 func blood() -> void:
