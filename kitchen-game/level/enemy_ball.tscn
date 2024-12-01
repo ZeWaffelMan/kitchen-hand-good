@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1in47d52ltau"]
+
+[ext_resource type="PackedScene" uid="uid://ccewotvxo4pxr" path="res://enemy/enemy.tscn" id="1_ptva4"]
+[ext_resource type="Shader" path="res://main/flash.gdshader" id="2_bpyn2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jb75a"]
+resource_local_to_scene = true
+shader = ExtResource("2_bpyn2")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/alpha = 1.0
+shader_parameter/active = false
+
+[node name="EnemyBall" instance=ExtResource("1_ptva4")]
+
+[node name="Head" parent="." index="13"]
+material = SubResource("ShaderMaterial_jb75a")
+is_only_ragdoll = true
+does_hang = true

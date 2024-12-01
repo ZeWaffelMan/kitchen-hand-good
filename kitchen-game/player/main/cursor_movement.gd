@@ -3,7 +3,7 @@ class_name CursorMovement
 
 
 @export var max_speed: float = 50.0
-@export var max_controller_speed: float = 70.0
+@export var max_controller_speed: float = 100.0
 @onready var default_max_speed: float = max_speed
 
 @export var hand: PlayerHand
@@ -16,7 +16,7 @@ class_name CursorMovement
 @export var cursor_speed: float = 1.8
 
 @export var controller_default_speed: float = 2.5
-@export var controller_speed_button_speed: float = 3.0
+@export var controller_speed_button_speed: float = 3.2
 @onready var controller_speed: float = controller_default_speed
 
 @export var mouse_sensitivity: float = 0.5:
@@ -89,6 +89,7 @@ func _process(delta) -> void:
 			mouse_cursor(delta)
 		else:
 			controller_cursor(delta)
+	hand.bounds()
 
 
 func create_echo_effect() -> void:

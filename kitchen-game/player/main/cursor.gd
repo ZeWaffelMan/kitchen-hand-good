@@ -26,8 +26,6 @@ func _process(delta: float) -> void:
 	velocity = (global_position - last_position) / delta
 	last_position = global_position
 	
-	bounds()
-	
 	if object_detection.sees_object():
 		if object_detection.body != null:
 			if object_detection.body is EnemyHead:

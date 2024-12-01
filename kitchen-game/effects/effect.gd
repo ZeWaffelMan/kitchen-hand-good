@@ -18,6 +18,8 @@ extends Node
 
 
 func _ready() -> void:
+	if sound_to_wait_for != null:
+		sound_to_wait_for.pitch_scale = Sound.random_pitch(0.9, 1.1)
 	if particles != null:
 		for particle in particles:
 			particle.emitting = true

@@ -42,6 +42,7 @@ var is_pushed: bool = false
 @export var death_effect: Resource
 
 var has_created_death_effect: bool = false
+var has_died: bool = false
 
 
 func _ready() -> void:
@@ -79,24 +80,25 @@ func end_invincibility() -> void:
 
 
 func damage(amount: float, area: Node2D, applies_hit_force: bool) -> void:
-	if !is_invincible and !enemy.is_secret_ingredient:
-		if area != head:
-			spawn_hit_effect(area.global_position)
-		CameraShake.add_trama(0.5)
-		is_pushed = true
-		if applies_hit_force:
-			var hit_axis: Vector2 = area.global_position - head.global_position
-			var hit_direction: Vector2 = hit_axis.normalized()
-			head.apply_impulse(hit_direction * hit_force)
-		
-		is_invincible = true
-		health -= amount
-		
-		impact_sound.play()
-		impact_sound.pitch_scale = Sound.random_pitch(0.9, 1.1)
-		
-		current_flash_time = flash_time
-		effect_animation_player.play("damage_flash")
+	if !has_died:
+		if !is_invincible and !enemy.is_secret_ingredient:
+			if area != head:
+				spawn_hit_effect(area.global_position)
+			CameraShake.add_trama(0.5)
+			is_pushed = true
+			if applies_hit_force:
+				var hit_axis: Vector2 = area.global_position - head.global_position
+				var hit_direction: Vector2 = hit_axis.normalized()
+				head.apply_impulse(hit_direction * hit_force)
+			
+			is_invincible = true
+			health -= amount
+			
+			impact_sound.play()
+			impact_sound.pitch_scale = Sound.random_pitch(0.8, 1.2)
+			
+			current_flash_time = flash_time
+			effect_animation_player.play("damage_flash")
 
 
 func spawn_hit_effect(impact_position: Vector2) -> void:
@@ -107,7 +109,10 @@ func spawn_hit_effect(impact_position: Vector2) -> void:
 
 
 func kill() -> void:
+	has_died = true
 	if !has_created_death_effect:
+		impact_sound.play()
+		impact_sound.pitch_scale = Sound.random_pitch(0.8, 1.2)
 		if death_hazard != null:
 			EffectCreator.create_effect(death_hazard, "ffffff")
 			EffectCreator.set_effect_position(head.global_position)
@@ -125,8 +130,8 @@ func kill() -> void:
 		has_created_death_effect = true
 	
 	enemy.visible = false
+	enemy.process_mode = Node.PROCESS_MODE_DISABLED
 	if !impact_sound.playing:
-		enemy.process_mode = Node.PROCESS_MODE_DISABLED
 		enemy.queue_free()
 
 

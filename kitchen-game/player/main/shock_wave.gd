@@ -20,6 +20,7 @@ class_name HandShockWave
 
 
 func enter_state() -> void:
+	hand_animation_player.play("point")
 	shock_wave_sound.play()
 	shock_wave_sound.pitch_scale = Sound.random_pitch(0.9, 1.1)
 	

@@ -216,7 +216,6 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 			head.set_collision_mask_value(3, false)
 			head.set_collision_mask_value(7, false)
 			# keep body inside the ground bounds
-			keep_head_bounds()
 			global_rotation = 0.0
 			if !has_standed:
 				linear_velocity.y = 0
@@ -297,20 +296,6 @@ func find_shadow():
 			shadow.global_position.y = mid_point.y - (bounce_position_offset * 0.5)
 		else:
 			shadow.global_position.y = mid_point.y
-
-
-func keep_head_bounds() -> void:
-	if ground_check.sees_object():
-		if ground_check.area != null:
-			var ground: Ground = ground_check.area
-			var top_right_bounds = ground.top_right_bounds
-			var bottom_left_bounds = ground.bottom_left_bounds
-			
-			if global_position.y < top_right_bounds.y:
-				global_position.y = top_right_bounds.y
-			if !ground.can_fall_off_bottom:
-				if global_position.y > bottom_left_bounds.y:
-					global_position.y = bottom_left_bounds.y
 
 
 func keep_head_box_bounds() -> void:

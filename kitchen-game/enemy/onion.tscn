@@ -38,7 +38,7 @@ movement = NodePath("../../Movement")
 movement_animation_player = NodePath("../../MovementAnimationPlayer")
 
 [node name="EnemyHealth" parent="." index="9"]
-max_health = 2.0
+process_mode = 1
 death_hazard = ExtResource("3_sqvs6")
 
 [node name="Head" parent="." index="14"]

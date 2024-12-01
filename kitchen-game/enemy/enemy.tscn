@@ -1047,6 +1047,7 @@ position = Vector2(0, 10)
 shape = SubResource("RectangleShape2D_g720q")
 
 [node name="EnemyHealth" type="Node" parent="." node_paths=PackedStringArray("impact_sound", "juice_color_node", "enemy", "head", "effect_animation_player")]
+process_mode = 1
 script = ExtResource("1_cw4vx")
 impact_sound = NodePath("../ImpactSound")
 juice_color_node = NodePath("../EnemyJuiceColor")

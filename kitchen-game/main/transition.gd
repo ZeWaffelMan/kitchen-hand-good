@@ -2,7 +2,7 @@ extends Node2D
 class_name Transition
 
 
-@export var music_target_volume: float = -10.0
+@export var music_target_volume: float = -0.0
 
 @export var world: World
 @export var transition_animation_player: AnimationPlayer

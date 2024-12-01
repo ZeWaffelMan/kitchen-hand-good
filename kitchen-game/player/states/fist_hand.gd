@@ -10,7 +10,7 @@ class_name FistHand
 
 @export var hand_collision: CollisionShape2D
 @export var hand_sprite: Sprite2D
-@export var magnitude_damage_threshold: float = 5500.0
+@export var magnitude_damage_threshold: float = 4500.0
 @export var hit_detection: ObjectDetection
 @export var hit_impulse_amount: float = 8000.0
 @export var damage_amount: float = 1.0
@@ -24,6 +24,7 @@ func enter_state() -> void:
 
 
 func update_state(delta) -> void:
+	print(hand.velocity.length())
 	if player_health.has_gotten_hurt:
 		transitioned.emit(self, "Hurt")
 

@@ -5,7 +5,7 @@ class_name Level
 @export var keep_music_off: bool = false
 
 @export var is_lobby_level: bool = false
-@export var is_last_level: bool = false
+@export var is_battle_level: bool = false
 
 enum LevelStates{
 	WAIT,
@@ -48,7 +48,7 @@ func _process(delta):
 	if keep_music_off:
 		music.volume_db = -80
 	if is_active:
-		if !is_lobby_level and !is_last_level:
+		if !is_lobby_level and !is_battle_level:
 			match level_state:
 				LevelStates.WAIT:
 					level_state = LevelStates.SPAWN

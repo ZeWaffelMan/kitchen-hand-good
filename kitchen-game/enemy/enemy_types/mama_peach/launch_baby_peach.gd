@@ -32,4 +32,5 @@ func explode() -> void:
 	#explosion_instance.global_position = head.global_position
 	
 	CameraShake.add_trama(0.4)
+	enemy_health.health -= 1
 	enemy_health.kill()
