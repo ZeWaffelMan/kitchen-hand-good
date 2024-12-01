@@ -3,6 +3,7 @@ class_name EnemyHealth
 
 
 @export var can_be_damaged: bool = true
+@export var unkillable: bool = false
 
 @export var impact_sound: AudioStreamPlayer
 @export var effect_to_spawn: Resource
@@ -21,7 +22,6 @@ var juice_color
 @export var max_health: float = 2.0
 @onready var health: float = max_health:
 	set(value):
-		blood()
 		health = clamp(value, 0, max_health)
 
 var flash_time: float = 0.1
@@ -94,7 +94,9 @@ func damage(amount: float, area: Node2D, applies_hit_force: bool) -> void:
 				head.apply_impulse(hit_direction * hit_force)
 			
 			is_invincible = true
-			health -= amount
+			if !unkillable:
+				health -= amount
+			blood()
 			
 			impact_sound.play()
 			impact_sound.pitch_scale = Sound.random_pitch(0.8, 1.2)

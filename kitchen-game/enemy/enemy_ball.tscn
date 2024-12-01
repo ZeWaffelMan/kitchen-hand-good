@@ -12,10 +12,11 @@ shader_parameter/active = false
 
 [node name="EnemyBall" instance=ExtResource("1_6f7db")]
 
-[node name="EnemyHealth" parent="." index="8"]
-can_be_damaged = false
+[node name="EnemyHealth" parent="." index="7"]
+unkillable = true
+max_health = 3.0
 
-[node name="Head" parent="." index="13"]
+[node name="Head" parent="." index="12"]
 material = SubResource("ShaderMaterial_217hh")
 collision_mask = 8257
 does_hang = true

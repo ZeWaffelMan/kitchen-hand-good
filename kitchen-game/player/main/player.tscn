@@ -638,14 +638,17 @@ texture = ExtResource("13_bxevt")
 
 [node name="Life2" type="Sprite2D" parent="Hand/HandSprites/HandStats/Gradiant/HandMarks"]
 position = Vector2(32, 91)
+scale = Vector2(0.9, 0.9)
 texture = ExtResource("17_v10vu")
 
 [node name="Life3" type="Sprite2D" parent="Hand/HandSprites/HandStats/Gradiant/HandMarks"]
 position = Vector2(-5, 91)
+scale = Vector2(0.9, 0.9)
 texture = ExtResource("17_v10vu")
 
 [node name="LastLife" type="Sprite2D" parent="Hand/HandSprites/HandStats/Gradiant/HandMarks"]
 position = Vector2(13.5, 91)
+scale = Vector2(0.9, 0.9)
 texture = ExtResource("17_v10vu")
 
 [node name="AreaGradient" type="Sprite2D" parent="Hand/HandSprites/HandStats/Gradiant"]

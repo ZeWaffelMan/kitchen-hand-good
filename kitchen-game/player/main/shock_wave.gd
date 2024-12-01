@@ -9,7 +9,7 @@ class_name HandShockWave
 @export var player_health: PlayerHealth
 @export var impulse_area: ObjectDetection
 
-@export var shock_wave_force: float = 17000.0
+@export var shock_wave_force: float = 19000.0
 @export var max_shockwave_time: float = 1.0
 @onready var shockwave_time: float = max_shockwave_time
 @export var hand_animation_player: AnimationPlayer
