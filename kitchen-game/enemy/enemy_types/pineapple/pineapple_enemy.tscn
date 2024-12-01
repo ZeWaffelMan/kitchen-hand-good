@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://corr4f4thicrp"]
+[gd_scene load_steps=17 format=3 uid="uid://corr4f4thicrp"]
 
 [ext_resource type="PackedScene" uid="uid://ccewotvxo4pxr" path="res://enemy/enemy.tscn" id="1_eyd8f"]
 [ext_resource type="Shader" path="res://main/flash.gdshader" id="2_11vlx"]
@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://bsj5ua6le431v" path="res://environment/circle.png" id="6_o3wu2"]
 [ext_resource type="Texture2D" uid="uid://cncg041uoiq2w" path="res://enemy/enemy_types/pineapple/pineapple_spikes.png" id="7_5f8q0"]
 [ext_resource type="PackedScene" uid="uid://dl74or3yeb5ly" path="res://main/hazard.tscn" id="7_8843n"]
+[ext_resource type="AudioStream" uid="uid://cntcqvaqc07to" path="res://sound_effects/second_batch/Pineapple_Release_Spikes_01.wav" id="11_uxwmb"]
+[ext_resource type="AudioStream" uid="uid://elpqui7jx0lt" path="res://sound_effects/second_batch/Pineapple_Spikes_01.wav" id="12_esj7j"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tu1x8"]
 resource_local_to_scene = true
@@ -33,7 +35,7 @@ radius = 64.0312
 [node name="PineappleBehavior" type="Node" parent="." index="0"]
 script = ExtResource("2_d2ecy")
 
-[node name="Movement" parent="." index="4"]
+[node name="Movement" parent="." index="3"]
 acceleration = 80000.0
 
 [node name="Wait" parent="StateMachine" index="0"]
@@ -59,8 +61,10 @@ face_controller = NodePath("../../Head/BodyHolder/BodySprites/FaceController")
 eyes_animation_player = NodePath("../../Head/BodyHolder/BodySprites/BlinkAnimationPlayer")
 mouth_animation_controller = NodePath("../../Head/BodyHolder/BodySprites/MouthAnimationPlayer")
 
-[node name="SpikeAttack" type="Node" parent="StateMachine" index="3" node_paths=PackedStringArray("enemy", "hazard", "player_detection", "face_controller", "eyes_animation_player", "mouth_animation_player", "spikes", "storage")]
+[node name="SpikeAttack" type="Node" parent="StateMachine" index="3" node_paths=PackedStringArray("release_spikes_sound", "remove_spikes_sound", "enemy", "hazard", "player_detection", "face_controller", "eyes_animation_player", "mouth_animation_player", "spikes", "storage")]
 script = ExtResource("3_qwl7d")
+release_spikes_sound = NodePath("../../EnemySounds/ReleaseSpikes")
+remove_spikes_sound = NodePath("../../EnemySounds/RemoveSpikes")
 enemy = NodePath("../..")
 hazard = NodePath("../../Head/Hazard")
 player_detection = NodePath("../../Head/PlayerDetection")
@@ -70,10 +74,10 @@ mouth_animation_player = NodePath("../../Head/BodyHolder/BodySprites/MouthAnimat
 spikes = NodePath("../../Head/BodyHolder/BodySprites/HeadHolder/Head/PineappleSpikes")
 storage = NodePath("../../EnemyStorage")
 
-[node name="EnemyJuiceColor" parent="." index="7"]
+[node name="EnemyJuiceColor" parent="." index="6"]
 self_modulate = Color(1, 0.749836, 0.554323, 1)
 
-[node name="EnemyHealth" parent="." index="9"]
+[node name="EnemyHealth" parent="." index="8"]
 max_health = 3.0
 
 [node name="GroundCheck" parent="LookingForGround" index="0"]
@@ -83,7 +87,7 @@ position = Vector2(0, 20)
 position = Vector2(0, 90)
 scale = Vector2(1.2, 1.2)
 
-[node name="Head" parent="." index="14"]
+[node name="Head" parent="." index="13"]
 material = SubResource("ShaderMaterial_tu1x8")
 
 [node name="PlayerDetection" parent="Head" index="0" instance=ExtResource("5_3iapr")]
@@ -180,5 +184,11 @@ position = Vector2(-1, 49)
 
 [node name="ShadowPoint" parent="Head" index="11"]
 position = Vector2(0, 96)
+
+[node name="ReleaseSpikes" type="AudioStreamPlayer" parent="EnemySounds" index="5"]
+stream = ExtResource("11_uxwmb")
+
+[node name="RemoveSpikes" type="AudioStreamPlayer" parent="EnemySounds" index="6"]
+stream = ExtResource("12_esj7j")
 
 [editable path="Head/Hazard"]

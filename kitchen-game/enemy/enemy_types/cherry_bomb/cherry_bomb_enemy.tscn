@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://1c1fmhdoydcc"]
+[gd_scene load_steps=17 format=3 uid="uid://1c1fmhdoydcc"]
 
 [ext_resource type="PackedScene" uid="uid://ccewotvxo4pxr" path="res://enemy/enemy.tscn" id="1_lx3qn"]
 [ext_resource type="Script" path="res://enemy/enemy_types/cherry_bomb/cherry.gd" id="2_2ge1w"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bxp2ek7xbur6r" path="res://enemy/enemy_types/cherry_bomb/fuse0000.png" id="8_wia6g"]
 [ext_resource type="Texture2D" uid="uid://o10q5cfk3m5d" path="res://enemy/enemy_types/cherry_bomb/fuse0001.png" id="9_6ayqa"]
 [ext_resource type="Texture2D" uid="uid://dgvrmwnsifv4" path="res://enemy/enemy_types/cherry_bomb/fuse0002.png" id="10_b7wcd"]
+[ext_resource type="AudioStream" uid="uid://b26m2wbi7i2kb" path="res://sound_effects/second_batch/Cherry_Bomb_01.wav" id="13_xu7p1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vh2gj"]
 resource_local_to_scene = true
@@ -47,7 +48,7 @@ script = ExtResource("2_2ge1w")
 health = NodePath("../EnemyHealth")
 jump_up_state = NodePath("../StateMachine/JumpUp")
 
-[node name="Movement" parent="." index="4"]
+[node name="Movement" parent="." index="3"]
 randomize_direction_automatically = false
 acceleration = 180000.0
 
@@ -69,8 +70,9 @@ max_rest_time = 5.0
 player_detection = NodePath("../../Head/PlayerDetection")
 face_controller = NodePath("../../Head/BodyHolder/BodySprites/FaceController")
 
-[node name="WaitToJump" type="Node" parent="StateMachine" index="3" node_paths=PackedStringArray("enemy", "movement", "face_controller")]
+[node name="WaitToJump" type="Node" parent="StateMachine" index="3" node_paths=PackedStringArray("cherry_bomb_sound", "enemy", "movement", "face_controller")]
 script = ExtResource("3_fxh7k")
+cherry_bomb_sound = NodePath("../../EnemySounds/CherryBomb")
 enemy = NodePath("../..")
 max_wait_time = 1.0
 movement = NodePath("../../Movement")
@@ -85,13 +87,13 @@ enemy_health = NodePath("../../EnemyHealth")
 boom = ExtResource("5_jdywv")
 squash_animation_player = NodePath("../../SquashAnimationPlayer")
 
-[node name="EnemyJuiceColor" parent="." index="7"]
+[node name="EnemyJuiceColor" parent="." index="6"]
 self_modulate = Color(1, 0.329412, 0.286275, 1)
 
 [node name="Shadow" parent="ShadowHolder" index="0"]
 position = Vector2(0, 59)
 
-[node name="Head" parent="." index="14"]
+[node name="Head" parent="." index="13"]
 material = SubResource("ShaderMaterial_vh2gj")
 
 [node name="Grabbed" parent="Head/HeadStateMachine" index="1"]
@@ -141,3 +143,6 @@ script = ExtResource("5_hua3g")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Head/PlayerDetection" index="0"]
 shape = SubResource("RectangleShape2D_n3rte")
 debug_color = Color(1, 0.44, 0.738667, 0.0823529)
+
+[node name="CherryBomb" type="AudioStreamPlayer" parent="EnemySounds" index="2"]
+stream = ExtResource("13_xu7p1")

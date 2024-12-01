@@ -1,6 +1,8 @@
 extends State
 
 
+@export var cherry_bomb_sound: AudioStreamPlayer
+
 @export var enemy: Enemy
 
 @export var max_wait_time: float = 1.5
@@ -10,6 +12,8 @@ extends State
 
 
 func enter_state() -> void:
+	cherry_bomb_sound.play()
+	
 	#play getting ready to jump animation
 	movement.squash_animation_player.play("squash")
 	movement.movement_animation_player.play("RESET")

@@ -1,6 +1,8 @@
 extends State
 
 
+@export var shoot_sound: AudioStreamPlayer
+
 @export var storage: EnemyStorage
 @export var baby_peach_enemy: Resource
 @export var head: EnemyHead
@@ -52,6 +54,9 @@ func physics_update_state(delta) -> void:
 
 
 func shoot_baby() -> void:
+	shoot_sound.play()
+	shoot_sound.pitch_scale = Sound.random_pitch(0.9, 1.1)
+	
 	squash_animation_player.play("squash")
 	
 	var axis: Vector2 = storage.player.global_position - head.global_position

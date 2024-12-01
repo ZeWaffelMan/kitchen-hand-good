@@ -2,6 +2,10 @@ extends Node2D
 class_name Transition
 
 
+@export var hand_waddle: AudioStreamPlayer
+@export var transition_in_sound: AudioStreamPlayer
+@export var transition_out_sound: AudioStreamPlayer
+
 @export var music_target_volume: float = -0.0
 
 @export var world: World
@@ -59,6 +63,7 @@ func _process(delta: float) -> void:
 				switch_time -= delta
 			else:
 				if !has_opened_map:
+					transition_in_sound.play()
 					transition_animation_player.play("transition_open")
 				has_opened_map = true
 				move_to_animation_player.play(animation_to_play)
@@ -75,14 +80,21 @@ func _process(delta: float) -> void:
 			if !has_started_traveling:
 				jiggle_animation_player.play("hand_move")
 				has_started_traveling = true
+			else:
+				if !hand_waddle.playing:
+					hand_waddle.play()
+					hand_waddle.pitch_scale = Sound.random_pitch(0.8, 1.2)
+			
 			if !move_to_animation_player.is_playing():
 				jiggle_animation_player.play("RESET")
+				has_started_traveling = false
 				if switch_time > 0:
 					switch_time -= delta
 				else:
-					has_started_traveling = false
 					transition_state = TransitionStates.PUT_AWAY
 		TransitionStates.PUT_AWAY:
+			transition_out_sound.play()
+			
 			level_to_set.is_active = true
 			level_to_set.music.play()
 			level_to_set.music.volume_db = music_target_volume

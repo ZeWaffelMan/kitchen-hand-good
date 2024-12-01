@@ -1,4 +1,4 @@
-[gd_scene load_steps=109 format=3 uid="uid://b18jghfgdrfrf"]
+[gd_scene load_steps=112 format=3 uid="uid://b18jghfgdrfrf"]
 
 [ext_resource type="Texture2D" uid="uid://c2uo5aw8kd330" path="res://environment/square.png" id="1_avalh"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_emppk"]
@@ -31,7 +31,10 @@
 [ext_resource type="Script" path="res://main/level.gd" id="16_6h127"]
 [ext_resource type="Texture2D" uid="uid://dmkia7omn1ssk" path="res://player/hands/visual_stats/one.PNG" id="16_wdeyb"]
 [ext_resource type="PackedScene" uid="uid://kg6h4tnt75ni" path="res://enemy/enemy_types/pineapple/pineapple_spawner.tscn" id="17_r3k14"]
+[ext_resource type="AudioStream" uid="uid://cs1daeqlrcpng" path="res://sound_effects/second_batch/Lvl_Hand_Waddle_01.wav" id="17_umq1x"]
+[ext_resource type="AudioStream" uid="uid://c6lv0xsi5j3wh" path="res://sound_effects/second_batch/Lvl_Transistion_In_01.wav" id="18_mnehb"]
 [ext_resource type="PackedScene" uid="uid://b4l0xw23lcmjd" path="res://enemy/enemy_types/banana/banana_spawner.tscn" id="19_1seuh"]
+[ext_resource type="AudioStream" uid="uid://dfnrcy1yeaaxx" path="res://sound_effects/second_batch/Lvl_Transistion_Out_01.wav" id="19_6oglq"]
 [ext_resource type="PackedScene" uid="uid://d1bynxqimc7hf" path="res://level/water.tscn" id="19_orn1x"]
 [ext_resource type="PackedScene" uid="uid://85c7kmh5sa64" path="res://main/bounds_wall.tscn" id="20_43wd5"]
 [ext_resource type="PackedScene" uid="uid://btwx3ajq3klfp" path="res://enemy/enemy_types/mama_peach/peach_spawner.tscn" id="20_knfnt"]
@@ -442,9 +445,12 @@ position = Vector2(959.5, 519.5)
 scale = Vector2(45.2757, 26.5017)
 texture = ExtResource("1_avalh")
 
-[node name="Transition" type="Node2D" parent="World" node_paths=PackedStringArray("world", "transition_animation_player", "level_manager", "secret_box", "jiggle_animation_player", "move_to_animation_player")]
+[node name="Transition" type="Node2D" parent="World" node_paths=PackedStringArray("hand_waddle", "transition_in_sound", "transition_out_sound", "world", "transition_animation_player", "level_manager", "secret_box", "jiggle_animation_player", "move_to_animation_player")]
 z_index = 30
 script = ExtResource("5_o23br")
+hand_waddle = NodePath("Sounds/HandWaddle")
+transition_in_sound = NodePath("Sounds/TransitionIn")
+transition_out_sound = NodePath("Sounds/TransitionOut")
 world = NodePath("..")
 transition_animation_player = NodePath("TransitionAnimationPlayer")
 level_manager = NodePath("../LevelManager")
@@ -581,15 +587,27 @@ libraries = {
 }
 autoplay = "hand_idle"
 
-[node name="LevelManager" parent="World" node_paths=PackedStringArray("world", "current_level", "secret_area", "secret_box", "secret_area_new_offset", "transition") instance=ExtResource("10_6wgdk")]
+[node name="Sounds" type="Node2D" parent="World/Transition"]
+
+[node name="HandWaddle" type="AudioStreamPlayer" parent="World/Transition/Sounds"]
+stream = ExtResource("17_umq1x")
+
+[node name="TransitionIn" type="AudioStreamPlayer" parent="World/Transition/Sounds"]
+stream = ExtResource("18_mnehb")
+
+[node name="TransitionOut" type="AudioStreamPlayer" parent="World/Transition/Sounds"]
+stream = ExtResource("19_6oglq")
+
+[node name="LevelManager" parent="World" node_paths=PackedStringArray("world", "current_level", "secret_area", "secret_box", "secret_area_new_offset", "transition", "point_to_travel_to") instance=ExtResource("10_6wgdk")]
 z_index = 2
 position = Vector2(-786, 747)
 world = NodePath("..")
-current_level = NodePath("../BattleLevel")
+current_level = NodePath("../LobbyLevel")
 secret_area = NodePath("SecretAreaAnchor/SecretBox/SecretArea")
 secret_box = NodePath("SecretAreaAnchor/SecretBox")
 secret_area_new_offset = NodePath("NewSecretAreaPosition")
 transition = NodePath("../Transition")
+point_to_travel_to = NodePath("../Level1")
 
 [node name="SecretIngredientSpawn" type="Node2D" parent="World/LevelManager"]
 position = Vector2(1753, 478)
@@ -665,7 +683,6 @@ process_mode = 4
 visible = false
 position = Vector2(581, -330)
 script = ExtResource("16_6h127")
-keep_music_off = true
 is_lobby_level = true
 is_active = false
 secret_ingredient_to_spawn = ExtResource("12_rkc0r")
@@ -782,9 +799,9 @@ texture = ExtResource("32_sp2sx")
 
 [node name="BattleLevel" type="Node2D" parent="World" node_paths=PackedStringArray("enemy_spawn_points", "next_level", "music")]
 process_mode = 4
+visible = false
 position = Vector2(581, -330)
 script = ExtResource("16_6h127")
-keep_music_off = true
 is_battle_level = true
 is_active = false
 secret_ingredient_to_spawn = ExtResource("12_rkc0r")
@@ -972,7 +989,6 @@ process_mode = 4
 visible = false
 position = Vector2(0, -10)
 script = ExtResource("16_6h127")
-keep_music_off = true
 is_active = false
 secret_ingredient_spawn_area = NodePath("SecretIngredientSpawn")
 secret_ingredient_to_spawn = ExtResource("12_rkc0r")
@@ -1235,7 +1251,6 @@ process_mode = 4
 visible = false
 position = Vector2(0, -6)
 script = ExtResource("16_6h127")
-keep_music_off = true
 is_active = false
 secret_ingredient_spawn_area = NodePath("SecretIngredientSpawn")
 secret_ingredient_to_spawn = ExtResource("10_kr3jm")
@@ -1605,7 +1620,8 @@ texture = ExtResource("3_6ic67")
 
 [node name="Hazard" parent="World" instance=ExtResource("26_cm7ic")]
 position = Vector2(-207, 682)
-damage_amount = 100.0
+is_auto_kill = true
+damage_amount = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Hazard"]
 position = Vector2(-7152, 749)
@@ -1614,7 +1630,8 @@ debug_color = Color(1, 0.03, 0.03, 0.0588235)
 
 [node name="Hazard2" parent="World" instance=ExtResource("26_cm7ic")]
 position = Vector2(7989, 6931)
-damage_amount = 100.0
+is_auto_kill = true
+damage_amount = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Hazard2"]
 position = Vector2(-7153, 762)
@@ -1623,7 +1640,8 @@ debug_color = Color(1, 0.03, 0.03, 0.0588235)
 
 [node name="Hazard3" parent="World" instance=ExtResource("26_cm7ic")]
 position = Vector2(16420, -363)
-damage_amount = 100.0
+is_auto_kill = true
+damage_amount = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Hazard3"]
 position = Vector2(-7152, 749)
@@ -1632,7 +1650,8 @@ debug_color = Color(1, 0.03, 0.03, 0.0588235)
 
 [node name="Hazard4" parent="World" instance=ExtResource("26_cm7ic")]
 position = Vector2(9238, -7351)
-damage_amount = 100.0
+is_auto_kill = true
+damage_amount = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Hazard4"]
 position = Vector2(-7152, 749)

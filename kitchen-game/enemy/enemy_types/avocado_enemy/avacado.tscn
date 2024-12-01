@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dna2m22tjie5e"]
+[gd_scene load_steps=17 format=3 uid="uid://dna2m22tjie5e"]
 
 [ext_resource type="PackedScene" uid="uid://ccewotvxo4pxr" path="res://enemy/enemy.tscn" id="1_nyw8g"]
 [ext_resource type="Script" path="res://enemy/enemy_types/avocado_enemy/avacado_launch_seed.gd" id="2_kbg5d"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://cbn4b27nlnp4e" path="res://enemy/enemy_types/avocado_enemy/avocado_pit.png" id="8_yqafw"]
 [ext_resource type="Texture2D" uid="uid://dxi08nrrqsc8n" path="res://enemy/faces/mouths/neutral.PNG" id="10_7mh6e"]
 [ext_resource type="Texture2D" uid="uid://dr86iwntpxl3j" path="res://enemy/faces/eyes/open_eye.PNG" id="11_objfl"]
+[ext_resource type="AudioStream" uid="uid://df8hegdqc1q6g" path="res://sound_effects/second_batch/Avocado_Shoot_01.wav" id="13_cqlyr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g1dsy"]
 resource_local_to_scene = true
@@ -28,8 +29,9 @@ radius = 1014.06
 
 [node name="Avocado" instance=ExtResource("1_nyw8g")]
 
-[node name="LaunchSeed" type="Node" parent="." index="1" node_paths=PackedStringArray("avocado_pit", "pit_player_detection", "head", "launch_seed_point", "squash_animation_player")]
+[node name="LaunchSeed" type="Node" parent="." index="1" node_paths=PackedStringArray("shoot_sound", "avocado_pit", "pit_player_detection", "head", "launch_seed_point", "squash_animation_player")]
 script = ExtResource("2_kbg5d")
+shoot_sound = NodePath("../EnemySounds/ShootPit")
 avocado_pit = NodePath("../Head/BodyHolder/BodySprites/HeadHolder/Head/Pit")
 pit_player_detection = NodePath("../Head/PlayerDetection")
 pit_enemy = ExtResource("3_rspms")
@@ -37,7 +39,7 @@ head = NodePath("../Head")
 launch_seed_point = NodePath("../Head/LaunchPosition")
 squash_animation_player = NodePath("../SquashAnimationPlayer")
 
-[node name="Movement" parent="." index="4"]
+[node name="Movement" parent="." index="3"]
 movement_max_speed = 700.0
 
 [node name="Wait" parent="StateMachine" index="0"]
@@ -68,13 +70,13 @@ max_time_to_stop = 1.0
 player_detection = NodePath("../../Head/PlayerDetection")
 squash_check = NodePath("../../Head/SquashCheck")
 
-[node name="EnemyJuiceColor" parent="." index="7"]
+[node name="EnemyJuiceColor" parent="." index="6"]
 self_modulate = Color(0.443137, 0.909804, 0.454902, 1)
 
 [node name="CollisionShape2D" parent="LookingForGround/GroundCheck" index="0"]
 position = Vector2(0, 105.5)
 
-[node name="Head" parent="." index="14"]
+[node name="Head" parent="." index="13"]
 material = SubResource("ShaderMaterial_g1dsy")
 
 [node name="SquashCheck" parent="Head" index="0" instance=ExtResource("7_l5lmh")]
@@ -158,3 +160,6 @@ debug_color = Color(0.878431, 0.333333, 0.588235, 0.0156863)
 
 [node name="LaunchPosition" type="Node2D" parent="Head" index="11"]
 position = Vector2(1, -20)
+
+[node name="ShootPit" type="AudioStreamPlayer" parent="EnemySounds" index="2"]
+stream = ExtResource("13_cqlyr")

@@ -2,6 +2,8 @@ extends Node
 class_name AvocadoLaunchSeed
 
 
+@export var shoot_sound: AudioStreamPlayer
+
 @export var max_launch_time: float = 1.5
 @onready var current_launch_time: float = max_launch_time
 
@@ -38,6 +40,9 @@ func _physics_process(delta: float) -> void:
 
 
 func launch_pit(force, direction):
+	shoot_sound.play()
+	shoot_sound.pitch_scale = Sound.random_pitch(0.9, 1.1)
+	
 	var pit_instance: Enemy = pit_enemy.instantiate()
 	get_tree().current_scene.add_child(pit_instance)
 	pit_instance.global_position = launch_seed_point.global_position

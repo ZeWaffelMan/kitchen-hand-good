@@ -1,6 +1,9 @@
 extends State
 
 
+@export var release_spikes_sound: AudioStreamPlayer
+@export var remove_spikes_sound: AudioStreamPlayer
+
 @export var enemy: Enemy
 @export var hazard: Hazard
 @export var player_detection: PlayerDetection
@@ -17,6 +20,9 @@ extends State
 
 
 func enter_state() -> void:
+	release_spikes_sound.play()
+	release_spikes_sound.pitch_scale = Sound.random_pitch(0.9, 1.1)
+	
 	face_controller.can_blink = true
 	enemy.squash_animation_player.play("squash")
 	storage.movement_animation_player.play("idle")
@@ -41,9 +47,13 @@ func update_state(delta) -> void:
 		storage.enemy.enemy_movement.is_using_friction = false
 	if !player_detection.sees_player():
 		if go_back_time > 0:
+			if !remove_spikes_sound.playing:
+				remove_spikes_sound.play()
+				remove_spikes_sound.pitch_scale = Sound.random_pitch(0.9, 1.1)
 			go_back_time -= delta
 		else:
 			go_back_time = max_go_back_time
 			transitioned.emit(self, "Wait")
 	else:
+		remove_spikes_sound.stop()
 		go_back_time = max_go_back_time

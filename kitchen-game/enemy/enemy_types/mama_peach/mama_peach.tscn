@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://uficjikli4pj"]
+[gd_scene load_steps=12 format=3 uid="uid://uficjikli4pj"]
 
 [ext_resource type="PackedScene" uid="uid://ccewotvxo4pxr" path="res://enemy/enemy.tscn" id="1_xw8wk"]
 [ext_resource type="Script" path="res://enemy/enemy_types/mama_peach/peach_rotate.gd" id="2_j7rq7"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dffxclsrq3vsb" path="res://enemy/enemy_types/mama_peach/baby_peach.tscn" id="4_ismkp"]
 [ext_resource type="Texture2D" uid="uid://ckja01vr4qkie" path="res://enemy/enemy_types/mama_peach/peach.png" id="6_yju76"]
 [ext_resource type="Texture2D" uid="uid://cv0nq8yt5jani" path="res://enemy/eyelash.png" id="7_ahxfd"]
+[ext_resource type="AudioStream" uid="uid://cjdgkwiubo5lt" path="res://sound_effects/second_batch/Peach_Shoot_01.wav" id="9_5c535"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cb3cm"]
 resource_local_to_scene = true
@@ -37,8 +38,9 @@ body_sprites = NodePath("../../Head/BodyHolder/BodySprites")
 head = NodePath("../../Head")
 face_animation_player = NodePath("../../Head/BodyHolder/BodySprites/MouthAnimationPlayer")
 
-[node name="Shoot" type="Node" parent="StateMachine" index="3" node_paths=PackedStringArray("storage", "head", "fire_point", "face_animation_player", "squash_animation_player", "eyes_animation_player", "hurt_box", "body_sprites")]
+[node name="Shoot" type="Node" parent="StateMachine" index="3" node_paths=PackedStringArray("shoot_sound", "storage", "head", "fire_point", "face_animation_player", "squash_animation_player", "eyes_animation_player", "hurt_box", "body_sprites")]
 script = ExtResource("3_2w6gt")
+shoot_sound = NodePath("../../EnemySounds/PeachShoot")
 storage = NodePath("../../EnemyStorage")
 baby_peach_enemy = ExtResource("4_ismkp")
 head = NodePath("../../Head")
@@ -50,10 +52,10 @@ eyes_animation_player = NodePath("../../Head/BodyHolder/BodySprites/BlinkAnimati
 hurt_box = NodePath("../../Head/EnemyHurtBox")
 body_sprites = NodePath("../../Head/BodyHolder/BodySprites")
 
-[node name="EnemyJuiceColor" parent="." index="6"]
+[node name="EnemyJuiceColor" parent="." index="5"]
 self_modulate = Color(1, 0.592157, 0.435294, 1)
 
-[node name="Head" parent="." index="13"]
+[node name="Head" parent="." index="12"]
 material = SubResource("ShaderMaterial_cb3cm")
 is_only_ragdoll = true
 does_hang = true
@@ -137,3 +139,6 @@ modulate = Color(1, 0.328667, 0.24, 1)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Head/PlayerDetection" index="0"]
 shape = SubResource("CircleShape2D_dl618")
 debug_color = Color(0.952941, 0, 0.552941, 0.0352941)
+
+[node name="PeachShoot" type="AudioStreamPlayer" parent="EnemySounds" index="5"]
+stream = ExtResource("9_5c535")

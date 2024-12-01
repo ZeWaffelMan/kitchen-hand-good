@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bnjy5crimq2oq"]
+[gd_scene load_steps=11 format=3 uid="uid://bnjy5crimq2oq"]
 
 [ext_resource type="PackedScene" uid="uid://ccewotvxo4pxr" path="res://enemy/enemy.tscn" id="1_nbovc"]
 [ext_resource type="Shader" path="res://main/flash.gdshader" id="2_3gt7f"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://btxiylg0mia14" path="res://player_detection.tscn" id="4_gxrja"]
 [ext_resource type="Script" path="res://enemy/enemy_types/avocado_enemy/flung.gd" id="4_p4h31"]
 [ext_resource type="Texture2D" uid="uid://cbn4b27nlnp4e" path="res://enemy/enemy_types/avocado_enemy/avocado_pit.png" id="7_o10ux"]
+[ext_resource type="AudioStream" uid="uid://tkr5v2u7nnpk" path="res://sound_effects/second_batch/Avocado_Pit_Damage_01.wav" id="8_bifyx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1welh"]
 resource_local_to_scene = true
@@ -34,8 +35,10 @@ storage = NodePath("../../EnemyStorage")
 body_sprites = NodePath("../../Head/BodyHolder/BodySprites")
 mouth_animation_player = NodePath("../../Head/BodyHolder/BodySprites/MouthAnimationPlayer")
 
-[node name="HoldAndDamage" type="Node" parent="StateMachine" index="2" node_paths=PackedStringArray("head", "storage", "squash_animation_player")]
+[node name="HoldAndDamage" type="Node" parent="StateMachine" index="2" node_paths=PackedStringArray("pit_attach_sound", "pit_damage_sound", "head", "storage", "squash_animation_player")]
 script = ExtResource("3_bqajf")
+pit_attach_sound = NodePath("../../EnemySounds/PitAttach")
+pit_damage_sound = NodePath("../../EnemySounds/PitDamage")
 head = NodePath("../../Head")
 storage = NodePath("../../EnemyStorage")
 squash_animation_player = NodePath("../../SquashAnimationPlayer")
@@ -49,13 +52,13 @@ node_to_destroy = NodePath("../..")
 [node name="Rest" parent="StateMachine" index="4"]
 mouth_animation_to_play = "toungue_out"
 
-[node name="EnemyJuiceColor" parent="." index="6"]
+[node name="EnemyJuiceColor" parent="." index="5"]
 self_modulate = Color(0.678431, 0.462745, 0.25098, 1)
 
 [node name="CollisionShape2D" parent="Platform" index="0"]
 disabled = true
 
-[node name="EnemyHealth" parent="." index="8"]
+[node name="EnemyHealth" parent="." index="7"]
 max_health = 1.0
 
 [node name="GroundCheck" parent="LookingForGround" index="0"]
@@ -70,7 +73,7 @@ monitoring = false
 [node name="Shadow" parent="ShadowHolder" index="0"]
 visible = false
 
-[node name="Head" parent="." index="13"]
+[node name="Head" parent="." index="12"]
 material = SubResource("ShaderMaterial_1welh")
 collision_layer = 0
 collision_mask = 0
@@ -152,3 +155,8 @@ disabled = true
 
 [node name="SpeedDamageHurtBox" parent="Head" index="9"]
 monitoring = false
+
+[node name="PitAttach" type="AudioStreamPlayer" parent="EnemySounds" index="2"]
+
+[node name="PitDamage" type="AudioStreamPlayer" parent="EnemySounds" index="3"]
+stream = ExtResource("8_bifyx")

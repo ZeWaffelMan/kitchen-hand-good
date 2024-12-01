@@ -5,6 +5,7 @@ class_name EnemyHealth
 @export var can_be_damaged: bool = true
 @export var unkillable: bool = false
 
+@export var kill_sound: AudioStreamPlayer
 @export var impact_sound: AudioStreamPlayer
 @export var effect_to_spawn: Resource
 
@@ -115,6 +116,9 @@ func spawn_hit_effect(impact_position: Vector2) -> void:
 func kill() -> void:
 	has_died = true
 	if !has_created_death_effect:
+		kill_sound.play()
+		kill_sound.pitch_scale = Sound.random_pitch(0.9, 1.1)
+		
 		impact_sound.play()
 		impact_sound.pitch_scale = Sound.random_pitch(0.8, 1.2)
 		if death_hazard != null:
@@ -137,6 +141,7 @@ func kill() -> void:
 	enemy.process_mode = Node.PROCESS_MODE_DISABLED
 	if !impact_sound.playing:
 		enemy.queue_free()
+		print("destory")
 
 
 func blood() -> void:

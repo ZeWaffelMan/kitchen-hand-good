@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cwfghs50ucry5"]
+[gd_scene load_steps=14 format=3 uid="uid://cwfghs50ucry5"]
 
 [ext_resource type="PackedScene" uid="uid://ccewotvxo4pxr" path="res://enemy/enemy.tscn" id="1_oicjm"]
 [ext_resource type="Shader" path="res://main/flash.gdshader" id="2_37clv"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://btxiylg0mia14" path="res://player_detection.tscn" id="6_8okia"]
 [ext_resource type="Texture2D" uid="uid://d2lbms1uu46ci" path="res://enemy/enemy_types/banana/editable_banana.png" id="7_6n2xb"]
 [ext_resource type="Texture2D" uid="uid://ntgsifqiylnk" path="res://enemy/enemy_types/banana/banana_peel.png" id="8_8k4om"]
+[ext_resource type="AudioStream" uid="uid://cvypsf12e0pum" path="res://sound_effects/second_batch/Banana_Pop_01.wav" id="10_c8ddk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5ovcy"]
 resource_local_to_scene = true
@@ -41,8 +42,9 @@ movement = NodePath("../../Movement")
 head = NodePath("../../Head")
 player_detection = NodePath("../../Head/PlayerDetection")
 
-[node name="LaunchSplit" type="Node" parent="StateMachine" index="3" node_paths=PackedStringArray("enemy", "movement", "head", "health", "peel")]
+[node name="LaunchSplit" type="Node" parent="StateMachine" index="3" node_paths=PackedStringArray("split_sound", "enemy", "movement", "head", "health", "peel")]
 script = ExtResource("3_41haj")
+split_sound = NodePath("../../EnemySounds/BananaSplit")
 enemy = NodePath("../..")
 movement = NodePath("../../Movement")
 head = NodePath("../../Head")
@@ -51,10 +53,13 @@ peel_to_spawn = ExtResource("4_xxlge")
 peel = NodePath("../../Head/BodyHolder/BodySprites/HeadHolder/Head/Peel")
 chunks = ExtResource("4_i4dn8")
 
-[node name="EnemyJuiceColor" parent="." index="6"]
+[node name="EnemyJuiceColor" parent="." index="5"]
 self_modulate = Color(0.960784, 0.901961, 0.6, 1)
 
-[node name="Head" parent="." index="13"]
+[node name="EnemyHealth" parent="." index="7"]
+max_health = 3.0
+
+[node name="Head" parent="." index="12"]
 material = SubResource("ShaderMaterial_5ovcy")
 
 [node name="PlayerDetection" parent="Head" index="0" instance=ExtResource("6_8okia")]
@@ -113,3 +118,6 @@ modulate = Color(0.286275, 0.243137, 0.164706, 1)
 [node name="CollisionShape2D" parent="Head" index="7"]
 position = Vector2(-6, -24)
 shape = SubResource("CapsuleShape2D_ligdi")
+
+[node name="BananaSplit" type="AudioStreamPlayer" parent="EnemySounds" index="2"]
+stream = ExtResource("10_c8ddk")

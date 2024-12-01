@@ -1,6 +1,8 @@
 extends State
 
 
+@export var split_sound: AudioStreamPlayer
+
 @export var enemy: Enemy
 @export var movement: EnemyMovement
 
@@ -49,6 +51,8 @@ func launch() -> void:
 
 
 func split() -> void:
+	split_sound.play()
+	split_sound.pitch_scale = Sound.random_pitch(0.9, 1.1)
 	var chunks_instance: Node2D = chunks.instantiate()
 	get_tree().current_scene.add_child(chunks_instance)
 	chunks_instance.global_position = head.global_position
