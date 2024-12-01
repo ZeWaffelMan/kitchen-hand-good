@@ -163,3 +163,4 @@ position = Vector2(1, -20)
 
 [node name="ShootPit" type="AudioStreamPlayer" parent="EnemySounds" index="2"]
 stream = ExtResource("13_cqlyr")
+bus = &"Sound Effects"

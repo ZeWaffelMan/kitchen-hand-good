@@ -1,6 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://d06d7tnkybxr1"]
+[gd_scene load_steps=4 format=3 uid="uid://d06d7tnkybxr1"]
 
 [ext_resource type="Script" path="res://main/button.gd" id="1_5k5wh"]
+[ext_resource type="Texture2D" uid="uid://qffl6n62sjqp" path="res://level/how_to_play/checkbox_checked.PNG" id="2_pihxv"]
+[ext_resource type="Texture2D" uid="uid://bbenecq3flgsp" path="res://level/how_to_play/checkbox_unchecked.PNG" id="3_yorln"]
 
-[node name="Button" type="Area2D"]
+[node name="Button" type="Area2D" node_paths=PackedStringArray("checked_sprite", "unchecked_sprite")]
 script = ExtResource("1_5k5wh")
+checked_sprite = NodePath("CheckboxChecked")
+unchecked_sprite = NodePath("CheckboxUnchecked")
+
+[node name="CheckboxChecked" type="Sprite2D" parent="."]
+texture = ExtResource("2_pihxv")
+
+[node name="CheckboxUnchecked" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_yorln")

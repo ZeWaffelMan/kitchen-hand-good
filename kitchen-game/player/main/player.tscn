@@ -46,7 +46,7 @@
 size = Vector2(127, 157)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mryj4"]
-radius = 50.01
+radius = 34.0
 
 [sub_resource type="Animation" id="Animation_o0tmf"]
 length = 0.001
@@ -630,7 +630,7 @@ position = Vector2(0, 40)
 
 [node name="SelectArea" type="Area2D" parent="Hand/HandSprites"]
 z_index = 1
-position = Vector2(-31, -98)
+position = Vector2(-31, -105)
 collision_layer = 0
 collision_mask = 65536
 
@@ -780,13 +780,17 @@ process_mode = 1
 
 [node name="Hurt" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource("37_7vxpv")
+bus = &"Sound Effects"
 
 [node name="Grab" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource("38_uqohk")
+bus = &"Sound Effects"
 
 [node name="Slap" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource("39_n7bdf")
+bus = &"Sound Effects"
 
 [node name="ShockWave" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource("40_ojinh")
 volume_db = 3.0
+bus = &"Sound Effects"

@@ -24,20 +24,21 @@ var has_restarted: bool = false
 
 
 func _physics_process(delta: float) -> void:
-	if !joined_with_mouse:
-		if Input.is_action_just_pressed("left_click"):
-			add_new_player(0, num_players, true)
-			num_players += 1
-			joined_with_mouse = true
-			GameStats.player_number += 1
-	if !joined_with_controller:
-		for i in MAX_PLAYERS:
-			if Input.is_joy_known(i):
-				if Input.is_joy_button_pressed(i, JOY_BUTTON_A):
-					add_new_player(0, num_players, false)
-					num_players += 1
-					GameStats.player_number += 1
-					joined_with_controller = true
+	if level_manager.current_level.is_lobby_level:
+		if !joined_with_mouse:
+			if Input.is_action_just_pressed("left_click"):
+				add_new_player(0, num_players, true)
+				num_players += 1
+				joined_with_mouse = true
+				GameStats.player_number += 1
+		if !joined_with_controller:
+			for i in MAX_PLAYERS:
+				if Input.is_joy_known(i):
+					if Input.is_joy_button_pressed(i, JOY_BUTTON_A):
+						add_new_player(0, num_players, false)
+						num_players += 1
+						GameStats.player_number += 1
+						joined_with_controller = true
 
 
 func add_new_player(player_id, number, joined_with_mouse) -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=115 format=3 uid="uid://b18jghfgdrfrf"]
+[gd_scene load_steps=124 format=3 uid="uid://b18jghfgdrfrf"]
 
 [ext_resource type="Texture2D" uid="uid://c2uo5aw8kd330" path="res://environment/square.png" id="1_avalh"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_emppk"]
@@ -20,12 +20,11 @@
 [ext_resource type="Texture2D" uid="uid://dkvc7p8spg36b" path="res://level/box.png" id="8_jvjgw"]
 [ext_resource type="Texture2D" uid="uid://cvcl6fiosi4t" path="res://level/map/hand_ball.PNG" id="8_qbggd"]
 [ext_resource type="PackedScene" uid="uid://d06d7tnkybxr1" path="res://level/button.tscn" id="8_sbvw7"]
-[ext_resource type="Texture2D" uid="uid://qffl6n62sjqp" path="res://level/checkbox_checked.PNG" id="9_p1qfx"]
 [ext_resource type="PackedScene" uid="uid://3hxttdc8tr4g" path="res://level_manager.tscn" id="10_6wgdk"]
 [ext_resource type="Texture2D" uid="uid://dnakalufrck0v" path="res://environment/cross_hair.png" id="10_8aeo6"]
 [ext_resource type="PackedScene" uid="uid://dribmaugxay67" path="res://enemy/milk_secret_ingredient.tscn" id="10_kr3jm"]
 [ext_resource type="Texture2D" uid="uid://dhdyx27pivfxs" path="res://player/hands/point_hand/point_fill.PNG" id="11_6icbf"]
-[ext_resource type="PackedScene" uid="uid://dlq4loyy712rr" path="res://enemy/onion_spawner.tscn" id="12_cs1vm"]
+[ext_resource type="PackedScene" uid="uid://dlq4loyy712rr" path="res://enemy/enemy_types/onion/onion_spawner.tscn" id="12_cs1vm"]
 [ext_resource type="Texture2D" uid="uid://cx0m73pkvia4x" path="res://level/map/sink_area.PNG" id="12_qk1nh"]
 [ext_resource type="PackedScene" uid="uid://b8luv6527ht6u" path="res://secret_ingredient_pepper.tscn" id="12_rkc0r"]
 [ext_resource type="PackedScene" uid="uid://3ww5a3heppml" path="res://enemy/enemy_types/avocado_enemy/avocado_spawner.tscn" id="13_05g0p"]
@@ -42,7 +41,7 @@
 [ext_resource type="PackedScene" uid="uid://btwx3ajq3klfp" path="res://enemy/enemy_types/mama_peach/peach_spawner.tscn" id="20_knfnt"]
 [ext_resource type="Texture2D" uid="uid://dfak1nwgahpsg" path="res://level/counter_level_art/tiles/small_tile.PNG" id="20_u0uxt"]
 [ext_resource type="Texture2D" uid="uid://xb2ydq04fy4l" path="res://level/counter_level_art/cactus.png" id="20_wmk8p"]
-[ext_resource type="PackedScene" uid="uid://dae3ga8axdsjv" path="res://enemy/enemy_types/cherry_bomb_spawner.tscn" id="21_a0hi3"]
+[ext_resource type="PackedScene" uid="uid://dae3ga8axdsjv" path="res://enemy/enemy_types/cherry_bomb/cherry_bomb_spawner.tscn" id="21_a0hi3"]
 [ext_resource type="Texture2D" uid="uid://da81qokc8318a" path="res://level/counter_level_art/tiles/small_tile Merged.PNG" id="24_51rrp"]
 [ext_resource type="PackedScene" uid="uid://dl74or3yeb5ly" path="res://main/hazard.tscn" id="26_cm7ic"]
 [ext_resource type="Script" path="res://main/lobby.gd" id="27_03sw6"]
@@ -54,12 +53,22 @@
 [ext_resource type="Texture2D" uid="uid://c81kipxoqpjrk" path="res://player/hands/point_hand/full_point_white.png" id="31_5lexo"]
 [ext_resource type="Texture2D" uid="uid://cslpxpru70egf" path="res://player/images.png" id="32_sp2sx"]
 [ext_resource type="Texture2D" uid="uid://cheup78ohh08j" path="res://level/background_tiles/square_tile.PNG" id="33_1ncha"]
+[ext_resource type="Texture2D" uid="uid://c6wgprutkmfrg" path="res://player/effects/ring.png" id="34_tfdyb"]
 [ext_resource type="Script" path="res://main/battle.gd" id="35_7q7xj"]
+[ext_resource type="Texture2D" uid="uid://b8u1rttvcbefn" path="res://player/hands/open_hand/open_hand_outline.PNG" id="35_knsnj"]
+[ext_resource type="Texture2D" uid="uid://o3kluw1vu2w5" path="res://player/hands/grab_hand/grab_outline_white.png" id="36_l4xw7"]
 [ext_resource type="PackedScene" uid="uid://ca2x4po5huimy" path="res://enemy/enemy_ball.tscn" id="36_nwnrl"]
 [ext_resource type="AudioStream" uid="uid://b5w10efefjnc" path="res://music/GameOff2024 GROOVE_2 water level (fixed loop).ogg" id="37_mvt2a"]
 [ext_resource type="FontFile" uid="uid://cmv6bunwkudxi" path="res://fonts/Fredoka-Bold.ttf" id="38_amp3n"]
+[ext_resource type="Texture2D" uid="uid://dwos5wm4xsdgn" path="res://level/how_to_play/mouse/left_click.PNG" id="39_woifn"]
+[ext_resource type="Texture2D" uid="uid://daq0rol2us2x1" path="res://level/how_to_play/mouse/Paint Layer 10.PNG" id="40_0w872"]
+[ext_resource type="Texture2D" uid="uid://donctqiwxpes8" path="res://level/how_to_play/mouse/right_click.PNG" id="41_gtylk"]
+[ext_resource type="Texture2D" uid="uid://blwtgkilcl3vj" path="res://level/how_to_play/mouse/Paint Layer 7.PNG" id="42_mxwfo"]
+[ext_resource type="Texture2D" uid="uid://drsye4oqf2cbi" path="res://level/how_to_play/mouse/Paint Layer 6.PNG" id="43_8gted"]
 [ext_resource type="Texture2D" uid="uid://dpxruuyuokg3a" path="res://level/sink_level/Water.png" id="43_kaw8w"]
 [ext_resource type="Texture2D" uid="uid://ch2wfljc4v0rr" path="res://level/sink_level/sink_area.png" id="44_4akxb"]
+[ext_resource type="Texture2D" uid="uid://dku36x6nbekvt" path="res://level/how_to_play/mouse/Paint Layer 9.PNG" id="44_qffb0"]
+[ext_resource type="Texture2D" uid="uid://cg480mtw207bq" path="res://level/how_to_play/press_a.PNG" id="45_jdpb1"]
 [ext_resource type="Texture2D" uid="uid://bst65b0r1ygoy" path="res://level/sink_level/sea_pickle.png" id="45_tdcbi"]
 [ext_resource type="Texture2D" uid="uid://djxui3qcvjxk3" path="res://level/sink_level/sea_pickle_tall.png" id="46_ynexd"]
 [ext_resource type="Texture2D" uid="uid://itaswkevxmtu" path="res://level/sink_level/duck.png" id="47_kvgtf"]
@@ -410,17 +419,18 @@ size = Vector2(107, 1804)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vjoqm"]
 size = Vector2(11783, 11109)
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("transition_animation_player")]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("music_button", "sound_button", "transition_animation_player")]
 script = ExtResource("1_emppk")
+music_button = NodePath("World/LobbyLevel/Buttons/Music")
+sound_button = NodePath("World/LobbyLevel/Buttons/SoundButton")
 transition_animation_player = NodePath("World/Transition/TransitionAnimationPlayer")
 
-[node name="PauseMenu" type="Node2D" parent="." node_paths=PackedStringArray("main", "sound_button")]
+[node name="PauseMenu" type="Node2D" parent="." node_paths=PackedStringArray("main")]
 process_mode = 2
 visible = false
 z_index = 7
 script = ExtResource("2_kqssf")
 main = NodePath("..")
-sound_button = NodePath("../World/LobbyLevel/Buttons/SoundButton")
 
 [node name="PauseLabel" type="Label" parent="PauseMenu"]
 z_index = 1
@@ -434,14 +444,27 @@ theme_override_font_sizes/font_size = 526
 text = "PAUSED"
 
 [node name="CreditWaffel" type="Node2D" parent="PauseMenu"]
-position = Vector2(68, 109)
+position = Vector2(62, 194)
 scale = Vector2(0.865, 0.865)
+
+[node name="CircleTiles3" type="Sprite2D" parent="PauseMenu/CreditWaffel"]
+z_index = 1
+position = Vector2(-328.324, 667.052)
+scale = Vector2(3.4029, 3.4029)
+texture = ExtResource("33_1ncha")
 
 [node name="CircleTiles" type="Sprite2D" parent="PauseMenu/CreditWaffel"]
 modulate = Color(1, 0.6485, 0.43, 1)
 z_index = 1
 position = Vector2(-341, 665)
 scale = Vector2(2.89802, 2.89802)
+texture = ExtResource("33_1ncha")
+
+[node name="CircleTiles2" type="Sprite2D" parent="PauseMenu/CreditWaffel"]
+modulate = Color(0.97, 0.587173, 0.3492, 1)
+z_index = 1
+position = Vector2(-330.636, 788.075)
+scale = Vector2(2.17457, 0.85147)
 texture = ExtResource("33_1ncha")
 
 [node name="ZeWaffelMan" type="Label" parent="PauseMenu/CreditWaffel"]
@@ -452,17 +475,17 @@ offset_right = 635.0
 offset_bottom = 927.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("38_amp3n")
-theme_override_font_sizes/font_size = 135
+theme_override_font_sizes/font_size = 120
 text = "ZeWaffelMan
 (Jared)"
 horizontal_alignment = 1
 
 [node name="StuffTheyDid" type="Label" parent="PauseMenu/CreditWaffel"]
 z_index = 1
-offset_left = -1315.0
-offset_top = 668.0
-offset_right = 614.0
-offset_bottom = 1306.0
+offset_left = -1300.58
+offset_top = 657.439
+offset_right = 628.422
+offset_bottom = 1295.44
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("38_amp3n")
 theme_override_font_sizes/font_size = 101
@@ -471,8 +494,15 @@ Art"
 horizontal_alignment = 1
 
 [node name="CreditStone" type="Node2D" parent="PauseMenu"]
-position = Vector2(1204, 103)
+position = Vector2(1198, 188)
 scale = Vector2(0.865, 0.865)
+
+[node name="CircleTiles2" type="Sprite2D" parent="PauseMenu/CreditStone"]
+z_index = 1
+position = Vector2(-341, 665)
+rotation = -3.14159
+scale = Vector2(3.4029, 3.4029)
+texture = ExtResource("33_1ncha")
 
 [node name="CircleTiles" type="Sprite2D" parent="PauseMenu/CreditStone"]
 modulate = Color(4.81307e-07, 0.863586, 0.545523, 1)
@@ -480,6 +510,14 @@ z_index = 1
 position = Vector2(-341, 665)
 rotation = -3.13704
 scale = Vector2(2.89802, 2.89802)
+texture = ExtResource("33_1ncha")
+
+[node name="CircleTiles3" type="Sprite2D" parent="PauseMenu/CreditStone"]
+modulate = Color(7.31587e-06, 0.766558, 0.482091, 1)
+z_index = 1
+position = Vector2(-343.312, 724.613)
+rotation = -3.13704
+scale = Vector2(1.91449, 0.772076)
 texture = ExtResource("33_1ncha")
 
 [node name="Stone" type="Label" parent="PauseMenu/CreditStone"]
@@ -490,17 +528,17 @@ offset_right = 618.0
 offset_bottom = 920.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("38_amp3n")
-theme_override_font_sizes/font_size = 135
+theme_override_font_sizes/font_size = 120
 text = "Foster Stone
 (Finn Stewart)"
 horizontal_alignment = 1
 
 [node name="StuffTheyDid" type="Label" parent="PauseMenu/CreditStone"]
 z_index = 1
-offset_left = -1315.0
-offset_top = 671.0
-offset_right = 614.0
-offset_bottom = 1309.0
+offset_left = -1323.7
+offset_top = 650.365
+offset_right = 605.301
+offset_bottom = 1288.36
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("38_amp3n")
 theme_override_font_sizes/font_size = 101
@@ -508,8 +546,15 @@ text = "Music"
 horizontal_alignment = 1
 
 [node name="CreditLymbo" type="Node2D" parent="PauseMenu"]
-position = Vector2(2355, 96)
+position = Vector2(2349, 181)
 scale = Vector2(0.865, 0.865)
+
+[node name="CircleTiles4" type="Sprite2D" parent="PauseMenu/CreditLymbo"]
+z_index = 1
+position = Vector2(-344.509, 660.116)
+rotation = -1.57079
+scale = Vector2(3.4029, 3.4029)
+texture = ExtResource("33_1ncha")
 
 [node name="CircleTiles" type="Sprite2D" parent="PauseMenu/CreditLymbo"]
 modulate = Color(0.778151, 0.594412, 1, 1)
@@ -517,6 +562,14 @@ z_index = 1
 position = Vector2(-341, 665)
 rotation = 1.60134
 scale = Vector2(2.89802, 2.89802)
+texture = ExtResource("33_1ncha")
+
+[node name="CircleTiles2" type="Sprite2D" parent="PauseMenu/CreditLymbo"]
+modulate = Color(0.738449, 0.504437, 0.999998, 1)
+z_index = 1
+position = Vector2(-338.728, 596.532)
+rotation = 1.57079
+scale = Vector2(0.634057, 1.81023)
 texture = ExtResource("33_1ncha")
 
 [node name="Lymbo" type="Label" parent="PauseMenu/CreditLymbo"]
@@ -527,16 +580,16 @@ offset_right = 622.0
 offset_bottom = 927.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("38_amp3n")
-theme_override_font_sizes/font_size = 135
-text = "Lymbo"
+theme_override_font_sizes/font_size = 120
+text = "Danny Avila Gil"
 horizontal_alignment = 1
 
 [node name="StuffTheyDid" type="Label" parent="PauseMenu/CreditLymbo"]
 z_index = 1
-offset_left = -1315.0
-offset_top = 493.0
-offset_right = 614.0
-offset_bottom = 1131.0
+offset_left = -1308.67
+offset_top = 525.019
+offset_right = 620.33
+offset_bottom = 1163.02
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("38_amp3n")
 theme_override_font_sizes/font_size = 101
@@ -791,12 +844,15 @@ autoplay = "hand_idle"
 
 [node name="HandWaddle" type="AudioStreamPlayer" parent="World/Transition/Sounds"]
 stream = ExtResource("17_umq1x")
+bus = &"Sound Effects"
 
 [node name="TransitionIn" type="AudioStreamPlayer" parent="World/Transition/Sounds"]
 stream = ExtResource("18_mnehb")
+bus = &"Sound Effects"
 
 [node name="TransitionOut" type="AudioStreamPlayer" parent="World/Transition/Sounds"]
 stream = ExtResource("19_6oglq")
+bus = &"Sound Effects"
 
 [node name="LevelManager" parent="World" node_paths=PackedStringArray("world", "current_level", "secret_area", "secret_box", "secret_area_new_offset", "transition", "point_to_travel_to") instance=ExtResource("10_6wgdk")]
 z_index = 2
@@ -893,19 +949,171 @@ next_level = NodePath("../Level1")
 next_level_animation = "counter_to_sink"
 music = NodePath("Music")
 
+[node name="Lobby" type="Node2D" parent="World/LobbyLevel" node_paths=PackedStringArray("world", "level_manager", "transition", "story_player_detection", "battle_player_detection")]
+script = ExtResource("27_03sw6")
+world = NodePath("../..")
+level_manager = NodePath("../../LevelManager")
+transition = NodePath("../../Transition")
+story_player_detection = NodePath("../StoryModeDetection")
+battle_player_detection = NodePath("../BattleModeDetection")
+
+[node name="JoinLabel" type="Label" parent="World/LobbyLevel"]
+z_index = 1
+offset_left = 792.0
+offset_top = -385.0
+offset_right = 3158.0
+offset_bottom = 253.0
+theme_override_colors/font_color = Color(0.227451, 0.647059, 0.988235, 1)
+theme_override_fonts/font = ExtResource("38_amp3n")
+theme_override_font_sizes/font_size = 191
+text = "OR"
+
+[node name="JoinLabel2" type="Label" parent="World/LobbyLevel"]
+z_index = 1
+offset_left = 564.0
+offset_top = -184.0
+offset_right = 2930.0
+offset_bottom = 454.0
+theme_override_colors/font_color = Color(0.984314, 0.313726, 0.223529, 1)
+theme_override_fonts/font = ExtResource("38_amp3n")
+theme_override_font_sizes/font_size = 191
+text = "TO JOIN"
+
+[node name="HowToPlay" type="Node2D" parent="World/LobbyLevel"]
+position = Vector2(-105, 482)
+
+[node name="Stuff" type="Node2D" parent="World/LobbyLevel/HowToPlay"]
+modulate = Color(0.615686, 0.819608, 0.988235, 1)
+position = Vector2(853, -157)
+
+[node name="Shockwave" type="Label" parent="World/LobbyLevel/HowToPlay/Stuff"]
+z_index = 1
+offset_left = -76.0
+offset_top = 961.0
+offset_right = 2290.0
+offset_bottom = 1599.0
+theme_override_fonts/font = ExtResource("38_amp3n")
+theme_override_font_sizes/font_size = 100
+text = "SHOCKWAVE"
+
+[node name="PointOutlineWhite" type="Sprite2D" parent="World/LobbyLevel/HowToPlay/Stuff"]
+position = Vector2(208, 844)
+texture = ExtResource("7_3fjf4")
+
+[node name="Ring" type="Sprite2D" parent="World/LobbyLevel/HowToPlay/Stuff"]
+position = Vector2(205, 853)
+texture = ExtResource("34_tfdyb")
+
+[node name="Ring2" type="Sprite2D" parent="World/LobbyLevel/HowToPlay/Stuff"]
+position = Vector2(205, 853)
+scale = Vector2(0.730438, 0.730438)
+texture = ExtResource("34_tfdyb")
+
+[node name="Shockwave2" type="Label" parent="World/LobbyLevel/HowToPlay"]
+z_index = 1
+offset_left = -120.0
+offset_top = 917.0
+offset_right = 2246.0
+offset_bottom = 1555.0
+theme_override_colors/font_color = Color(0.779291, 0.779291, 0.779291, 1)
+theme_override_fonts/font = ExtResource("38_amp3n")
+theme_override_font_sizes/font_size = 50
+text = "MIDDLE MOUSE
+OR
+RIGHT AND LEFT CLICK"
+horizontal_alignment = 1
+
+[node name="Stuff2" type="Node2D" parent="World/LobbyLevel/HowToPlay"]
+modulate = Color(0.615686, 0.819608, 0.988235, 1)
+position = Vector2(1418, -145)
+
+[node name="Shockwave" type="Label" parent="World/LobbyLevel/HowToPlay/Stuff2"]
+z_index = 1
+offset_left = 100.0
+offset_top = 947.0
+offset_right = 2466.0
+offset_bottom = 1585.0
+theme_override_fonts/font = ExtResource("38_amp3n")
+theme_override_font_sizes/font_size = 100
+text = "SLAP"
+
+[node name="PointOutlineWhite" type="Sprite2D" parent="World/LobbyLevel/HowToPlay/Stuff2"]
+position = Vector2(208, 844)
+texture = ExtResource("35_knsnj")
+
+[node name="Shockwave3" type="Label" parent="World/LobbyLevel/HowToPlay"]
+z_index = 1
+offset_left = 1491.0
+offset_top = 915.0
+offset_right = 3857.0
+offset_bottom = 1553.0
+theme_override_colors/font_color = Color(0.779291, 0.779291, 0.779291, 1)
+theme_override_fonts/font = ExtResource("38_amp3n")
+theme_override_font_sizes/font_size = 50
+text = "RIGHT CLICK"
+
+[node name="Stuff3" type="Node2D" parent="World/LobbyLevel/HowToPlay"]
+modulate = Color(0.615686, 0.819608, 0.988235, 1)
+position = Vector2(320, -134)
+
+[node name="Shockwave" type="Label" parent="World/LobbyLevel/HowToPlay/Stuff3"]
+z_index = 1
+offset_left = 89.0
+offset_top = 945.0
+offset_right = 2455.0
+offset_bottom = 1583.0
+theme_override_fonts/font = ExtResource("38_amp3n")
+theme_override_font_sizes/font_size = 100
+text = "GRAB"
+
+[node name="PointOutlineWhite" type="Sprite2D" parent="World/LobbyLevel/HowToPlay/Stuff3"]
+position = Vector2(208, 844)
+texture = ExtResource("36_l4xw7")
+
+[node name="Shockwave4" type="Label" parent="World/LobbyLevel/HowToPlay"]
+z_index = 1
+offset_left = 404.0
+offset_top = 924.0
+offset_right = 2770.0
+offset_bottom = 1562.0
+theme_override_colors/font_color = Color(0.779291, 0.779291, 0.779291, 1)
+theme_override_fonts/font = ExtResource("38_amp3n")
+theme_override_font_sizes/font_size = 50
+text = "LEFT CLICK"
+
+[node name="FullScreen" type="Label" parent="World/LobbyLevel/HowToPlay"]
+z_index = 1
+offset_left = -1731.0
+offset_top = 952.0
+offset_right = 635.0
+offset_bottom = 1590.0
+theme_override_colors/font_color = Color(0.779291, 0.779291, 0.779291, 1)
+theme_override_fonts/font = ExtResource("38_amp3n")
+theme_override_font_sizes/font_size = 50
+text = "ENTER - FULL SCREEN"
+horizontal_alignment = 1
+
+[node name="FullScreen2" type="Label" parent="World/LobbyLevel/HowToPlay"]
+z_index = 1
+offset_left = -1664.0
+offset_top = 1027.0
+offset_right = 702.0
+offset_bottom = 1665.0
+theme_override_colors/font_color = Color(0.779291, 0.779291, 0.779291, 1)
+theme_override_fonts/font = ExtResource("38_amp3n")
+theme_override_font_sizes/font_size = 50
+text = "TAB - COME BACK TO LOBBY"
+horizontal_alignment = 1
+
 [node name="Buttons" type="Node2D" parent="World/LobbyLevel"]
 z_index = 1
 
 [node name="SoundButton" parent="World/LobbyLevel/Buttons" instance=ExtResource("8_sbvw7")]
 modulate = Color(0.262745, 0.262745, 0.262745, 1)
-position = Vector2(-775, -313)
-scale = Vector2(0.75, 0.75)
+position = Vector2(-838, -408)
+scale = Vector2(0.6, 0.6)
 collision_layer = 65536
 collision_mask = 0
-
-[node name="Checkbox" type="Sprite2D" parent="World/LobbyLevel/Buttons/SoundButton"]
-scale = Vector2(0.82366, 0.82366)
-texture = ExtResource("9_p1qfx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/LobbyLevel/Buttons/SoundButton"]
 shape = SubResource("RectangleShape2D_j45rb")
@@ -923,14 +1131,10 @@ text = "SFX"
 
 [node name="Music" parent="World/LobbyLevel/Buttons" instance=ExtResource("8_sbvw7")]
 modulate = Color(0.262745, 0.262745, 0.262745, 1)
-position = Vector2(-775, -176)
-scale = Vector2(0.75, 0.75)
+position = Vector2(-835, -284)
+scale = Vector2(0.6, 0.6)
 collision_layer = 65536
 collision_mask = 0
-
-[node name="Checkbox" type="Sprite2D" parent="World/LobbyLevel/Buttons/Music"]
-scale = Vector2(0.82366, 0.82366)
-texture = ExtResource("9_p1qfx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/LobbyLevel/Buttons/Music"]
 shape = SubResource("RectangleShape2D_j45rb")
@@ -945,13 +1149,6 @@ offset_bottom = 517.0
 theme_override_fonts/font = ExtResource("38_amp3n")
 theme_override_font_sizes/font_size = 191
 text = "MUSIC"
-
-[node name="Lobby" type="Node2D" parent="World/LobbyLevel" node_paths=PackedStringArray("world", "level_manager", "story_player_detection", "battle_player_detection")]
-script = ExtResource("27_03sw6")
-world = NodePath("../..")
-level_manager = NodePath("../../LevelManager")
-story_player_detection = NodePath("../StoryModeDetection")
-battle_player_detection = NodePath("../BattleModeDetection")
 
 [node name="Music" type="AudioStreamPlayer" parent="World/LobbyLevel"]
 stream = ExtResource("27_7lcnk")
@@ -983,16 +1180,16 @@ position = Vector2(2182, 547)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/LobbyLevel/StoryModeDetection"]
 shape = SubResource("CircleShape2D_3mwgl")
+debug_color = Color(0, 0.595, 0.7, 0)
 
 [node name="Blue" type="Node2D" parent="World/LobbyLevel/StoryModeDetection"]
-modulate = Color(0, 0.55, 1, 0.784314)
+modulate = Color(0, 0.55, 1, 0.509804)
 
 [node name="Sprite2D" type="Sprite2D" parent="World/LobbyLevel/StoryModeDetection/Blue"]
 scale = Vector2(1.30349, 1.30349)
 texture = ExtResource("53_tkhpv")
 
 [node name="Sprite2D2" type="Sprite2D" parent="World/LobbyLevel/StoryModeDetection/Blue"]
-visible = false
 scale = Vector2(1.53533, 1.53533)
 texture = ExtResource("53_tkhpv")
 
@@ -1006,9 +1203,10 @@ position = Vector2(-334, 548)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/LobbyLevel/BattleModeDetection"]
 position = Vector2(75, 3.5)
 shape = SubResource("RectangleShape2D_sek5s")
+debug_color = Color(0, 0.595, 0.7, 0)
 
 [node name="Red" type="Node2D" parent="World/LobbyLevel/BattleModeDetection"]
-modulate = Color(1, 0.116667, 0, 0.784314)
+modulate = Color(1, 0.116667, 0, 0.509804)
 position = Vector2(184, -4)
 
 [node name="Sprite2D3" type="Sprite2D" parent="World/LobbyLevel/BattleModeDetection/Red"]
@@ -1017,8 +1215,9 @@ scale = Vector2(1.46615, 1.46615)
 texture = ExtResource("33_1ncha")
 
 [node name="Sprite2D4" type="Sprite2D" parent="World/LobbyLevel/BattleModeDetection/Red"]
-visible = false
-scale = Vector2(0.878, 1.535)
+position = Vector2(-116, 14)
+rotation = 2.87979
+scale = Vector2(1.72809, 1.72809)
 texture = ExtResource("33_1ncha")
 
 [node name="PointOutlineWhite" type="Sprite2D" parent="World/LobbyLevel/BattleModeDetection"]
@@ -1028,6 +1227,42 @@ texture = ExtResource("31_5lexo")
 [node name="PointOutlineWhite2" type="Sprite2D" parent="World/LobbyLevel/BattleModeDetection"]
 position = Vector2(184, -9)
 texture = ExtResource("31_5lexo")
+
+[node name="Mouse" type="Node2D" parent="World/LobbyLevel"]
+position = Vector2(586, -275)
+
+[node name="LeftClick" type="Sprite2D" parent="World/LobbyLevel/Mouse"]
+visible = false
+modulate = Color(0.984314, 0.313726, 0.223529, 1)
+position = Vector2(288, -355)
+texture = ExtResource("39_woifn")
+
+[node name="PaintLayer10" type="Sprite2D" parent="World/LobbyLevel/Mouse"]
+position = Vector2(0, 71)
+texture = ExtResource("40_0w872")
+
+[node name="RightClick" type="Sprite2D" parent="World/LobbyLevel/Mouse"]
+modulate = Color(0.223529, 0.643137, 0.984314, 1)
+position = Vector2(41, -89)
+texture = ExtResource("41_gtylk")
+
+[node name="PaintLayer7" type="Sprite2D" parent="World/LobbyLevel/Mouse"]
+position = Vector2(-1, -91)
+texture = ExtResource("42_mxwfo")
+
+[node name="PaintLayer6" type="Sprite2D" parent="World/LobbyLevel/Mouse"]
+position = Vector2(-4, 7)
+texture = ExtResource("43_8gted")
+
+[node name="PaintLayer9" type="Sprite2D" parent="World/LobbyLevel/Mouse"]
+modulate = Color(0.262745, 0.262745, 0.262745, 1)
+position = Vector2(-5, -95)
+texture = ExtResource("44_qffb0")
+
+[node name="PressA" type="Sprite2D" parent="World/LobbyLevel"]
+modulate = Color(0.223529, 0.643137, 0.984314, 1)
+position = Vector2(1286, -258)
+texture = ExtResource("45_jdpb1")
 
 [node name="BattleLevel" type="Node2D" parent="World" node_paths=PackedStringArray("enemy_spawn_points", "next_level", "music")]
 process_mode = 4

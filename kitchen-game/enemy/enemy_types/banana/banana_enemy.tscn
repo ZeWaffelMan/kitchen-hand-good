@@ -121,3 +121,4 @@ shape = SubResource("CapsuleShape2D_ligdi")
 
 [node name="BananaSplit" type="AudioStreamPlayer" parent="EnemySounds" index="2"]
 stream = ExtResource("10_c8ddk")
+bus = &"Sound Effects"

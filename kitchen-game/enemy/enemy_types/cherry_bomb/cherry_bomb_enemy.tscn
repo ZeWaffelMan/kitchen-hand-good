@@ -146,3 +146,4 @@ debug_color = Color(1, 0.44, 0.738667, 0.0823529)
 
 [node name="CherryBomb" type="AudioStreamPlayer" parent="EnemySounds" index="2"]
 stream = ExtResource("13_xu7p1")
+bus = &"Sound Effects"

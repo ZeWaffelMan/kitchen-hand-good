@@ -12,7 +12,7 @@ enum LevelStates{
 
 var level_state = LevelStates.NOT_ACTIVE
 
-@export var world: Node2D
+@export var world: World
 
 @export var current_level: Level
 
@@ -41,6 +41,12 @@ func _ready() -> void:
 	current_level.show()
 	current_level.is_active = true
 	current_level.process_mode = PROCESS_MODE_INHERIT
+
+
+func _physics_process(delta: float) -> void:
+	if current_level != world.lobby_level:
+		if Input.is_action_just_pressed("lobby_button"):
+			switch_to_new_level(world.lobby_level, current_level, "to_lobby")
 
 
 func _process(delta):

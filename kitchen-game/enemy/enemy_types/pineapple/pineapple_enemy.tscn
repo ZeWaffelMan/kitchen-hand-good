@@ -188,9 +188,11 @@ position = Vector2(0, 96)
 [node name="ReleaseSpikes" type="AudioStreamPlayer" parent="EnemySounds" index="5"]
 stream = ExtResource("11_uxwmb")
 volume_db = -5.0
+bus = &"Sound Effects"
 
 [node name="RemoveSpikes" type="AudioStreamPlayer" parent="EnemySounds" index="6"]
 stream = ExtResource("12_esj7j")
 volume_db = -5.0
+bus = &"Sound Effects"
 
 [editable path="Head/Hazard"]

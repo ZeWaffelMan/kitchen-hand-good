@@ -29,10 +29,7 @@ height = 120.0
 script = ExtResource("2_40oqt")
 enemy_rest_state = NodePath("../StateMachine/Rest")
 
-[node name="ShootSound" type="AudioStreamPlayer" parent="." index="1"]
-stream = ExtResource("3_ng5hm")
-
-[node name="Movement" parent="." index="5"]
+[node name="Movement" parent="." index="3"]
 direction_cannot_be_zero = true
 acceleration = 800000.0
 friction = 0.8
@@ -49,7 +46,7 @@ eyes_animation_to_play = "blink"
 
 [node name="Walk" type="Node" parent="StateMachine" index="2" node_paths=PackedStringArray("shoot_sound", "hurt_box", "fire_point", "watermelon", "enemy", "player_detection", "storage", "head", "enemy_movement")]
 script = ExtResource("2_dtm5x")
-shoot_sound = NodePath("../../ShootSound")
+shoot_sound = NodePath("../../EnemySounds/ShootSound")
 seed_bullet = ExtResource("5_uad8s")
 hurt_box = NodePath("../../Head/EnemyHurtBox")
 fire_point = NodePath("../../Head")
@@ -60,17 +57,17 @@ storage = NodePath("../../EnemyStorage")
 head = NodePath("../../Head")
 enemy_movement = NodePath("../../Movement")
 
-[node name="EnemyJuiceColor" parent="." index="8"]
+[node name="EnemyJuiceColor" parent="." index="6"]
 self_modulate = Color(1, 0.329412, 0.286275, 1)
 
-[node name="EnemyHealth" parent="." index="10"]
+[node name="EnemyHealth" parent="." index="8"]
 max_health = 3.0
 
 [node name="Shadow" parent="ShadowHolder" index="0"]
 position = Vector2(1, 48)
 scale = Vector2(1.475, 1.1)
 
-[node name="Head" parent="." index="15"]
+[node name="Head" parent="." index="13"]
 material = SubResource("ShaderMaterial_p6lv8")
 mass = 5.0
 
@@ -133,3 +130,7 @@ autoplay = "long_neutral"
 position = Vector2(0, 13)
 rotation = -1.5708
 shape = SubResource("CapsuleShape2D_s13vl")
+
+[node name="ShootSound" type="AudioStreamPlayer" parent="EnemySounds" index="5"]
+stream = ExtResource("3_ng5hm")
+bus = &"Sound Effects"

@@ -157,6 +157,8 @@ disabled = true
 monitoring = false
 
 [node name="PitAttach" type="AudioStreamPlayer" parent="EnemySounds" index="2"]
+bus = &"Sound Effects"
 
 [node name="PitDamage" type="AudioStreamPlayer" parent="EnemySounds" index="3"]
 stream = ExtResource("8_bifyx")
+bus = &"Sound Effects"

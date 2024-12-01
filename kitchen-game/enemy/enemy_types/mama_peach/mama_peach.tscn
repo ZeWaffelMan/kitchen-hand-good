@@ -141,3 +141,4 @@ debug_color = Color(0.952941, 0, 0.552941, 0.0352941)
 
 [node name="PeachShoot" type="AudioStreamPlayer" parent="EnemySounds" index="5"]
 stream = ExtResource("9_5c535")
+bus = &"Sound Effects"

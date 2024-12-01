@@ -2,6 +2,12 @@ extends Node2D
 class_name Main
 
 
+var music_muted = false
+var sounds_muted = false
+
+@export var music_button: CustomButton
+@export var sound_button: CustomButton
+
 @export var transition_animation_player: AnimationPlayer
 @onready var pause_menu = $PauseMenu
 
@@ -18,6 +24,13 @@ func set_settings() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	# set the music and sound effects
+	music_muted = !music_button.is_checked
+	sounds_muted = !sound_button.is_checked
+	
+	AudioServer.set_bus_mute(1, music_muted)
+	AudioServer.set_bus_mute(2, sounds_muted)
+	
 	if Input.is_action_just_pressed("pause"):
 		pause()
 	if Input.is_action_just_pressed("tab"):

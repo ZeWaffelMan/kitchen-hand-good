@@ -93,3 +93,4 @@ randomness = 0.36
 stream = ExtResource("4_ikimy")
 volume_db = -7.0
 autoplay = true
+bus = &"Sound Effects"

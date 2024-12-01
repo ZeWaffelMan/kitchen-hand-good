@@ -43,7 +43,7 @@
 [ext_resource type="Texture2D" uid="uid://bcuh5nxxweiqb" path="res://enemy/faces/mouths/sad.PNG" id="33_p1pkn"]
 [ext_resource type="Texture2D" uid="uid://bf1ed8pe8uca" path="res://enemy/faces/mouths/ooh.png" id="34_ihiqb"]
 [ext_resource type="Texture2D" uid="uid://biby6mwlwqdbu" path="res://enemy/faces/mouths/long_neutral.PNG" id="35_ero87"]
-[ext_resource type="AudioStream" uid="uid://dylyb6vbo3lg0" path="res://sound_effects/Enemy_Impact_01.wav" id="44_cwb2o"]
+[ext_resource type="AudioStream" uid="uid://y7ctjmwiy3m8" path="res://sound_effects/second_batch/Enemy_Impact_No_Kill_01.wav" id="44_klqwp"]
 [ext_resource type="AudioStream" uid="uid://s2j5botagi56" path="res://sound_effects/second_batch/Kill_Enemy_01.wav" id="45_0fg4g"]
 [ext_resource type="AudioStream" uid="uid://gnrmf3g2vomi" path="res://sound_effects/Enemy_Struggle_LP_01.wav" id="45_6ni63"]
 [ext_resource type="AudioStream" uid="uid://ra6djvy2ncqb" path="res://sound_effects/second_batch/Enemy_Jump_01.wav" id="46_04adl"]
@@ -1427,19 +1427,24 @@ libraries = {
 process_mode = 1
 
 [node name="ImpactSound" type="AudioStreamPlayer" parent="EnemySounds"]
-stream = ExtResource("44_cwb2o")
+stream = ExtResource("44_klqwp")
+bus = &"Sound Effects"
 
 [node name="Kill" type="AudioStreamPlayer" parent="EnemySounds"]
 stream = ExtResource("45_0fg4g")
+bus = &"Sound Effects"
 
 [node name="StriggleSound" type="AudioStreamPlayer" parent="EnemySounds"]
 stream = ExtResource("45_6ni63")
 volume_db = -7.0
+bus = &"Sound Effects"
 
 [node name="Jump" type="AudioStreamPlayer" parent="EnemySounds"]
 stream = ExtResource("46_04adl")
+bus = &"Sound Effects"
 
 [node name="Land" type="AudioStreamPlayer" parent="EnemySounds"]
 stream = ExtResource("47_bonwh")
+bus = &"Sound Effects"
 
 [connection signal="animation_finished" from="Head/BodyHolder/BodySprites/BlinkAnimationPlayer" to="Head/BodyHolder/BodySprites/FaceController" method="_on_blink_animation_player_animation_finished"]
