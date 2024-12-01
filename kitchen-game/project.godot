@@ -137,3 +137,4 @@ join_button={
 2d_physics/layer_14="Keep Bounds Wall"
 2d_physics/layer_15="Arena"
 2d_physics/layer_16="Object Bounds"
+2d_physics/layer_17="Button"

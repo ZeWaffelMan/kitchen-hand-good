@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://dylsvc744lm0y"]
+[gd_scene load_steps=69 format=3 uid="uid://dylsvc744lm0y"]
 
 [ext_resource type="Script" path="res://player/main/player.gd" id="1_ar7mc"]
 [ext_resource type="Script" path="res://player/main/cursor.gd" id="1_i03mm"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://bcnborqwlixc" path="res://effects/hit_effect/player_hurt_effect.tscn" id="10_3pqj3"]
 [ext_resource type="Script" path="res://player/main/player_find_box.gd" id="10_ojlqm"]
 [ext_resource type="Texture2D" uid="uid://dhdyx27pivfxs" path="res://player/hands/point_hand/point_fill.PNG" id="11_1rj4y"]
+[ext_resource type="Script" path="res://player/main/selecting.gd" id="12_1u4h7"]
 [ext_resource type="Texture2D" uid="uid://b8u1rttvcbefn" path="res://player/hands/open_hand/open_hand_outline.PNG" id="13_7r7sr"]
 [ext_resource type="Texture2D" uid="uid://dmkia7omn1ssk" path="res://player/hands/visual_stats/one.PNG" id="13_bxevt"]
 [ext_resource type="Texture2D" uid="uid://b4h6c4jfxkejf" path="res://player/hands/open_hand/open_hand_fill.PNG" id="14_h50lm"]
@@ -43,6 +44,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5f216"]
 size = Vector2(127, 157)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mryj4"]
+radius = 50.01
 
 [sub_resource type="Animation" id="Animation_o0tmf"]
 length = 0.001
@@ -594,6 +598,10 @@ hand_sprites = NodePath("../Hand/HandSprites")
 hurt_effect = ExtResource("10_3pqj3")
 echo_effect = ExtResource("15_jbcim")
 
+[node name="Selecting" type="Node" parent="." node_paths=PackedStringArray("select_area")]
+script = ExtResource("12_1u4h7")
+select_area = NodePath("../Hand/HandSprites/SelectArea")
+
 [node name="Hand" type="StaticBody2D" parent="." node_paths=PackedStringArray("hand_sprites", "hurt_box", "top_cursor_bounds", "bottom_cursor_bounds", "object_detection")]
 collision_layer = 0
 collision_mask = 0
@@ -619,6 +627,16 @@ debug_color = Color(0.871455, 0, 0.397664, 0.0980392)
 [node name="HandSprites" type="Node2D" parent="Hand"]
 z_index = 2
 position = Vector2(0, 40)
+
+[node name="SelectArea" type="Area2D" parent="Hand/HandSprites"]
+z_index = 1
+position = Vector2(-31, -98)
+collision_layer = 0
+collision_mask = 65536
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/HandSprites/SelectArea"]
+shape = SubResource("CircleShape2D_mryj4")
+debug_color = Color(0, 0.65, 0.509167, 0.490196)
 
 [node name="Fill" type="Sprite2D" parent="Hand/HandSprites"]
 texture = ExtResource("11_1rj4y")

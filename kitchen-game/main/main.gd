@@ -1,10 +1,11 @@
 extends Node2D
+class_name Main
 
 
 @export var transition_animation_player: AnimationPlayer
 @onready var pause_menu = $PauseMenu
 
-var is_paused: bool = false
+@export var is_paused: bool = false
 var is_fullscreen: bool = false
 
 
@@ -31,6 +32,7 @@ func _physics_process(delta: float) -> void:
 
 func pause() -> void:
 	pause_menu.show()
+	is_paused = true
 	get_tree().paused = true
 
 
