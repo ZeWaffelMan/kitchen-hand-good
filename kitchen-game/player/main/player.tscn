@@ -46,7 +46,7 @@
 size = Vector2(127, 157)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mryj4"]
-radius = 34.0
+radius = 23.0868
 
 [sub_resource type="Animation" id="Animation_o0tmf"]
 length = 0.001

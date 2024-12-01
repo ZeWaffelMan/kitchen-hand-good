@@ -47,8 +47,7 @@ var has_opened_map = false
 
 
 func _ready() -> void:
-	if !level_manager.current_level.keep_music_off:
-		level_manager.current_level.music.volume_db = music_target_volume
+	level_manager.current_level.music.volume_db = music_target_volume
 	level_manager.current_level.music.play()
 
 

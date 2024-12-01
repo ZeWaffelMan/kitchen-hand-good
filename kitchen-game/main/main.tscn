@@ -1105,6 +1105,18 @@ theme_override_font_sizes/font_size = 50
 text = "TAB - COME BACK TO LOBBY"
 horizontal_alignment = 1
 
+[node name="FullScreen3" type="Label" parent="World/LobbyLevel/HowToPlay"]
+z_index = 1
+offset_left = -1848.0
+offset_top = 879.0
+offset_right = 518.0
+offset_bottom = 1517.0
+theme_override_colors/font_color = Color(0.779291, 0.779291, 0.779291, 1)
+theme_override_fonts/font = ExtResource("38_amp3n")
+theme_override_font_sizes/font_size = 50
+text = "ESC - PAUSE"
+horizontal_alignment = 1
+
 [node name="Buttons" type="Node2D" parent="World/LobbyLevel"]
 z_index = 1
 
@@ -1131,7 +1143,7 @@ text = "SFX"
 
 [node name="Music" parent="World/LobbyLevel/Buttons" instance=ExtResource("8_sbvw7")]
 modulate = Color(0.262745, 0.262745, 0.262745, 1)
-position = Vector2(-835, -284)
+position = Vector2(-838, -275)
 scale = Vector2(0.6, 0.6)
 collision_layer = 65536
 collision_mask = 0

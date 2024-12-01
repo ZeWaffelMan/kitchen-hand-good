@@ -10,8 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://bsj5ua6le431v" path="res://environment/circle.png" id="6_o3wu2"]
 [ext_resource type="Texture2D" uid="uid://cncg041uoiq2w" path="res://enemy/enemy_types/pineapple/pineapple_spikes.png" id="7_5f8q0"]
 [ext_resource type="PackedScene" uid="uid://dl74or3yeb5ly" path="res://main/hazard.tscn" id="7_8843n"]
-[ext_resource type="AudioStream" uid="uid://cntcqvaqc07to" path="res://sound_effects/second_batch/Pineapple_Release_Spikes_01.wav" id="11_uxwmb"]
-[ext_resource type="AudioStream" uid="uid://elpqui7jx0lt" path="res://sound_effects/second_batch/Pineapple_Spikes_01.wav" id="12_esj7j"]
+[ext_resource type="AudioStream" uid="uid://dbkyjas5emirj" path="res://sound_effects/third_batch/Enemy_Pineapple_Release_Spikes_No_Countdown_01.wav" id="11_1dwoy"]
+[ext_resource type="AudioStream" uid="uid://clpynvmvga4pw" path="res://sound_effects/third_batch/Enemy_Pineapple_Spikes_No_Coutndown_01.wav" id="11_2b2vy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tu1x8"]
 resource_local_to_scene = true
@@ -186,12 +186,12 @@ position = Vector2(-1, 49)
 position = Vector2(0, 96)
 
 [node name="ReleaseSpikes" type="AudioStreamPlayer" parent="EnemySounds" index="5"]
-stream = ExtResource("11_uxwmb")
+stream = ExtResource("11_2b2vy")
 volume_db = -5.0
 bus = &"Sound Effects"
 
 [node name="RemoveSpikes" type="AudioStreamPlayer" parent="EnemySounds" index="6"]
-stream = ExtResource("12_esj7j")
+stream = ExtResource("11_1dwoy")
 volume_db = -5.0
 bus = &"Sound Effects"
 
